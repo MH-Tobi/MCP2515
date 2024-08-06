@@ -6,7 +6,7 @@
   "editor.renderWhitespace": "trailing",
   "editor.suggestSelection": "first",
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "franneck94.c-cpp-runner",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.stickyScroll.enabled": false,
   "editor.bracketPairColorization.enabled": false,
   "editor.cursorSmoothCaretAnimation": "on",
@@ -52,13 +52,13 @@
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.formatOnSave": false,
-    "editor.defaultFormatter": "franneck94.c-cpp-runner",
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 120
   },
   "[yaml]": {
     "editor.formatOnSave": false,
-    "editor.defaultFormatter": "franneck94.c-cpp-runner",
+    "editor.defaultFormatter": "redhat.vscode-yaml",
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 120
   },
@@ -194,15 +194,7 @@
   ],
   "C_Cpp_Runner.compilerArgs": [],
   "C_Cpp_Runner.linkerArgs": [],
-  "C_Cpp_Runner.includePaths": [
-    "C:/Users/pflug/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
-    "C:/Users/pflug/.platformio/packages/framework-arduino-avr/cores/arduino",
-    "C:/Users/pflug/.platformio/packages/framework-arduino-avr/variants/mega",
-    "C:/Users/pflug/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
-    "C:/Users/pflug/.platformio/packages/framework-arduino-avr/libraries/HID/src",
-    "C:/Users/pflug/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
-    "C:/Users/pflug/.platformio/packages/framework-arduino-avr/libraries/Wire/src"
-  ],
+  "C_Cpp_Runner.includePaths": [],
   "C_Cpp_Runner.includeSearch": [
     "*",
     "**/*"
