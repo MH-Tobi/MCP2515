@@ -36,3 +36,4 @@
 *.ini
 .clang-*
 .editorconfig
+.vscode/
