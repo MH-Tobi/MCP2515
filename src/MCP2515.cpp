@@ -40,6 +40,7 @@ uint8_t MCP2515::getFilterStandardIdentifierHigh(uint8_t FilterNumber)
   }
 
   return readInstruction(REG_RXFnSIDH(FilterNumber));
+
 }
 
 /**
@@ -83,10 +84,13 @@ bool MCP2515::setFilterStandardIdentifierHigh(uint8_t FilterNumber, uint8_t Stan
     return false;
   }
 
-  if (getFilterStandardIdentifierHigh(FilterNumber) != StandardId_10_3)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getFilterStandardIdentifierHigh(FilterNumber) != StandardId_10_3)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -189,10 +193,13 @@ bool MCP2515::setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t Stand
     return false;
   }
 
-  if (getFilterStandardIdentifierLow(FilterNumber) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getFilterStandardIdentifierLow(FilterNumber) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -274,10 +281,13 @@ bool MCP2515::setFilterExtendedIdentifierHigh(uint8_t FilterNumber, uint8_t Exte
     return false;
   }
 
-  if (getFilterExtendedIdentifierHigh(FilterNumber) != ExtendedId_15_8)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getFilterExtendedIdentifierHigh(FilterNumber) != ExtendedId_15_8)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -359,10 +369,13 @@ bool MCP2515::setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t Exten
     return false;
   }
 
-  if (getFilterExtendedIdentifierLow(FilterNumber) != ExtendedId_7_0)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getFilterExtendedIdentifierLow(FilterNumber) != ExtendedId_7_0)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -444,10 +457,13 @@ bool MCP2515::setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t Standard
     return false;
   }
 
-  if (getMaskStandardIdentifierHigh(MaskNumber) != StandardId_10_3)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getMaskStandardIdentifierHigh(MaskNumber) != StandardId_10_3)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -539,10 +555,13 @@ bool MCP2515::setMaskStandardIdentifierLow(uint8_t MaskNumber, uint8_t StandardI
     return false;
   }
 
-  if (getMaskStandardIdentifierLow(MaskNumber) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getMaskStandardIdentifierLow(MaskNumber) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -624,10 +643,13 @@ bool MCP2515::setMaskExtendedIdentifierHigh(uint8_t MaskNumber, uint8_t Extended
     return false;
   }
 
-  if (getMaskExtendedIdentifierHigh(MaskNumber) != ExtendedId_15_8)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getMaskExtendedIdentifierHigh(MaskNumber) != ExtendedId_15_8)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -709,10 +731,13 @@ bool MCP2515::setMaskExtendedIdentifierLow(uint8_t MaskNumber, uint8_t ExtendedI
     return false;
   }
 
-  if (getMaskExtendedIdentifierLow(MaskNumber) != ExtendedId_7_0)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getMaskExtendedIdentifierLow(MaskNumber) != ExtendedId_7_0)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -831,10 +856,13 @@ bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE,
     return false;
   }
 
-  if (getRXnBFPinControl() != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getRXnBFPinControl() != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -904,10 +932,13 @@ bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getRXnBFPinControl() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getRXnBFPinControl() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1023,10 +1054,13 @@ bool MCP2515::setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM)
     return false;
   }
 
-  if ((getTXnRTSPinControl() & (TXRTSCTRL_BIT_BnRTSM(0) | TXRTSCTRL_BIT_BnRTSM(1) | TXRTSCTRL_BIT_BnRTSM(2))) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getTXnRTSPinControl() & (TXRTSCTRL_BIT_BnRTSM(0) | TXRTSCTRL_BIT_BnRTSM(1) | TXRTSCTRL_BIT_BnRTSM(2))) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1089,10 +1123,13 @@ bool MCP2515::modifyTXnRTSPinControl(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getTXnRTSPinControl() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getTXnRTSPinControl() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1275,10 +1312,13 @@ bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint
     return false;
   }
 
-  if (getCanControl() != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getCanControl() != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1360,10 +1400,13 @@ bool MCP2515::modifyCanControl(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getCanControl() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getCanControl() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1507,10 +1550,13 @@ bool MCP2515::setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2)
     return false;
   }
 
-  if (getConfigurationRegister3() != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getConfigurationRegister3() != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1577,10 +1623,13 @@ bool MCP2515::modifyConfigurationRegister3(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getConfigurationRegister3() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getConfigurationRegister3() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1682,10 +1731,13 @@ bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, 
     return false;
   }
 
-  if (getConfigurationRegister2() != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getConfigurationRegister2() != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1744,10 +1796,13 @@ bool MCP2515::modifyConfigurationRegister2(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getConfigurationRegister2() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getConfigurationRegister2() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1837,10 +1892,13 @@ bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
     return false;
   }
 
-  if (getConfigurationRegister1() != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getConfigurationRegister1() != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -1893,10 +1951,13 @@ bool MCP2515::modifyConfigurationRegister1(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getConfigurationRegister1() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getConfigurationRegister1() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2047,10 +2108,13 @@ bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2
     return false;
   }
 
-  if (getCanInterruptEnable() != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getCanInterruptEnable() != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2130,10 +2194,13 @@ bool MCP2515::modifyCanInterruptEnable(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getCanInterruptEnable() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getCanInterruptEnable() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2291,10 +2358,13 @@ bool MCP2515::setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF
     return false;
   }
 
-  if (getCanInterruptFlag() != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getCanInterruptFlag() != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2374,10 +2444,13 @@ bool MCP2515::modifyCanInterruptFlag(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getCanInterruptFlag() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getCanInterruptFlag() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2493,10 +2566,13 @@ bool MCP2515::setErrorFlag(bool RX1OVR, bool RX0OVR)
     return false;
   }
 
-  if ((getErrorFlag() & (EFLG_BIT_RXnOVR(0) | EFLG_BIT_RXnOVR(1))) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getErrorFlag() & (EFLG_BIT_RXnOVR(0) | EFLG_BIT_RXnOVR(1))) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2546,10 +2622,13 @@ bool MCP2515::modifyErrorFlag(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getErrorFlag() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getErrorFlag() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2663,10 +2742,13 @@ bool MCP2515::setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t
     return false;
   }
 
-  if ((getTransmitBufferControl(BufferNumber) & (TXBnCTRL_BIT_TXREQ | TXBnCTRL_BIT_TXP)) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getTransmitBufferControl(BufferNumber) & (TXBnCTRL_BIT_TXREQ | TXBnCTRL_BIT_TXP)) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2726,10 +2808,13 @@ bool MCP2515::modifyTransmitBufferControl(uint8_t BufferNumber, uint8_t Mask, ui
     return false;
   }
 
-  if ((getTransmitBufferControl(BufferNumber) & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getTransmitBufferControl(BufferNumber) & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2796,10 +2881,13 @@ bool MCP2515::setTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber, uint
     return false;
   }
 
-  if (getTransmitBufferStandardIdentifierHigh(BufferNumber) != StandardId_10_3)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getTransmitBufferStandardIdentifierHigh(BufferNumber) != StandardId_10_3)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2889,10 +2977,13 @@ bool MCP2515::setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8
     return false;
   }
 
-  if (getTransmitBufferStandardIdentifierLow(BufferNumber) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getTransmitBufferStandardIdentifierLow(BufferNumber) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -2959,10 +3050,13 @@ bool MCP2515::setTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber, uint
     return false;
   }
 
-  if (getTransmitBufferExtendedIdentifierHigh(BufferNumber) != ExtendedId_15_8)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getTransmitBufferExtendedIdentifierHigh(BufferNumber) != ExtendedId_15_8)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3029,10 +3123,13 @@ bool MCP2515::setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8
     return false;
   }
 
-  if (getTransmitBufferExtendedIdentifierLow(BufferNumber) != ExtendedId_7_0)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getTransmitBufferExtendedIdentifierLow(BufferNumber) != ExtendedId_7_0)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3112,10 +3209,13 @@ bool MCP2515::setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, ui
     return false;
   }
 
-  if (getTransmitBufferDataLengthCode(BufferNumber) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getTransmitBufferDataLengthCode(BufferNumber) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3269,10 +3369,13 @@ bool MCP2515::setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber
     break;
   }
 
-  if (getTransmitBufferDataByte(BufferNumber, ByteNumber) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if (getTransmitBufferDataByte(BufferNumber, ByteNumber) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3379,10 +3482,13 @@ bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
     return false;
   }
 
-  if ((getReceiveBuffer0Control() & (RXBnCTRL_BIT_RXM | RXBnCTRL_BIT_BUFFER0_BUKT)) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getReceiveBuffer0Control() & (RXBnCTRL_BIT_RXM | RXBnCTRL_BIT_BUFFER0_BUKT)) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3438,10 +3544,13 @@ bool MCP2515::modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getReceiveBuffer0Control() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getReceiveBuffer0Control() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3537,10 +3646,13 @@ bool MCP2515::setReceiveBuffer1Control(uint8_t RXM)
     return false;
   }
 
-  if ((getReceiveBuffer1Control() & RXBnCTRL_BIT_RXM) != Data)
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getReceiveBuffer1Control() & RXBnCTRL_BIT_RXM) != Data)
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3588,10 +3700,13 @@ bool MCP2515::modifyReceiveBuffer1Control(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((getReceiveBuffer1Control() & Mask) != (Value & Mask))
+  if (_reCheckEnabled)
   {
-    _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
-    return false;
+    if ((getReceiveBuffer1Control() & Mask) != (Value & Mask))
+    {
+      _lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
+      return false;
+    }
   }
 
   return true;
@@ -3829,9 +3944,12 @@ bool MCP2515::resetInstruction()
   delayMicroseconds(10);
 
   // Check if Configuration-Mode is set
-  if (((getCanStatus() & CANSTAT_BIT_OPMOD) >> 5) != MCP2515_OP_CONFIGURATION) {
-    _lastSpiError = ERROR_SPI_CONFIGURATION_MODE_NOT_SET;
-    return false;
+  if (_reCheckEnabled)
+  {
+    if (((getCanStatus() & CANSTAT_BIT_OPMOD) >> 5) != MCP2515_OP_CONFIGURATION) {
+      _lastSpiError = ERROR_SPI_CONFIGURATION_MODE_NOT_SET;
+      return false;
+    }
   }
 
   _operationMode = MCP2515_OP_CONFIGURATION;
@@ -4276,13 +4394,14 @@ bool MCP2515::changeBitTiming(uint64_t targetBaudRate, uint64_t targetClockFrequ
  */
 MCP2515::MCP2515() :
   _spiSettings(MCP2515_MAX_SPI_SPEED, MCP2515_SPI_DATA_ORDER, MCP2515_SPI_MODE),
-  _csPin(MCP2515_DEFAULT_CS_PIN),
+  _csPin(0),
   _clockFrequency(MCP2515_DEFAULT_CLOCK_FREQUENCY),
   _operationMode(0xFF),
   _baudRate(MCP2515_DEFAULT_BAUDRATE),
   _isInitialized(false),
   _lastMcpError(EMPTY_VALUE_16_BIT),
-  _lastSpiError(EMPTY_VALUE_16_BIT)
+  _lastSpiError(EMPTY_VALUE_16_BIT),
+  _reCheckEnabled(true)
 {
 }
 
@@ -4317,6 +4436,34 @@ uint16_t MCP2515::getLastMCPError()
 uint16_t MCP2515::getLastSPIError()
 {
 	return _lastSpiError;
+}
+
+/**
+ * @brief Set the ReCheck-Enabler.
+ *
+ * When it's enabled, after Setting some bit it will check if the bit is set successfully.
+ * @param reCheckEnabler bool
+ * @return bool true when success, false on any error
+ */
+bool MCP2515::setReCheckEnabler(bool reCheckEnabler)
+{
+  _lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    _lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
+  if (reCheckEnabler != true && reCheckEnabler != false)
+  {
+    _lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return false;
+  }
+
+  _reCheckEnabled = reCheckEnabler;
+
+  return true;
 }
 
 /**
@@ -4620,11 +4767,19 @@ bool MCP2515::setLoopbackMode()
  *
  * - Set the OperationMode Normal
  * @param BaudRate Baudrate of the CAN-Communication
+ * @param reCheckEnabled bool true if after Set-Processes a recheck of setted Values has to be execute
  * @return true when success, false on any error (Check _lastMcpError)
  */
-bool MCP2515::init(uint64_t BaudRate)
+bool MCP2515::init(uint64_t BaudRate, bool reCheckEnabled)
 {
   _lastMcpError = EMPTY_VALUE_16_BIT;
+  _reCheckEnabled = reCheckEnabled;
+
+  if (_csPin == 0)
+  {
+    _lastMcpError = ERROR_MCP2515_INIT_CS_PIN_NOT_DEFINED;
+    return false;
+  }
 
   pinMode(_csPin, OUTPUT);
   _isInitialized = true;
@@ -4635,14 +4790,14 @@ bool MCP2515::init(uint64_t BaudRate)
   // Reset the MCP2515
   if (!resetInstruction()) {
     _isInitialized = false;
-    _lastMcpError = ERROR_MCP2515_INIT_RESET_FAILED;
+    _lastMcpError = ERROR_MCP2515_INIT_RESET_FAILED | getLastSPIError();
     return false;
   }
 
   // Change the Bit-Timing
   if (!changeBitTiming(BaudRate, _clockFrequency)) {
     _isInitialized = false;
-    _lastMcpError = ERROR_MCP2515_INIT_CHANGE_BITTIMING;
+    _lastMcpError = ERROR_MCP2515_INIT_CHANGE_BITTIMING | getLastMCPError();
     return false;
   }
 
@@ -4650,7 +4805,7 @@ bool MCP2515::init(uint64_t BaudRate)
   if (!modifyTXnRTSPinControl(TXRTSCTRL_BIT_BnRTSM(0) | TXRTSCTRL_BIT_BnRTSM(1) | TXRTSCTRL_BIT_BnRTSM(2), 0x00))
   {
     _isInitialized = false;
-    _lastMcpError = ERROR_MCP2515_INIT_TX_PIN_CONTROL;
+    _lastMcpError = ERROR_MCP2515_INIT_TX_PIN_CONTROL | getLastMCPError();
     return false;
   }
 
@@ -4658,7 +4813,7 @@ bool MCP2515::init(uint64_t BaudRate)
   if (!modifyRXnBFPinControl(BFPCTRL_BIT_BnBFE(0) | BFPCTRL_BIT_BnBFE(1), 0x00))
   {
     _isInitialized = false;
-    _lastMcpError = ERROR_MCP2515_INIT_RX_PIN_CONTROL;
+    _lastMcpError = ERROR_MCP2515_INIT_RX_PIN_CONTROL | getLastMCPError();
     return false;
   }
 
@@ -4666,7 +4821,7 @@ bool MCP2515::init(uint64_t BaudRate)
   if (!setCanInterruptEnable(false, false, false, false, false, false, false, false))
   {
     _isInitialized = false;
-    _lastMcpError = ERROR_MCP2515_INIT_SET_INTERRUPTS;
+    _lastMcpError = ERROR_MCP2515_INIT_SET_INTERRUPTS | getLastMCPError();
     return false;
   }
 
@@ -4674,7 +4829,7 @@ bool MCP2515::init(uint64_t BaudRate)
   if (!modifyCanInterruptFlag(0x1B, 0x1B))
   {
     _isInitialized = false;
-    _lastMcpError = 0x1234;
+    _lastMcpError = ERROR_MCP2515_INIT_SET_TX_BUFFER_FLAGS | getLastMCPError();
     return false;
   }
 
@@ -4682,14 +4837,14 @@ bool MCP2515::init(uint64_t BaudRate)
   if (!disableFilterMask(0) || !disableFilterMask(1))
   {
     _isInitialized = false;
-    _lastMcpError = ERROR_MCP2515_INIT_DISABLE_MASKS_FILTERS;
+    _lastMcpError = ERROR_MCP2515_INIT_DISABLE_MASKS_FILTERS | getLastMCPError();
     return false;
   }
 
   // Change to Operation-Mode Normal
   if (!setNormalMode()) {
     _isInitialized = false;
-    _lastMcpError = ERROR_MCP2515_INIT_SET_NORMAL_MODE;
+    _lastMcpError = ERROR_MCP2515_INIT_SET_NORMAL_MODE | getLastMCPError();
     return false;
   }
 
