@@ -26,18 +26,6 @@
 #define MCP2515_MAX_SPI_SPEED 10e6				// max SPI-Speed (see doc page 77 or 1)
 
 /**
- * @brief Default-Pins for SPI-Communication (from Arduino.h)
- * @todo Check for any Improvements
- */
-
-#if defined(ARDUINO_ARCH_SAMD) && defined(PIN_SPI_MISO) && defined(PIN_SPI_MOSI) && defined(PIN_SPI_SCK) && (PIN_SPI_MISO == 10) && (PIN_SPI_MOSI == 8) && (PIN_SPI_SCK == 9)
-// Arduino MKR board: MKR CAN shield CS is pin 3
-#define MCP2515_DEFAULT_CS_PIN          3
-#else
-#define MCP2515_DEFAULT_CS_PIN          10
-#endif
-
-/**
  * @brief Possible SPI-Modes are 0,0 and 1,1 (SPI_MODE0 and SPI_MODE3).
  *
  * Defined SPI-Modes:
@@ -109,6 +97,7 @@ class MCP2515
 		bool _isInitialized;
 		uint16_t _lastMcpError;
   		uint16_t _lastSpiError;
+		bool _reCheckEnabled;
 
 		// Register Setter/Getter/Modifier
 
@@ -249,7 +238,7 @@ class MCP2515
 
 		// only before initialisation
 
-		bool setSpiPins(uint8_t cs = MCP2515_DEFAULT_CS_PIN);
+		bool setSpiPins(uint8_t cs = 0);
 		bool setSpiMode(uint8_t SpiMode = MCP2515_SPI_MODE);
 		bool setDataOrder(uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
 		bool setSpiFrequency(uint64_t frequency = MCP2515_MAX_SPI_SPEED);
@@ -257,7 +246,7 @@ class MCP2515
 
 		// De-/Initialisation of the MCP2515
 
-		bool init(uint64_t BaudRate = MCP2515_DEFAULT_BAUDRATE);
+		bool init(uint64_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEnabled = true);
 		void deinit();
 
 		// MCP2515-Operationmodes
@@ -270,6 +259,7 @@ class MCP2515
 
 		// change Settings
 
+		bool setReCheckEnabler(bool reCheckEnabler);
 		bool changeBaudRate(uint64_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
 		bool changeClockFrequency(uint64_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 		bool changeInterruptSetting(bool value, uint8_t InterruptBit);
