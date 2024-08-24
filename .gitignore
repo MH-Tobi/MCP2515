@@ -30,5 +30,8 @@
 *.exe
 *.out
 *.app
-examples/ReadSomething/.vscode/extensions.json
-examples/ReadSomething/platformio.ini
+
+# Other
+*.json
+*.ini
+.clang-*
