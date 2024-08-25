@@ -37,3 +37,4 @@
 *clang-tidy
 .editorconfig
 .vscode
+.clang-format
