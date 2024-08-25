@@ -920,7 +920,9 @@ bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if (Mask > (BFPCTRL_BIT_BnBFS(0) | BFPCTRL_BIT_BnBFS(1) | BFPCTRL_BIT_BnBFE(0) | BFPCTRL_BIT_BnBFE(1) | BFPCTRL_BIT_BnBFM(0) | BFPCTRL_BIT_BnBFM(1)))
+  if ((Mask & ~(BFPCTRL_BIT_BnBFS(0) | BFPCTRL_BIT_BnBFS(1) |
+                BFPCTRL_BIT_BnBFE(0) | BFPCTRL_BIT_BnBFE(1) |
+                BFPCTRL_BIT_BnBFM(0) | BFPCTRL_BIT_BnBFM(1))) != 0x00)
   {
     _lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
     return false;
@@ -1111,7 +1113,7 @@ bool MCP2515::modifyTXnRTSPinControl(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if (Mask > (TXRTSCTRL_BIT_BnRTSM(0) | TXRTSCTRL_BIT_BnRTSM(1) | TXRTSCTRL_BIT_BnRTSM(2)))
+  if ((Mask & ~(TXRTSCTRL_BIT_BnRTSM(0) | TXRTSCTRL_BIT_BnRTSM(1) | TXRTSCTRL_BIT_BnRTSM(2))) != 0x00)
   {
     _lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
     return false;
@@ -1611,7 +1613,7 @@ bool MCP2515::modifyConfigurationRegister3(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((Mask & (CNF3_BIT_SOF | CNF3_BIT_WAKFIL | CNF3_BIT_PHSEG2)) == 0x00)
+  if ((Mask & ~(CNF3_BIT_SOF | CNF3_BIT_WAKFIL | CNF3_BIT_PHSEG2)) != 0x00)
   {
     _lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
     return false;
@@ -2610,7 +2612,7 @@ bool MCP2515::modifyErrorFlag(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((Mask & (EFLG_BIT_RXnOVR(0) | EFLG_BIT_RXnOVR(1))) == 0x00)
+  if ((Mask & ~(EFLG_BIT_RXnOVR(0) | EFLG_BIT_RXnOVR(1))) != 0x00)
   {
     _lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
     return false;
@@ -2796,7 +2798,7 @@ bool MCP2515::modifyTransmitBufferControl(uint8_t BufferNumber, uint8_t Mask, ui
     return false;
   }
 
-  if ((Mask & (TXBnCTRL_BIT_TXREQ | TXBnCTRL_BIT_TXP)) == 0x00)
+  if ((Mask & ~(TXBnCTRL_BIT_TXREQ | TXBnCTRL_BIT_TXP)) != 0x00)
   {
     _lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
     return false;
@@ -3532,7 +3534,7 @@ bool MCP2515::modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((Mask & (RXBnCTRL_BIT_RXM | RXBnCTRL_BIT_BUFFER0_BUKT)) == 0x00)
+  if ((Mask & ~(RXBnCTRL_BIT_RXM | RXBnCTRL_BIT_BUFFER0_BUKT)) != 0x00)
   {
     _lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
     return false;
@@ -3688,7 +3690,7 @@ bool MCP2515::modifyReceiveBuffer1Control(uint8_t Mask, uint8_t Value)
     return false;
   }
 
-  if ((Mask & RXBnCTRL_BIT_RXM) == 0x00)
+  if ((Mask & ~RXBnCTRL_BIT_RXM) != 0x00)
   {
     _lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
     return false;
@@ -5243,8 +5245,11 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
 
 /**
  * @brief Check for the given Message-ID if a Message was received.
+ *
+ * If a Message is received it would fill the given Databuffer.
  * @param ID Message-ID
  * @param Extended bool true if it is a Extended Frame
+ * @param DLC Data-Length-Code of the Message
  * @param DataBuffer Address-Pointer to the DataBuffer of the Message
  * @return True if a Message was received, False when not (or on Error check _lastMcpError)
  */
@@ -5319,7 +5324,7 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
  *
  * On Error it will return EMPTY_VALUE_32_BIT (Check _lastMcpError).
  */
-uint32_t MCP2515::getIDfromReceiveBuffer(uint8_t BufferNumber)
+uint32_t MCP2515::getIdFromReceiveBuffer(uint8_t BufferNumber)
 {
   _lastMcpError = EMPTY_VALUE_16_BIT;
 
@@ -5344,13 +5349,84 @@ uint32_t MCP2515::getIDfromReceiveBuffer(uint8_t BufferNumber)
 }
 
 /**
- * @brief Release the given RX-Buffer
+ * @brief Get the DLC from the given RX-Buffer
  * @param BufferNumber 0 - 1
- * @return true when success, false on any error (check _lastMcpError)
+ * @return uint8_t Message-DLC
+ *
+ * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
  */
-bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
+uint8_t MCP2515::getDlcFromReceiveBuffer(uint8_t BufferNumber)
 {
-  return modifyCanInterruptFlag(CANINTF_BIT_RXnIF(BufferNumber), 0x00);
+  _lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (BufferNumber > 1)
+  {
+    _lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return EMPTY_VALUE_8_BIT;
+  }
+
+  return (getReceiveBufferDataLengthCode(BufferNumber) & RXBnDLC_BIT_DLC);
+}
+
+/**
+ * @brief Get the Frame from the given RX-Buffer
+ * @param BufferNumber 0 - 1
+ * @return uint8_t Frame
+ *
+ * 0 = Standard Frame
+ *
+ * 1 = Extended Frame
+ *
+ * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ */
+uint8_t MCP2515::getFrameFromReceiveBuffer(uint8_t BufferNumber)
+{
+  _lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (BufferNumber > 1)
+  {
+    _lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return EMPTY_VALUE_8_BIT;
+  }
+
+  return ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE) ? 1 : 0;
+}
+
+/**
+ * @brief Get the Remote-Transmission-Request-Bit from the given RX-Buffer
+ * @param BufferNumber 0 - 1
+ * @return uint8_t RTR
+ *
+ * 0 = Message is not a Remote-Transmission-Request
+ *
+ * 1 = Message is a Remote-Transmission-Request
+ *
+ * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ */
+uint8_t MCP2515::getRtrFromReceiveBuffer(uint8_t BufferNumber)
+{
+  _lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (BufferNumber > 1)
+  {
+    _lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return EMPTY_VALUE_8_BIT;
+  }
+
+  switch (BufferNumber)
+  {
+  case 0:
+    return ((getReceiveBuffer0Control() & RXBnCTRL_BIT_RXRTR) == RXBnCTRL_BIT_RXRTR) ? 1 : 0;
+    break;
+  case 1:
+    return ((getReceiveBuffer1Control() & RXBnCTRL_BIT_RXRTR) == RXBnCTRL_BIT_RXRTR) ? 1 : 0;
+    break;
+  default:
+    _lastMcpError = ERROR_MCP2515_UNKNOWN_SWITCH;
+    return EMPTY_VALUE_8_BIT;
+    break;
+  }
+  return EMPTY_VALUE_8_BIT;
 }
 
 /**
@@ -5360,13 +5436,98 @@ bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
  * @param DataBuffer Message-Data-Buffer which has to be filled
  * @return true when success, false on any error (check _lastMcpError)
  */
-bool MCP2515::getDatafromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8])
+bool MCP2515::getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8])
 {
   for (size_t m = 0; m < DLC; m++)
   {
     DataBuffer[m] = getReceiveBufferDataByte(BufferNumber, m);
   }
   return true;
+}
+
+/**
+ * @brief Get all Information from the given RX-Buffer.
+ *
+ * When all Information are collected it would be release the given RX-Buffer.
+ * @param BufferNumber 0 - 1
+ * @param ID Message-ID Variable which has to be filled
+ * @param Frame Frame Variable which has to be filled (true if Extended Frame, false if Standard Frame)
+ * @param RTR RTR Variable which has to be filled (true if RTR, false if not)
+ * @param DLC DLC Variable which has to be filled
+ * @param DataBuffer Message-Data-Buffer which has to be filled
+ * @return true when success, false on any error (check _lastMcpError)
+ */
+bool MCP2515::getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC), uint8_t (&DataBuffer)[8])
+{
+  _lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (BufferNumber > 1)
+  {
+    _lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return false;
+  }
+
+  // Collect Data from the given RX-Buffer
+  uint8_t Data_RX_Controller = (BufferNumber == 0) ? getReceiveBuffer0Control() : getReceiveBuffer1Control();
+  uint8_t Data_Standard_High = getReceiveBufferStandardIdentifierHigh(BufferNumber);
+  uint8_t Data_Standard_Low = getReceiveBufferStandardIdentifierLow(BufferNumber);
+  uint8_t Data_Extended_High = getReceiveBufferExtendedIdentifierHigh(BufferNumber);
+  uint8_t Data_Extended_Low = getReceiveBufferExtendedIdentifierLow(BufferNumber);
+  uint8_t Data_DLC = getReceiveBufferDataLengthCode(BufferNumber);
+  uint8_t Data_Bytes[8];
+
+  for (size_t i = 0; i < 8; i++)
+  {
+    Data_Bytes[i] = getReceiveBufferDataByte(BufferNumber, i);
+  }
+
+  releaseReceiveBuffer(BufferNumber);
+
+  bool RTR_Message = ((Data_RX_Controller & RXBnCTRL_BIT_RXRTR) == RXBnCTRL_BIT_RXRTR) ? true : false;
+  bool Extended_Frame = ((Data_Standard_Low & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE) ? true : false;
+
+  uint32_t ID_Message = ((Data_Standard_High << 3) & 0x07F8) |
+                        ((Data_Standard_Low >> 5) & 0x07);
+
+  if (Extended_Frame)
+  {
+    ID_Message = ((ID_Message << 18) & 0x1FFC0000) |
+                 ((((Data_Standard_Low & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
+                 ((Data_Extended_High << 8) & 0xFF00) |
+                 Data_Extended_Low;
+  }
+
+  // Fill given Variables
+  ID = ID_Message;
+  Frame = Extended_Frame;
+  RTR = RTR_Message;
+
+  if (RTR_Message)
+  {
+    DLC = 0;
+    for (size_t m = 0; m < 8; m++)
+    {
+      DataBuffer[m] = 0;
+    }
+  } else {
+    DLC = Data_DLC & RXBnDLC_BIT_DLC;
+    for (size_t m = 0; m < DLC; m++)
+    {
+      DataBuffer[m] = Data_Bytes[m];
+    }
+  }
+
+  return true;
+}
+
+/**
+ * @brief Release the given RX-Buffer
+ * @param BufferNumber 0 - 1
+ * @return true when success, false on any error (check _lastMcpError)
+ */
+bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
+{
+  return modifyCanInterruptFlag(CANINTF_BIT_RXnIF(BufferNumber), 0x00);
 }
 
 /**

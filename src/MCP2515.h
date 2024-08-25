@@ -268,14 +268,23 @@ class MCP2515
 		bool disableFilterMask(uint8_t buffer = 0);
 
 		// Message-Handling
+		// Transmission
 
 		uint8_t check4FreeTransmitBuffer();
 		bool fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extended, bool RTR, uint8_t DLC, uint8_t Data[8]);
 		bool sendMessage(uint8_t BufferNumber, uint8_t Priority = 0);
+
+		// Reception
+
 		bool check4Rtr(uint32_t ID, bool Extended);
 		bool check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&DataBuffer)[8]);
-		uint32_t getIDfromReceiveBuffer(uint8_t BufferNumber);
-		bool getDatafromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8]);
+		uint32_t getIdFromReceiveBuffer(uint8_t BufferNumber);
+		uint8_t getDlcFromReceiveBuffer(uint8_t BufferNumber);
+		uint8_t getFrameFromReceiveBuffer(uint8_t BufferNumber);
+		uint8_t getRtrFromReceiveBuffer(uint8_t BufferNumber);
+		bool getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8]);
+		bool getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC), uint8_t (&DataBuffer)[8]);
+
 		bool releaseReceiveBuffer(uint8_t BufferNumber);
 
 		// InterruptFlag-Handling
