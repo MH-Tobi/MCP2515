@@ -34,5 +34,6 @@
 # Other
 *.json
 *.ini
-.clang-*
+*clang-tidy
 .editorconfig
+.vscode
