@@ -1,8 +1,8 @@
 /**
  * @file MCP2515.h
- * @author Tobias Pflug (nichtindiesemleben@gibtesnicht.com)
- * @brief Doku erstellt mit Doxygen
- * @version 0.1
+ * @author MH-Tobi
+ * @brief blub
+ * @version 0.0.1
  * @date 2024-07-20
  *
  * @copyright -
