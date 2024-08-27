@@ -54,7 +54,7 @@ uint8_t BufferNumber = MCP2515Module.check4FreeTransmitBuffer();
 
 MCP2515Module.fillTransmitBuffer(BufferNumber, ID, Extended_Frame, RTR_Message, DLC, Data);
 
-sendMessage(BufferNumber);
+MCP2515Module.sendMessage(BufferNumber);
 ```
 
 
