@@ -4249,7 +4249,7 @@ uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
 /**
  * @brief Changing the Bit-Timing according to the Baudrate and ClockFrequency.
  * @param targetBaudrate possible Baudrates= (5E3, 10E3, 20E3, 40E3, 50E3, 80E3, 100E3, 125E3, 200E3, 250E3, 500E3, 1000E3)
- * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6)
+ * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
  * @return true when success, false on any error (Check _lastMcpError)
  */
 bool MCP2515::changeBitTiming(uint64_t targetBaudRate, uint64_t targetClockFrequency)
@@ -4595,7 +4595,7 @@ bool MCP2515::setSpiFrequency(uint64_t Frequency)
 /**
  * @brief Set the MCP2515 Clock-Frequency.
  * @note Use this Method only before the Initialisation of the MCP2515.
- * @param ClockFrequency max. allowed Value for the MCP2515 is 25e6 Hz.
+ * @param ClockFrequency max. allowed Value for the MCP2515 is 40e6 Hz.
  * @return true when success, false on any error
  */
 bool MCP2515::setClockFrequency(uint64_t ClockFrequency)
@@ -4892,6 +4892,7 @@ void MCP2515::deinit()
  * @brief Changing the Baudrate.
  * @param targetBaudrate possible Baudrates= (5E3, 10E3, 20E3, 40E3, 50E3, 80E3, 100E3, 125E3, 200E3, 250E3, 500E3, 1000E3)
  * @return true when success, false on any error (Check _lastMcpError)
+ * @note If a Baudrate is allowed depends on the ClockFrequency.
  */
 bool MCP2515::changeBaudRate(uint64_t targetBaudRate)
 {
@@ -4907,7 +4908,7 @@ bool MCP2515::changeBaudRate(uint64_t targetBaudRate)
 
 /**
  * @brief Changing the ClockFrequency.
- * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6)
+ * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
  * @return true when success, false on any error (Check _lastMcpError)
  */
 bool MCP2515::changeClockFrequency(uint64_t targetClockFrequency)
