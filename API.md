@@ -52,8 +52,8 @@ MCP2515Module.setSpiFrequency(uint64_t frequency = MCP2515_MAX_SPI_SPEED);
 ```c++
 MCP2515Module.setClockFrequency(uint64_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 ```
-- `clockFrequency` - max. allowed Value for the MCP2515 is 25e6 Hz.
-    - Default is 16e6
+- `clockFrequency` - max. allowed Value for the MCP2515 is 40e6 Hz.
+    - Default is 8e6
 - Returns on success `true`, on any failure `false`
 
 
@@ -173,7 +173,7 @@ MCP2515Module.setReCheckEnabler(bool reCheckEnabler);
 ```c++
 MCP2515Module.changeBaudRate(uint64_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
 ```
-- `targetBaudRate` - possible Baudrates = (5E3, 10E3, 20E3, 40E3, 50E3, 80E3, 100E3, 125E3, 200E3, 250E3, 500E3, 1000E3)
+- `targetBaudRate` - possible Baudrates = (5E3, 10E3, 20E3, 40E3, 50E3, 80E3, 100E3, 125E3, 200E3, 250E3, 500E3, 1000E3) => depending on ClockFrequency
 - Returns on success `true`, on any failure `false`
 
 
@@ -182,7 +182,7 @@ MCP2515Module.changeBaudRate(uint64_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE)
 ```c++
 MCP2515Module.changeClockFrequency(uint64_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 ```
-- `targetClockFrequency` - possible ClockFrequencys= (8E6, 16E6)
+- `targetClockFrequency` - possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
 - Returns on success `true`, on any failure `false`
 
 
