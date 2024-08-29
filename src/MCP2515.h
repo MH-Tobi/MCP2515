@@ -21,8 +21,8 @@
  * @brief Constants for SPI-Communication
  */
 
-#define MCP2515_DEFAULT_CLOCK_FREQUENCY 16e6	// max Clock frequency is 25MHz (see doc page 75)
-#define MCP2515_MAX_CLOCK_FREQUENCY 25e6		// max Clock frequency is 25MHz (see doc page 75)
+#define MCP2515_DEFAULT_CLOCK_FREQUENCY 8e6		// max Clock frequency is 40MHz (see doc page 75)
+#define MCP2515_MAX_CLOCK_FREQUENCY 40e6		// max Clock frequency is 40MHz (see doc page 75)
 #define MCP2515_MAX_SPI_SPEED 10e6				// max SPI-Speed (see doc page 77 or 1)
 
 /**
