@@ -79,7 +79,7 @@ MCP2515Module.init(uint64_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEna
 - Returns on success `true`, on any failure `false`
 
 
-### Initialize the MCP2515
+### Deinitialize the MCP2515
 
 ```c++
 MCP2515Module.deinit();
