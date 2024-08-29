@@ -4273,43 +4273,69 @@ bool MCP2515::changeBitTiming(uint64_t targetBaudRate, uint64_t targetClockFrequ
     return false;
   }
 
-  if (targetClockFrequency != 8E6 && targetClockFrequency != 16E6)
+  if (targetClockFrequency != 8E6 && targetClockFrequency != 16E6 && targetClockFrequency != 25E6 && targetClockFrequency != 40E6)
   {
     _lastMcpError = ERROR_MCP2515_CLOCKFREQUENCY_NOT_VALID;
     return false;
   }
 
-  // Copied from https://github.com/sandeepmistry/arduino-CAN
+  // Values calculated with the BitTimeCalculator (see ..\docs\BitTimeCalculator.xlsx)
   const struct {
     uint64_t clockFrequency;
     uint64_t baudRate;
     uint8_t cnf[3];
   } CNF_MAPPER[] = {
-    {  (uint64_t)8E6, (uint64_t)1000E3, { 0x00, 0x80, 0x00 } },
-    {  (uint64_t)8E6,  (uint64_t)500E3, { 0x00, 0x90, 0x02 } },
-    {  (uint64_t)8E6,  (uint64_t)250E3, { 0x00, 0xb1, 0x05 } },
-    {  (uint64_t)8E6,  (uint64_t)200E3, { 0x00, 0xb4, 0x06 } },
-    {  (uint64_t)8E6,  (uint64_t)125E3, { 0x01, 0xb1, 0x05 } },
-    {  (uint64_t)8E6,  (uint64_t)100E3, { 0x01, 0xb4, 0x06 } },
-    {  (uint64_t)8E6,   (uint64_t)80E3, { 0x01, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,   (uint64_t)50E3, { 0x03, 0xb4, 0x06 } },
-    {  (uint64_t)8E6,   (uint64_t)40E3, { 0x03, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,   (uint64_t)20E3, { 0x07, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,   (uint64_t)10E3, { 0x0f, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,    (uint64_t)5E3, { 0x1f, 0xbf, 0x07 } },
+    //{  (uint64_t)8E6, (uint64_t)1000E3, { 0x00, 0x80, 0x01 } }, // not possible, Prescaler out of range
+    {  (uint64_t)8E6,  (uint64_t)500E3, { 0x40, 0x89, 0x02 } },
+    {  (uint64_t)8E6,  (uint64_t)250E3, { 0xc0, 0xa4, 0x04 } },
+    {  (uint64_t)8E6,  (uint64_t)200E3, { 0xc0, 0xad, 0x06 } },
+    {  (uint64_t)8E6,  (uint64_t)125E3, { 0xc1, 0xa4, 0x04 } },
+    {  (uint64_t)8E6,  (uint64_t)100E3, { 0xc1, 0xad, 0x06 } },
+    {  (uint64_t)8E6,   (uint64_t)80E3, { 0xc1, 0xbf, 0x07 } },
+    {  (uint64_t)8E6,   (uint64_t)50E3, { 0xc2, 0xbf, 0x07 } },
+    {  (uint64_t)8E6,   (uint64_t)40E3, { 0xc3, 0xbf, 0x07 } },
+    {  (uint64_t)8E6,   (uint64_t)20E3, { 0xc7, 0xbf, 0x07 } },
+    {  (uint64_t)8E6,   (uint64_t)10E3, { 0xcf, 0xbf, 0x07 } },
+    {  (uint64_t)8E6,    (uint64_t)5E3, { 0xdf, 0xbf, 0x07 } },
 
-    { (uint64_t)16E6, (uint64_t)1000E3, { 0x00, 0xd0, 0x82 } },
-    { (uint64_t)16E6,  (uint64_t)500E3, { 0x00, 0xf0, 0x86 } },
-    { (uint64_t)16E6,  (uint64_t)250E3, { 0x41, 0xf1, 0x85 } },
-    { (uint64_t)16E6,  (uint64_t)200E3, { 0x01, 0xfa, 0x87 } },
-    { (uint64_t)16E6,  (uint64_t)125E3, { 0x03, 0xf0, 0x86 } },
-    { (uint64_t)16E6,  (uint64_t)100E3, { 0x03, 0xfa, 0x87 } },
-    { (uint64_t)16E6,   (uint64_t)80E3, { 0x03, 0xff, 0x87 } },
-    { (uint64_t)16E6,   (uint64_t)50E3, { 0x07, 0xfa, 0x87 } },
-    { (uint64_t)16E6,   (uint64_t)40E3, { 0x07, 0xff, 0x87 } },
-    { (uint64_t)16E6,   (uint64_t)20E3, { 0x0f, 0xff, 0x87 } },
-    { (uint64_t)16E6,   (uint64_t)10E3, { 0x1f, 0xff, 0x87 } },
-    { (uint64_t)16E6,    (uint64_t)5E3, { 0x3f, 0xff, 0x87 } },
+    { (uint64_t)16E6, (uint64_t)1000E3, { 0x40, 0x89, 0x02 } },
+    { (uint64_t)16E6,  (uint64_t)500E3, { 0xc0, 0xa4, 0x04 } },
+    { (uint64_t)16E6,  (uint64_t)250E3, { 0xc1, 0xa4, 0x04 } },
+    { (uint64_t)16E6,  (uint64_t)200E3, { 0xc1, 0xad, 0x06 } },
+    { (uint64_t)16E6,  (uint64_t)125E3, { 0xc3, 0x9c, 0x05 } },
+    { (uint64_t)16E6,  (uint64_t)100E3, { 0xc3, 0xad, 0x06 } },
+    { (uint64_t)16E6,   (uint64_t)80E3, { 0xc3, 0xbf, 0x07 } },
+    { (uint64_t)16E6,   (uint64_t)50E3, { 0xc6, 0xb6, 0x06 } },
+    { (uint64_t)16E6,   (uint64_t)40E3, { 0xc7, 0xbf, 0x07 } },
+    { (uint64_t)16E6,   (uint64_t)20E3, { 0xcf, 0xbf, 0x07 } },
+    { (uint64_t)16E6,   (uint64_t)10E3, { 0xdf, 0xbf, 0x07 } },
+    { (uint64_t)16E6,    (uint64_t)5E3, { 0xff, 0xbf, 0x07 } },
+
+    { (uint64_t)25E6, (uint64_t)1000E3, { 0x01, 0x88, 0x01 } }, // 40ns faster than max. Bittime
+    { (uint64_t)25E6,  (uint64_t)500E3, { 0xc0, 0xbf, 0x07 } },
+    { (uint64_t)25E6,  (uint64_t)250E3, { 0xc1, 0xbf, 0x07 } },
+    { (uint64_t)25E6,  (uint64_t)200E3, { 0x45, 0x92, 0x02 } }, // 200ns faster than max. Bittime
+    { (uint64_t)25E6,  (uint64_t)125E3, { 0xc3, 0xbf, 0x07 } },
+    { (uint64_t)25E6,  (uint64_t)100E3, { 0xc4, 0xbf, 0x07 } },
+    { (uint64_t)25E6,   (uint64_t)80E3, { 0x8b, 0x9b, 0x03 } },
+    { (uint64_t)25E6,   (uint64_t)50E3, { 0xc9, 0xbf, 0x07 } },
+    { (uint64_t)25E6,   (uint64_t)40E3, { 0x97, 0x9b, 0x03 } },
+    { (uint64_t)25E6,   (uint64_t)20E3, { 0xd8, 0xbf, 0x07 } },
+    { (uint64_t)25E6,   (uint64_t)10E3, { 0xf1, 0xbf, 0x07 } },
+    //{ (uint64_t)25E6,    (uint64_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+
+    { (uint64_t)40E6, (uint64_t)1000E3, { 0xc0, 0xad, 0x06 } },
+    { (uint64_t)40E6,  (uint64_t)500E3, { 0xc1, 0xad, 0x06 } },
+    { (uint64_t)40E6,  (uint64_t)250E3, { 0xc3, 0xad, 0x06 } },
+    { (uint64_t)40E6,  (uint64_t)200E3, { 0xc3, 0xbf, 0x07 } },
+    { (uint64_t)40E6,  (uint64_t)125E3, { 0xc9, 0xa4, 0x04 } },
+    { (uint64_t)40E6,  (uint64_t)100E3, { 0xc7, 0xbf, 0x07 } },
+    { (uint64_t)40E6,   (uint64_t)80E3, { 0xc9, 0xbf, 0x07 } },
+    { (uint64_t)40E6,   (uint64_t)50E3, { 0xcf, 0xbf, 0x07 } },
+    { (uint64_t)40E6,   (uint64_t)40E3, { 0xd3, 0xbf, 0x07 } },
+    { (uint64_t)40E6,   (uint64_t)20E3, { 0xe7, 0xbf, 0x07 } },
+    //{ (uint64_t)40E6,   (uint64_t)10E3, { 0xf1, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+    //{ (uint64_t)40E6,    (uint64_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
   };
 
   const uint8_t* cnf = NULL;
