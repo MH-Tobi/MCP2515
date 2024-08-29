@@ -5,12 +5,12 @@
 MCP2515 MCP2515Module;
 
 // Definition of Chip-Select-Pin for the SPI-Communication
-uint8_t CS_Pin = 53;
+uint8_t CS_Pin = 17;
 
 // Define possible BaudRate-Array
 uint64_t possibleBaudRates[12] = {
-    (uint64_t)5E3,
-    (uint64_t)10E3,
+    (uint64_t)5E3,      // Not allowed for ClockRate 25MHz and 40MHz
+    (uint64_t)10E3,     // Not allowed for ClockRate 40MHz
     (uint64_t)20E3,
     (uint64_t)40E3,
     (uint64_t)50E3,
@@ -20,7 +20,7 @@ uint64_t possibleBaudRates[12] = {
     (uint64_t)200E3,
     (uint64_t)250E3,
     (uint64_t)500E3,
-    (uint64_t)1000E3,
+    (uint64_t)1000E3,   // Not allowed for ClockRate 8MHz
 };
 
 
@@ -83,7 +83,7 @@ void setup() {
     }
     delay(1000);
   }
-  
+
   delay(2000);
 
   // Iterate through each BaudRate till plausible Messages are received
@@ -105,7 +105,7 @@ void setup() {
         Serial.println("kB set.");
 
         // Check if Message-Error-Flag occurs.
-        uint16_t trys=1000;
+        uint16_t trys=100;
         uint16_t Messages_Received = 0;
         uint16_t Errors_occured = 0;
         while (trys > 0)
@@ -143,6 +143,86 @@ void setup() {
           Serial.println("Baudrate plausible.");
           baudRateRecognized = true;
           break;
+        }
+      }
+    }
+
+    delay(1000);
+    Serial.println("Set Baudrate manually:");
+    delay(5000);
+    if (Serial.available() > 0) {
+
+      String receivedBaudrate;
+
+      while (Serial.available() > 0){
+        receivedBaudrate = Serial.readString();
+      }
+
+      uint64_t Baudrate = 0;
+
+      if (receivedBaudrate.startsWith("0005"))
+      {
+        Serial.println("Use 5kB");
+        Baudrate = 5E3;
+      } else if (receivedBaudrate.startsWith("0010"))
+      {
+        Serial.println("Use 10kB");
+        Baudrate = 10E3;
+      } else if (receivedBaudrate.startsWith("0020"))
+      {
+        Serial.println("Use 20kB");
+        Baudrate = 20E3;
+      } else if (receivedBaudrate.startsWith("0040"))
+      {
+        Serial.println("Use 40kB");
+        Baudrate = 40E3;
+      } else if (receivedBaudrate.startsWith("0050"))
+      {
+        Serial.println("Use 50kB");
+        Baudrate = 50E3;
+      } else if (receivedBaudrate.startsWith("0080"))
+      {
+        Serial.println("Use 80kB");
+        Baudrate = 80E3;
+      } else if (receivedBaudrate.startsWith("0100"))
+      {
+        Serial.println("Use 100kB");
+        Baudrate = 100E3;
+      } else if (receivedBaudrate.startsWith("0125"))
+      {
+        Serial.println("Use 125kB");
+        Baudrate = 125E3;
+      } else if (receivedBaudrate.startsWith("0200"))
+      {
+        Serial.println("Use 200kB");
+        Baudrate = 200E3;
+      } else if (receivedBaudrate.startsWith("0250"))
+      {
+        Serial.println("Use 250kB");
+        Baudrate = 250E3;
+      } else if (receivedBaudrate.startsWith("0500"))
+      {
+        Serial.println("Use 500kB");
+        Baudrate = 500E3;
+      } else if (receivedBaudrate.startsWith("1000"))
+      {
+        Serial.println("Use 1000kB");
+        Baudrate = 1000E3;
+      } else {
+        Serial.println("No match");
+      }
+
+      if (Baudrate != 0)
+      {
+        if (!MCP2515Module.changeBaudRate(Baudrate))
+        {
+          // When Baudrate could not been set (check MCP2515Error.h)
+          Serial.print("Baudrate ");
+          Serial.print((uint16_t)(Baudrate/1000), DEC);
+          Serial.print("kB couldn't be set with Error 0x");
+          Serial.println(MCP2515Module.getLastMCPError(), HEX);
+        } else {
+          baudRateRecognized = true;
         }
       }
     }
@@ -215,7 +295,7 @@ void loop() {
       Serial.println("\tRemote Transmission Request");
     }
   }
-  
+
   if (ID2 != 0)
   {
     Serial.print("ID: 0x");
