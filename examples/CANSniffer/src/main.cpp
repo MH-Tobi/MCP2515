@@ -7,8 +7,8 @@ MCP2515 MCP2515Module;
 
 // Definition of Chip-Select-Pin for the SPI-Communication
 // Choose the Pin of the Arduino (or similar) which is connected with the CS-Pin of the MCP2515
-//uint8_t CS_Pin = 17;
-uint8_t CS_Pin = 53;
+//uint8_t CS_Pin = 17;  // for Micro
+uint8_t CS_Pin = 53;  // for Mega
 
 // Define possible BaudRate-Array
 uint64_t possibleBaudRates[12] = {
@@ -51,16 +51,7 @@ void setup() {
   digitalWrite(LED_BUILTIN, LOW);
   delay(250);
 
-  Serial.println(MCP2515Module.getCsPin(), DEC),
-	Serial.println(MCP2515Module.getSpiMode(), DEC);
-	Serial.println(MCP2515Module.getDataOrder(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getFrequency()/1000000), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getClockFrequency()/1000000), DEC);
-	Serial.println(MCP2515Module.getOperationMode(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getBaudRate()/1000), DEC);
-	Serial.println(MCP2515Module.getIsInitialized());
-	Serial.println(MCP2515Module.getReCheckEnabled());
-  Serial.println();
+  Serial.println("Set CS-Pin.");
   // Set the ChipSelect-Pin for the SPI-Communication
   while (!MCP2515Module.setSpiPins(CS_Pin))
   {
@@ -77,17 +68,8 @@ void setup() {
     }
     delay(1000);
   }
-  Serial.println(MCP2515Module.getCsPin(), DEC),
-	Serial.println(MCP2515Module.getSpiMode(), DEC);
-	Serial.println(MCP2515Module.getDataOrder(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getFrequency()/1000000), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getClockFrequency()/1000000), DEC);
-	Serial.println(MCP2515Module.getOperationMode(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getBaudRate()/1000), DEC);
-	Serial.println(MCP2515Module.getIsInitialized());
-	Serial.println(MCP2515Module.getReCheckEnabled());
-  Serial.println();
 
+  Serial.println("Set MCP2515-ClockFrequency.");
   // Set the Oscillator-ClockRate if nessecary (per default 8MHz is set)
   while (!MCP2515Module.setClockFrequency((uint32_t)8E6))
   {
@@ -104,17 +86,8 @@ void setup() {
     }
     delay(1000);
   }
-  Serial.println(MCP2515Module.getCsPin(), DEC),
-	Serial.println(MCP2515Module.getSpiMode(), DEC);
-	Serial.println(MCP2515Module.getDataOrder(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getFrequency()/1000000), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getClockFrequency()/1000000), DEC);
-	Serial.println(MCP2515Module.getOperationMode(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getBaudRate()/1000), DEC);
-	Serial.println(MCP2515Module.getIsInitialized());
-	Serial.println(MCP2515Module.getReCheckEnabled());
-  Serial.println();
 
+  Serial.println("Change SPI-Frequency.");
   // Set the Oscillator-ClockRate if nessecary (per default 8MHz is set)
   while (!MCP2515Module.setSpiFrequency(5e6))
   {
@@ -132,17 +105,7 @@ void setup() {
     delay(1000);
   }
 
-  Serial.println(MCP2515Module.getCsPin(), DEC),
-	Serial.println(MCP2515Module.getSpiMode(), DEC);
-	Serial.println(MCP2515Module.getDataOrder(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getFrequency()/1000000), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getClockFrequency()/1000000), DEC);
-	Serial.println(MCP2515Module.getOperationMode(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getBaudRate()/1000), DEC);
-	Serial.println(MCP2515Module.getIsInitialized());
-	Serial.println(MCP2515Module.getReCheckEnabled());
-  Serial.println();
-
+  Serial.println("Initialize MCP2515.");
   // Start the CAN bus at 500 kbps initially
   while (!MCP2515Module.init((uint64_t)500E3, true)) {
     // When initialization of CAN-Bus failed (check MCP2515Error.h)
@@ -159,18 +122,6 @@ void setup() {
     }
     delay(1000);
   }
-  Serial.println(MCP2515Module.getCsPin(), DEC),
-	Serial.println(MCP2515Module.getSpiMode(), DEC);
-	Serial.println(MCP2515Module.getDataOrder(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getFrequency()/1000000), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getClockFrequency()/1000000), DEC);
-	Serial.println(MCP2515Module.getOperationMode(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getBaudRate()/1000), DEC);
-	Serial.println(MCP2515Module.getIsInitialized());
-	Serial.println(MCP2515Module.getReCheckEnabled());
-  Serial.println();
-
-  Serial.println("Initialisation done.");
   delay(2000);
 
   Serial.println("Set Listen-Only-Mode.");
@@ -190,34 +141,12 @@ void setup() {
     }
     delay(1000);
   }
-  Serial.println(MCP2515Module.getCsPin(), DEC),
-	Serial.println(MCP2515Module.getSpiMode(), DEC);
-	Serial.println(MCP2515Module.getDataOrder(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getFrequency()/1000000), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getClockFrequency()/1000000), DEC);
-	Serial.println(MCP2515Module.getOperationMode(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getBaudRate()/1000), DEC);
-	Serial.println(MCP2515Module.getIsInitialized());
-	Serial.println(MCP2515Module.getReCheckEnabled());
-  Serial.println();
 
   delay(2000);
-
-  
 }
 
-// When plausible Baudrate was found or Baudrate is manually set, start the Message-Collection.
 void loop() {
-  Serial.println(MCP2515Module.getCsPin(), DEC),
-	Serial.println(MCP2515Module.getSpiMode(), DEC);
-	Serial.println(MCP2515Module.getDataOrder(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getFrequency()/1000000), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getClockFrequency()/1000000), DEC);
-	Serial.println(MCP2515Module.getOperationMode(), DEC);
-	Serial.println((uint16_t)(MCP2515Module.getBaudRate()/1000), DEC);
-	Serial.println(MCP2515Module.getIsInitialized());
-	Serial.println(MCP2515Module.getReCheckEnabled());
-  Serial.println();
+
   // Iterate through each BaudRate till plausible Messages are received
   if (!baudRateRecognized)
   {
