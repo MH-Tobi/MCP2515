@@ -90,14 +90,17 @@ class MCP2515
 		uint8_t _csPin;
 		uint8_t _spiMode;
 		uint8_t _dataOrder;
-		uint64_t _frequency;
-		uint64_t _clockFrequency;
+		uint32_t _spiFrequency;
+		uint32_t _clockFrequency;
 		uint8_t _operationMode;
-		uint64_t _baudRate;
+		uint32_t _baudRate;
 		bool _isInitialized;
 		uint16_t _lastMcpError;
   		uint16_t _lastSpiError;
 		bool _reCheckEnabled;
+
+
+
 
 		// Register Setter/Getter/Modifier
 
@@ -222,7 +225,7 @@ class MCP2515
 
 		// other privat Methods
 
-		bool changeBitTiming(uint64_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE, uint64_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+		bool changeBitTiming(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE, uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 
 
 	public:
@@ -241,12 +244,12 @@ class MCP2515
 		bool setSpiPins(uint8_t cs = 0);
 		bool setSpiMode(uint8_t SpiMode = MCP2515_SPI_MODE);
 		bool setDataOrder(uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
-		bool setSpiFrequency(uint64_t frequency = MCP2515_MAX_SPI_SPEED);
-  		bool setClockFrequency(uint64_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+		bool setSpiFrequency(uint32_t frequency = MCP2515_MAX_SPI_SPEED);
+  		bool setClockFrequency(uint32_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 
 		// De-/Initialisation of the MCP2515
 
-		bool init(uint64_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEnabled = true);
+		bool init(uint32_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEnabled = true);
 		void deinit();
 
 		// MCP2515-Operationmodes
@@ -260,8 +263,8 @@ class MCP2515
 		// change Settings
 
 		bool setReCheckEnabler(bool reCheckEnabler);
-		bool changeBaudRate(uint64_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
-		bool changeClockFrequency(uint64_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+		bool changeBaudRate(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
+		bool changeClockFrequency(uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 		bool changeInterruptSetting(bool value, uint8_t InterruptBit);
 
 		bool enableFilterMask(uint8_t buffer = 0);
@@ -291,6 +294,17 @@ class MCP2515
 
 		uint8_t check4InterruptFlags();
 		bool resetInterruptFlag(uint8_t Flag);
+
+		// get Settings
+		uint8_t getCsPin();
+		uint8_t getSpiMode();
+		uint8_t getDataOrder();
+		uint32_t getFrequency();
+		uint32_t getClockFrequency();
+		uint8_t getOperationMode();
+		uint32_t getBaudRate();
+		bool getIsInitialized();
+		bool getReCheckEnabled();
 };
 
 #endif
