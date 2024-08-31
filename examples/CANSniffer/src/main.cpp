@@ -5,6 +5,7 @@
 MCP2515 MCP2515Module;
 
 // Definition of Chip-Select-Pin for the SPI-Communication
+// Choose the Pin of the Arduino (or similar) which is connected with the CS-Pin of the MCP2515
 uint8_t CS_Pin = 17;
 
 // Define possible BaudRate-Array
@@ -48,6 +49,9 @@ void setup() {
 
   // Set the ChipSelect-Pin for the SPI-Communication
   MCP2515Module.setSpiPins(CS_Pin);
+
+  // Set the Oscillator-ClockRate if nessecary (per default 8MHz is set)
+  //MCP2515Module.setClockFrequency(16E6);
 
   // Start the CAN bus at 500 kbps initially
   while (!MCP2515Module.init(500E3)) {
@@ -105,7 +109,7 @@ void setup() {
         Serial.println("kB set.");
 
         // Check if Message-Error-Flag occurs.
-        uint16_t trys=100;
+        uint16_t trys=100;  // try this 100 times
         uint16_t Messages_Received = 0;
         uint16_t Errors_occured = 0;
         while (trys > 0)
@@ -147,6 +151,7 @@ void setup() {
       }
     }
 
+    // After each iteration, wait for manual Input of the Baudrate to set.
     delay(1000);
     Serial.println("Set Baudrate manually:");
     delay(5000);
@@ -229,7 +234,10 @@ void setup() {
   }
 }
 
+// When plausible Baudrate was found or Baudrate is manually set, start the Message-Collection.
 void loop() {
+
+  // Check for Receive-Buffer-Full Flags
   uint8_t Receive = (MCP2515Module.check4InterruptFlags() & 0x03);
   uint32_t ID1 = 0;
   uint8_t DLC1 = 0;
@@ -242,23 +250,27 @@ void loop() {
   bool Frame2 = 0;
   uint8_t Data2[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
-
+  // Check if Receive-Buffer 0 is full
   if ((Receive & 0x01) == 0x01)
   {
+    // Get the Data of Receive-Buffer 0
     if (!MCP2515Module.getAllFromReceiveBuffer(0, ID1, Frame1, RTR1, DLC1, Data1))
     {
       ID1 = 0;
     }
   }
 
+  // Check if Receive-Buffer 0 is full
   if ((Receive & 0x02) == 0x02)
   {
+    // Get the Data of Receive-Buffer 0
     if (!MCP2515Module.getAllFromReceiveBuffer(1, ID2, Frame2, RTR2, DLC2, Data2))
     {
       ID2 = 0;
     }
   }
 
+  // If Data is collected from Receive-Buffer 0, print the Data.
   if (ID1 != 0)
   {
     Serial.print("ID: 0x");
@@ -296,6 +308,7 @@ void loop() {
     }
   }
 
+  // If Data is collected from Receive-Buffer 1, print the Data.
   if (ID2 != 0)
   {
     Serial.print("ID: 0x");
