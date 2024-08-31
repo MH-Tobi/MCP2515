@@ -4533,7 +4533,7 @@ bool MCP2515::setSpiMode(uint8_t SpiMode)
   if (SpiMode != _spiMode)
   {
     _spiMode = SpiMode;
-    _spiSettings = SPISettings(_spiFrequency, _dataOrder, SpiMode);
+    SPISettings _spiSettings(_spiFrequency, _dataOrder, SpiMode);
   }
 
   return true;
@@ -4560,7 +4560,7 @@ bool MCP2515::setDataOrder(uint8_t DataOrder)
   if (DataOrder != _dataOrder)
   {
     _dataOrder = DataOrder;
-    _spiSettings = SPISettings(_spiFrequency, DataOrder, _spiMode);
+    SPISettings _spiSettings(_spiFrequency, DataOrder, _spiMode);
   }
 
   return true;
@@ -4587,7 +4587,7 @@ bool MCP2515::setSpiFrequency(uint32_t Frequency)
   //if ((uint32_t)Frequency != (uint32_t)_spiFrequency)
   //{
     _spiFrequency = Frequency;
-    _spiSettings = SPISettings(Frequency, _dataOrder, _spiMode);
+    SPISettings _spiSettings(Frequency, _dataOrder, _spiMode);
   //}
 
   return true;
