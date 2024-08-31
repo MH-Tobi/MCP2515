@@ -4252,7 +4252,7 @@ uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
  * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
  * @return true when success, false on any error (Check _lastMcpError)
  */
-bool MCP2515::changeBitTiming(uint64_t targetBaudRate, uint64_t targetClockFrequency)
+bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequency)
 {
   _lastMcpError = EMPTY_VALUE_16_BIT;
 
@@ -4281,61 +4281,61 @@ bool MCP2515::changeBitTiming(uint64_t targetBaudRate, uint64_t targetClockFrequ
 
   // Values calculated with the BitTimeCalculator (see ..\docs\BitTimeCalculator.xlsx)
   const struct {
-    uint64_t clockFrequency;
-    uint64_t baudRate;
+    uint32_t clockFrequency;
+    uint32_t baudRate;
     uint8_t cnf[3];
   } CNF_MAPPER[] = {
-    //{  (uint64_t)8E6, (uint64_t)1000E3, { 0x00, 0x80, 0x01 } }, // not possible, Prescaler out of range
-    {  (uint64_t)8E6,  (uint64_t)500E3, { 0x40, 0x89, 0x02 } },
-    {  (uint64_t)8E6,  (uint64_t)250E3, { 0xc0, 0xa4, 0x04 } },
-    {  (uint64_t)8E6,  (uint64_t)200E3, { 0xc0, 0xad, 0x06 } },
-    {  (uint64_t)8E6,  (uint64_t)125E3, { 0xc1, 0xa4, 0x04 } },
-    {  (uint64_t)8E6,  (uint64_t)100E3, { 0xc1, 0xad, 0x06 } },
-    {  (uint64_t)8E6,   (uint64_t)80E3, { 0xc1, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,   (uint64_t)50E3, { 0xc2, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,   (uint64_t)40E3, { 0xc3, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,   (uint64_t)20E3, { 0xc7, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,   (uint64_t)10E3, { 0xcf, 0xbf, 0x07 } },
-    {  (uint64_t)8E6,    (uint64_t)5E3, { 0xdf, 0xbf, 0x07 } },
+    //{  (uint32_t)8E6, (uint32_t)1000E3, { 0x00, 0x80, 0x01 } }, // not possible, Prescaler out of range
+    {  (uint32_t)8E6,  (uint32_t)500E3, { 0x40, 0x89, 0x02 } },
+    {  (uint32_t)8E6,  (uint32_t)250E3, { 0xc0, 0xa4, 0x04 } },
+    {  (uint32_t)8E6,  (uint32_t)200E3, { 0xc0, 0xad, 0x06 } },
+    {  (uint32_t)8E6,  (uint32_t)125E3, { 0xc1, 0xa4, 0x04 } },
+    {  (uint32_t)8E6,  (uint32_t)100E3, { 0xc1, 0xad, 0x06 } },
+    {  (uint32_t)8E6,   (uint32_t)80E3, { 0xc1, 0xbf, 0x07 } },
+    {  (uint32_t)8E6,   (uint32_t)50E3, { 0xc2, 0xbf, 0x07 } },
+    {  (uint32_t)8E6,   (uint32_t)40E3, { 0xc3, 0xbf, 0x07 } },
+    {  (uint32_t)8E6,   (uint32_t)20E3, { 0xc7, 0xbf, 0x07 } },
+    {  (uint32_t)8E6,   (uint32_t)10E3, { 0xcf, 0xbf, 0x07 } },
+    {  (uint32_t)8E6,    (uint32_t)5E3, { 0xdf, 0xbf, 0x07 } },
 
-    { (uint64_t)16E6, (uint64_t)1000E3, { 0x40, 0x89, 0x02 } },
-    { (uint64_t)16E6,  (uint64_t)500E3, { 0xc0, 0xa4, 0x04 } },
-    { (uint64_t)16E6,  (uint64_t)250E3, { 0xc1, 0xa4, 0x04 } },
-    { (uint64_t)16E6,  (uint64_t)200E3, { 0xc1, 0xad, 0x06 } },
-    { (uint64_t)16E6,  (uint64_t)125E3, { 0xc3, 0x9c, 0x05 } },
-    { (uint64_t)16E6,  (uint64_t)100E3, { 0xc3, 0xad, 0x06 } },
-    { (uint64_t)16E6,   (uint64_t)80E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint64_t)16E6,   (uint64_t)50E3, { 0xc6, 0xb6, 0x06 } },
-    { (uint64_t)16E6,   (uint64_t)40E3, { 0xc7, 0xbf, 0x07 } },
-    { (uint64_t)16E6,   (uint64_t)20E3, { 0xcf, 0xbf, 0x07 } },
-    { (uint64_t)16E6,   (uint64_t)10E3, { 0xdf, 0xbf, 0x07 } },
-    { (uint64_t)16E6,    (uint64_t)5E3, { 0xff, 0xbf, 0x07 } },
+    { (uint32_t)16E6, (uint32_t)1000E3, { 0x40, 0x89, 0x02 } },
+    { (uint32_t)16E6,  (uint32_t)500E3, { 0xc0, 0xa4, 0x04 } },
+    { (uint32_t)16E6,  (uint32_t)250E3, { 0xc1, 0xa4, 0x04 } },
+    { (uint32_t)16E6,  (uint32_t)200E3, { 0xc1, 0xad, 0x06 } },
+    { (uint32_t)16E6,  (uint32_t)125E3, { 0xc3, 0x9c, 0x05 } },
+    { (uint32_t)16E6,  (uint32_t)100E3, { 0xc3, 0xad, 0x06 } },
+    { (uint32_t)16E6,   (uint32_t)80E3, { 0xc3, 0xbf, 0x07 } },
+    { (uint32_t)16E6,   (uint32_t)50E3, { 0xc6, 0xb6, 0x06 } },
+    { (uint32_t)16E6,   (uint32_t)40E3, { 0xc7, 0xbf, 0x07 } },
+    { (uint32_t)16E6,   (uint32_t)20E3, { 0xcf, 0xbf, 0x07 } },
+    { (uint32_t)16E6,   (uint32_t)10E3, { 0xdf, 0xbf, 0x07 } },
+    { (uint32_t)16E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } },
 
-    { (uint64_t)25E6, (uint64_t)1000E3, { 0x01, 0x88, 0x01 } }, // 40ns faster than max. Bittime
-    { (uint64_t)25E6,  (uint64_t)500E3, { 0xc0, 0xbf, 0x07 } },
-    { (uint64_t)25E6,  (uint64_t)250E3, { 0xc1, 0xbf, 0x07 } },
-    { (uint64_t)25E6,  (uint64_t)200E3, { 0x45, 0x92, 0x02 } }, // 200ns faster than max. Bittime
-    { (uint64_t)25E6,  (uint64_t)125E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint64_t)25E6,  (uint64_t)100E3, { 0xc4, 0xbf, 0x07 } },
-    { (uint64_t)25E6,   (uint64_t)80E3, { 0x8b, 0x9b, 0x03 } },
-    { (uint64_t)25E6,   (uint64_t)50E3, { 0xc9, 0xbf, 0x07 } },
-    { (uint64_t)25E6,   (uint64_t)40E3, { 0x97, 0x9b, 0x03 } },
-    { (uint64_t)25E6,   (uint64_t)20E3, { 0xd8, 0xbf, 0x07 } },
-    { (uint64_t)25E6,   (uint64_t)10E3, { 0xf1, 0xbf, 0x07 } },
-    //{ (uint64_t)25E6,    (uint64_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+    { (uint32_t)25E6, (uint32_t)1000E3, { 0x01, 0x88, 0x01 } }, // 40ns faster than max. Bittime
+    { (uint32_t)25E6,  (uint32_t)500E3, { 0xc0, 0xbf, 0x07 } },
+    { (uint32_t)25E6,  (uint32_t)250E3, { 0xc1, 0xbf, 0x07 } },
+    { (uint32_t)25E6,  (uint32_t)200E3, { 0x45, 0x92, 0x02 } }, // 200ns faster than max. Bittime
+    { (uint32_t)25E6,  (uint32_t)125E3, { 0xc3, 0xbf, 0x07 } },
+    { (uint32_t)25E6,  (uint32_t)100E3, { 0xc4, 0xbf, 0x07 } },
+    { (uint32_t)25E6,   (uint32_t)80E3, { 0x8b, 0x9b, 0x03 } },
+    { (uint32_t)25E6,   (uint32_t)50E3, { 0xc9, 0xbf, 0x07 } },
+    { (uint32_t)25E6,   (uint32_t)40E3, { 0x97, 0x9b, 0x03 } },
+    { (uint32_t)25E6,   (uint32_t)20E3, { 0xd8, 0xbf, 0x07 } },
+    { (uint32_t)25E6,   (uint32_t)10E3, { 0xf1, 0xbf, 0x07 } },
+    //{ (uint32_t)25E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
 
-    { (uint64_t)40E6, (uint64_t)1000E3, { 0xc0, 0xad, 0x06 } },
-    { (uint64_t)40E6,  (uint64_t)500E3, { 0xc1, 0xad, 0x06 } },
-    { (uint64_t)40E6,  (uint64_t)250E3, { 0xc3, 0xad, 0x06 } },
-    { (uint64_t)40E6,  (uint64_t)200E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint64_t)40E6,  (uint64_t)125E3, { 0xc9, 0xa4, 0x04 } },
-    { (uint64_t)40E6,  (uint64_t)100E3, { 0xc7, 0xbf, 0x07 } },
-    { (uint64_t)40E6,   (uint64_t)80E3, { 0xc9, 0xbf, 0x07 } },
-    { (uint64_t)40E6,   (uint64_t)50E3, { 0xcf, 0xbf, 0x07 } },
-    { (uint64_t)40E6,   (uint64_t)40E3, { 0xd3, 0xbf, 0x07 } },
-    { (uint64_t)40E6,   (uint64_t)20E3, { 0xe7, 0xbf, 0x07 } },
-    //{ (uint64_t)40E6,   (uint64_t)10E3, { 0xf1, 0xbf, 0x07 } }, // not possible, Prescaler out of range
-    //{ (uint64_t)40E6,    (uint64_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+    { (uint32_t)40E6, (uint32_t)1000E3, { 0xc0, 0xad, 0x06 } },
+    { (uint32_t)40E6,  (uint32_t)500E3, { 0xc1, 0xad, 0x06 } },
+    { (uint32_t)40E6,  (uint32_t)250E3, { 0xc3, 0xad, 0x06 } },
+    { (uint32_t)40E6,  (uint32_t)200E3, { 0xc3, 0xbf, 0x07 } },
+    { (uint32_t)40E6,  (uint32_t)125E3, { 0xc9, 0xa4, 0x04 } },
+    { (uint32_t)40E6,  (uint32_t)100E3, { 0xc7, 0xbf, 0x07 } },
+    { (uint32_t)40E6,   (uint32_t)80E3, { 0xc9, 0xbf, 0x07 } },
+    { (uint32_t)40E6,   (uint32_t)50E3, { 0xcf, 0xbf, 0x07 } },
+    { (uint32_t)40E6,   (uint32_t)40E3, { 0xd3, 0xbf, 0x07 } },
+    { (uint32_t)40E6,   (uint32_t)20E3, { 0xe7, 0xbf, 0x07 } },
+    //{ (uint32_t)40E6,   (uint32_t)10E3, { 0xf1, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+    //{ (uint32_t)40E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
   };
 
   const uint8_t* cnf = NULL;
@@ -4423,7 +4423,7 @@ bool MCP2515::changeBitTiming(uint64_t targetBaudRate, uint64_t targetClockFrequ
 MCP2515::MCP2515() :
   _spiSettings(MCP2515_MAX_SPI_SPEED, MCP2515_SPI_DATA_ORDER, MCP2515_SPI_MODE),
   _csPin(0),
-  _frequency(MCP2515_MAX_SPI_SPEED),
+  _spiFrequency(MCP2515_MAX_SPI_SPEED),
   _clockFrequency(MCP2515_DEFAULT_CLOCK_FREQUENCY),
   _operationMode(0xFF),
   _baudRate(MCP2515_DEFAULT_BAUDRATE),
@@ -4533,7 +4533,7 @@ bool MCP2515::setSpiMode(uint8_t SpiMode)
   if (SpiMode != _spiMode)
   {
     _spiMode = SpiMode;
-    _spiSettings = SPISettings(_frequency, _dataOrder, SpiMode);
+    _spiSettings = SPISettings(_spiFrequency, _dataOrder, SpiMode);
   }
 
   return true;
@@ -4560,7 +4560,7 @@ bool MCP2515::setDataOrder(uint8_t DataOrder)
   if (DataOrder != _dataOrder)
   {
     _dataOrder = DataOrder;
-    _spiSettings = SPISettings(_frequency, DataOrder, _spiMode);
+    _spiSettings = SPISettings(_spiFrequency, DataOrder, _spiMode);
   }
 
   return true;
@@ -4572,23 +4572,23 @@ bool MCP2515::setDataOrder(uint8_t DataOrder)
  * @param Frequency max. allowed Value for the MCP2515 is 10e6 Hz.
  * @return true when success, false on any error
  */
-bool MCP2515::setSpiFrequency(uint64_t Frequency)
+bool MCP2515::setSpiFrequency(uint32_t Frequency)
 {
   if (_isInitialized)
   {
     return false;
   }
 
-  if (Frequency > MCP2515_MAX_SPI_SPEED)
+  if ((uint32_t)Frequency > (uint32_t)MCP2515_MAX_SPI_SPEED)
   {
     return false;
   }
 
-  if (Frequency != _frequency)
-  {
-    _frequency = Frequency;
+  //if ((uint32_t)Frequency != (uint32_t)_spiFrequency)
+  //{
+    _spiFrequency = Frequency;
     _spiSettings = SPISettings(Frequency, _dataOrder, _spiMode);
-  }
+  //}
 
   return true;
 }
@@ -4599,14 +4599,14 @@ bool MCP2515::setSpiFrequency(uint64_t Frequency)
  * @param ClockFrequency max. allowed Value for the MCP2515 is 40e6 Hz.
  * @return true when success, false on any error
  */
-bool MCP2515::setClockFrequency(uint64_t ClockFrequency)
+bool MCP2515::setClockFrequency(uint32_t ClockFrequency)
 {
   if (_isInitialized)
   {
     return false;
   }
 
-  if (ClockFrequency > MCP2515_MAX_CLOCK_FREQUENCY)
+  if ((uint32_t)ClockFrequency > (uint32_t)MCP2515_MAX_CLOCK_FREQUENCY)
   {
     return false;
   }
@@ -4799,7 +4799,7 @@ bool MCP2515::setLoopbackMode()
  * @param reCheckEnabled bool true if after Set-Processes a recheck of setted Values has to be execute
  * @return true when success, false on any error (Check _lastMcpError)
  */
-bool MCP2515::init(uint64_t BaudRate, bool reCheckEnabled)
+bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
 {
   _lastMcpError = EMPTY_VALUE_16_BIT;
   _reCheckEnabled = reCheckEnabled;
@@ -4895,7 +4895,7 @@ void MCP2515::deinit()
  * @return true when success, false on any error (Check _lastMcpError)
  * @note If a Baudrate is allowed depends on the ClockFrequency.
  */
-bool MCP2515::changeBaudRate(uint64_t targetBaudRate)
+bool MCP2515::changeBaudRate(uint32_t targetBaudRate)
 {
   if (targetBaudRate != _baudRate)
   {
@@ -4913,9 +4913,9 @@ bool MCP2515::changeBaudRate(uint64_t targetBaudRate)
  * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
  * @return true when success, false on any error (Check _lastMcpError)
  */
-bool MCP2515::changeClockFrequency(uint64_t targetClockFrequency)
+bool MCP2515::changeClockFrequency(uint32_t targetClockFrequency)
 {
-  if (targetClockFrequency != _clockFrequency)
+  if ((uint32_t)targetClockFrequency != (uint32_t)_clockFrequency)
   {
     if (!changeBitTiming(_baudRate, targetClockFrequency))
     {
@@ -5663,11 +5663,11 @@ uint8_t MCP2515::getDataOrder()
 {
   return _dataOrder;
 }
-uint64_t MCP2515::getFrequency()
+uint32_t MCP2515::getFrequency()
 {
-  return _frequency;
+  return _spiFrequency;
 }
-uint64_t MCP2515::getClockFrequency()
+uint32_t MCP2515::getClockFrequency()
 {
   return _clockFrequency;
 }
@@ -5675,7 +5675,7 @@ uint8_t MCP2515::getOperationMode()
 {
   return _operationMode;
 }
-uint64_t MCP2515::getBaudRate()
+uint32_t MCP2515::getBaudRate()
 {
   return _baudRate;
 }
