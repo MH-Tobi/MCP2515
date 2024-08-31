@@ -4635,7 +4635,7 @@ bool MCP2515::setConfigurationMode()
   while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x80) && counter > 0)
   {
     counter--;
-    delay(10);
+    delayMicroseconds(10);
   }
 
   if (counter <= 0)
@@ -4668,7 +4668,7 @@ bool MCP2515::setNormalMode()
   while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x00) && counter > 0)
   {
     counter--;
-    delay(10);
+    delayMicroseconds(10);
   }
 
   if (counter <= 0)
@@ -4701,7 +4701,7 @@ bool MCP2515::setSleepMode()
   while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x20) && counter > 0)
   {
     counter--;
-    delay(10);
+    delayMicroseconds(10);
   }
 
   if (counter <= 0)
@@ -4734,7 +4734,7 @@ bool MCP2515::setListenOnlyMode()
   while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x60) && counter > 0)
   {
     counter--;
-    delay(10);
+    delayMicroseconds(10);
   }
 
   if (counter <= 0)
@@ -4767,7 +4767,7 @@ bool MCP2515::setLoopbackMode()
   while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x40) && counter > 0)
   {
     counter--;
-    delay(10);
+    delayMicroseconds(10);
   }
 
   if (counter <= 0)
@@ -4823,7 +4823,7 @@ bool MCP2515::init(uint64_t BaudRate, bool reCheckEnabled)
   }
 
   // Change the Bit-Timing
-  if (!changeBitTiming(BaudRate, _clockFrequency)) {
+  if (!changeBaudRate(BaudRate)) {
     _isInitialized = false;
     _lastMcpError = ERROR_MCP2515_INIT_CHANGE_BITTIMING | getLastMCPError();
     return false;
@@ -4902,6 +4902,7 @@ bool MCP2515::changeBaudRate(uint64_t targetBaudRate)
     {
       return false;
     }
+    _baudRate = targetBaudRate;
   }
   return true;
 }
@@ -4919,6 +4920,7 @@ bool MCP2515::changeClockFrequency(uint64_t targetClockFrequency)
     {
       return false;
     }
+    _clockFrequency = targetClockFrequency;
   }
   return true;
 }
