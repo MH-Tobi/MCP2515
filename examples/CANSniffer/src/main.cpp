@@ -2,7 +2,6 @@
 #include <MCP2515.h>
 
 // Create Instances of the CAN-Controller
-//MCP2515 MCP2515Module((uint64_t)5E6);
 MCP2515 MCP2515Module;
 
 // Definition of Chip-Select-Pin for the SPI-Communication
