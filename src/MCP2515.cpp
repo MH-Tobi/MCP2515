@@ -4423,6 +4423,7 @@ bool MCP2515::changeBitTiming(uint64_t targetBaudRate, uint64_t targetClockFrequ
 MCP2515::MCP2515() :
   _spiSettings(MCP2515_MAX_SPI_SPEED, MCP2515_SPI_DATA_ORDER, MCP2515_SPI_MODE),
   _csPin(0),
+  _frequency(MCP2515_MAX_SPI_SPEED),
   _clockFrequency(MCP2515_DEFAULT_CLOCK_FREQUENCY),
   _operationMode(0xFF),
   _baudRate(MCP2515_DEFAULT_BAUDRATE),
