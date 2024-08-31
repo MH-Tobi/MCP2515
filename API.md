@@ -40,7 +40,7 @@ MCP2515Module.setDataOrder(uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
 ### Set the SPI-Clock-Frequency
 
 ```c++
-MCP2515Module.setSpiFrequency(uint64_t frequency = MCP2515_MAX_SPI_SPEED);
+MCP2515Module.setSpiFrequency(uint32_t frequency = MCP2515_MAX_SPI_SPEED);
 ```
 - `frequency` - max. allowed Value for the MCP2515 is 10e6 Hz.
     - Default is 10e6
@@ -50,7 +50,7 @@ MCP2515Module.setSpiFrequency(uint64_t frequency = MCP2515_MAX_SPI_SPEED);
 ### Set the MCP2515 Clock-Frequency
 
 ```c++
-MCP2515Module.setClockFrequency(uint64_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+MCP2515Module.setClockFrequency(uint32_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 ```
 - `clockFrequency` - max. allowed Value for the MCP2515 is 40e6 Hz.
     - Default is 8e6
@@ -70,7 +70,7 @@ MCP2515Module.setClockFrequency(uint64_t clockFrequency = MCP2515_DEFAULT_CLOCK_
 - Set the OperationMode Normal
 
 ```c++
-MCP2515Module.init(uint64_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEnabled = true);
+MCP2515Module.init(uint32_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEnabled = true);
 ```
 - `BaudRate` - Baudrate of the CAN-Communication
     - Default is `500e3`
@@ -171,7 +171,7 @@ MCP2515Module.setReCheckEnabler(bool reCheckEnabler);
 ### Changing the Baudrate
 
 ```c++
-MCP2515Module.changeBaudRate(uint64_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
+MCP2515Module.changeBaudRate(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
 ```
 - `targetBaudRate` - possible Baudrates = (5E3, 10E3, 20E3, 40E3, 50E3, 80E3, 100E3, 125E3, 200E3, 250E3, 500E3, 1000E3) => depending on ClockFrequency
 - Returns on success `true`, on any failure `false`
@@ -180,7 +180,7 @@ MCP2515Module.changeBaudRate(uint64_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE)
 ### Changing the ClockFrequency
 
 ```c++
-MCP2515Module.changeClockFrequency(uint64_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+MCP2515Module.changeClockFrequency(uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 ```
 - `targetClockFrequency` - possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
 - Returns on success `true`, on any failure `false`
@@ -423,3 +423,70 @@ MCP2515Module.resetInterruptFlag(uint8_t Flag);
     - 2 = TX0IF - Transmit Buffer 0 Empty Interrupt Flag
     - 1 = RX1IF - Receive Buffer 1 Full Interrupt Flag
     - 0 = RX0IF - Receive Buffer 0 Full Interrupt Flag
+
+
+
+## Get Settings
+
+### CS-Pin
+
+```c++
+MCP2515Module.getCsPin();
+```
+- Returns the choosen CS-Pin
+
+### SPI-Mode
+
+```c++
+MCP2515Module.getSpiMode();
+```
+- Returns the SPI-Mode
+
+### Data-Order
+
+```c++
+MCP2515Module.getDataOrder();
+```
+- Returns the SPI-Mode
+
+### SPI-Frequency
+
+```c++
+MCP2515Module.getFrequency();
+```
+- Returns the SPI-Frequency
+
+### MCP2515-ClockFrequency
+
+```c++
+MCP2515Module.getClockFrequency();
+```
+- Returns the ClockFrequency of the MCP2515
+
+### Operation Mode
+
+```c++
+MCP2515Module.getOperationMode();
+```
+- Returns the actual Operation Mode of the MCP2515
+
+### Baudrate
+
+```c++
+MCP2515Module.getBaudRate();
+```
+- Returns the Baudrate of the MCP2515
+
+### Initialisation-Status
+
+```c++
+MCP2515Module.getIsInitialized();
+```
+- Returns the initialisation-Status of the MCP2515
+
+### ReCheck-Status
+
+```c++
+MCP2515Module.getReCheckEnabled();
+```
+- Returns the ReCheck-Status
