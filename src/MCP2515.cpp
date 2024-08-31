@@ -4743,7 +4743,7 @@ bool MCP2515::setListenOnlyMode()
     return false;
   }
 
-  _operationMode = MCP2515_OP_SLEEP;
+  _operationMode = MCP2515_OP_LISTEN;
   return true;
 }
 
