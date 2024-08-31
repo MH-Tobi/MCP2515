@@ -5650,3 +5650,40 @@ bool MCP2515::resetInterruptFlag(uint8_t Flag)
 
   return modifyCanInterruptFlag((0x01 << Flag), 0x00);
 }
+
+uint8_t MCP2515::getCsPin()
+{
+  return _csPin;
+}
+uint8_t MCP2515::getSpiMode()
+{
+  return _spiMode;
+}
+uint8_t MCP2515::getDataOrder()
+{
+  return _dataOrder;
+}
+uint64_t MCP2515::getFrequency()
+{
+  return _frequency;
+}
+uint64_t MCP2515::getClockFrequency()
+{
+  return _clockFrequency;
+}
+uint8_t MCP2515::getOperationMode()
+{
+  return _operationMode;
+}
+uint64_t MCP2515::getBaudRate()
+{
+  return _baudRate;
+}
+bool MCP2515::getIsInitialized()
+{
+  return _isInitialized;
+}
+bool MCP2515::getReCheckEnabled()
+{
+  return _reCheckEnabled;
+}
