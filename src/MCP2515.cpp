@@ -5651,38 +5651,116 @@ bool MCP2515::resetInterruptFlag(uint8_t Flag)
   return modifyCanInterruptFlag((0x01 << Flag), 0x00);
 }
 
+/**
+ * @brief Get the choosen ChipSelect-Pin
+ * @return uint8_t Number of the CS-Pin
+ */
 uint8_t MCP2515::getCsPin()
 {
   return _csPin;
 }
+
+/**
+ * @brief Get the SPI-Mode
+ * @return uint8_t
+ *
+ * 0 = SPI-Mode 0
+ *
+ * 4 = SPI-Mode 1
+ *
+ * 8 = SPI-Mode 2
+ *
+ * 12 = SPI-Mode 3
+ * @note The MCP2515 only allows SPI-Mode 0 and 3
+ */
 uint8_t MCP2515::getSpiMode()
 {
   return _spiMode;
 }
+
+/**
+ * @brief Get the DataOrder for the SPI-Communication
+ * @return uint8_t
+ *
+ * 0 = LSB-First
+ *
+ * 1 = MSB-First
+ * @note The MCP2515 only allows MSB-First
+ */
 uint8_t MCP2515::getDataOrder()
 {
   return _dataOrder;
 }
+
+/**
+ * @brief Get the SPI-Frequency
+ * @return uint32_t Value of the SPI-Frequency in Hz
+ * @note The MCP2515 only allows SPI-Frequencys up to 10MHz
+ */
 uint32_t MCP2515::getFrequency()
 {
   return _spiFrequency;
 }
+
+/**
+ * @brief Get the Clock-Frequency of the MCP2515
+ * @return uint32_t Value of the Clock-Frequency in Hz
+ * @note The MCP2515 only allows Clock-Frequencys up to 40MHz
+ */
 uint32_t MCP2515::getClockFrequency()
 {
   return _clockFrequency;
 }
+
+/**
+ * @brief Get the Operation-Mode of the MCP2515
+ * @return uint8_t
+ *
+ * 0 = Normal-Mode
+ *
+ * 1 = Sleep-Mode
+ *
+ * 2 = Loopback-Mode
+ *
+ * 3 = Listen-Only-Mode
+ *
+ * 4 = Configuration-Mode
+ */
 uint8_t MCP2515::getOperationMode()
 {
   return _operationMode;
 }
+
+/**
+ * @brief Get the Baudrate of the CAN-Communication
+ * @return uint32_t Value of the Baudrate in Bd (Baud)
+ */
 uint32_t MCP2515::getBaudRate()
 {
   return _baudRate;
 }
+
+/**
+ * @brief Get the Initialisation-Status of the MCP2515
+ * @return bool
+ *
+ * True = MCP2515 is initialized
+ *
+ * False = MCP2515 is not initialized
+ */
 bool MCP2515::getIsInitialized()
 {
   return _isInitialized;
 }
+
+/**
+ * @brief Get the Recheck-Status of the MCP2515
+ * @return bool
+ *
+ * True = ReCheck is enabled
+ *
+ * False = ReCheck is disabled
+ */
 bool MCP2515::getReCheckEnabled()
 {
   return _reCheckEnabled;

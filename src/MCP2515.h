@@ -296,6 +296,7 @@ class MCP2515
 		bool resetInterruptFlag(uint8_t Flag);
 
 		// get Settings
+
 		uint8_t getCsPin();
 		uint8_t getSpiMode();
 		uint8_t getDataOrder();
