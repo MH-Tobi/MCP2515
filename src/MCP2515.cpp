@@ -4292,7 +4292,7 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
     {  (uint32_t)8E6,  (uint32_t)125E3, { 0xc1, 0xa4, 0x04 } },
     {  (uint32_t)8E6,  (uint32_t)100E3, { 0xc1, 0xad, 0x06 } },
     {  (uint32_t)8E6,   (uint32_t)80E3, { 0xc1, 0xbf, 0x07 } },
-    {  (uint32_t)8E6,   (uint32_t)50E3, { 0xc2, 0xbf, 0x07 } },
+    {  (uint32_t)8E6,   (uint32_t)50E3, { 0xc3, 0xad, 0x06 } },
     {  (uint32_t)8E6,   (uint32_t)40E3, { 0xc3, 0xbf, 0x07 } },
     {  (uint32_t)8E6,   (uint32_t)20E3, { 0xc7, 0xbf, 0x07 } },
     {  (uint32_t)8E6,   (uint32_t)10E3, { 0xcf, 0xbf, 0x07 } },
@@ -4302,24 +4302,24 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
     { (uint32_t)16E6,  (uint32_t)500E3, { 0xc0, 0xa4, 0x04 } },
     { (uint32_t)16E6,  (uint32_t)250E3, { 0xc1, 0xa4, 0x04 } },
     { (uint32_t)16E6,  (uint32_t)200E3, { 0xc1, 0xad, 0x06 } },
-    { (uint32_t)16E6,  (uint32_t)125E3, { 0xc3, 0x9c, 0x05 } },
+    { (uint32_t)16E6,  (uint32_t)125E3, { 0xc3, 0xa4, 0x04 } },
     { (uint32_t)16E6,  (uint32_t)100E3, { 0xc3, 0xad, 0x06 } },
     { (uint32_t)16E6,   (uint32_t)80E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint32_t)16E6,   (uint32_t)50E3, { 0xc6, 0xb6, 0x06 } },
+    { (uint32_t)16E6,   (uint32_t)50E3, { 0xc7, 0xad, 0x06 } },
     { (uint32_t)16E6,   (uint32_t)40E3, { 0xc7, 0xbf, 0x07 } },
     { (uint32_t)16E6,   (uint32_t)20E3, { 0xcf, 0xbf, 0x07 } },
     { (uint32_t)16E6,   (uint32_t)10E3, { 0xdf, 0xbf, 0x07 } },
     { (uint32_t)16E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } },
 
-    { (uint32_t)25E6, (uint32_t)1000E3, { 0x01, 0x88, 0x01 } }, // 40ns faster than max. Bittime
+    { (uint32_t)25E6, (uint32_t)1000E3, { 0x80, 0x9a, 0x03 } }, // Attention!!! 40ns faster than the regular Bittime (1000ns) -> not recommended
     { (uint32_t)25E6,  (uint32_t)500E3, { 0xc0, 0xbf, 0x07 } },
     { (uint32_t)25E6,  (uint32_t)250E3, { 0xc1, 0xbf, 0x07 } },
-    { (uint32_t)25E6,  (uint32_t)200E3, { 0x45, 0x92, 0x02 } }, // 200ns faster than max. Bittime
+    { (uint32_t)25E6,  (uint32_t)200E3, { 0xc2, 0xb5, 0x06 } }, // Attention!!! 40ns slower than the regular Bittime (5000ns)
     { (uint32_t)25E6,  (uint32_t)125E3, { 0xc3, 0xbf, 0x07 } },
     { (uint32_t)25E6,  (uint32_t)100E3, { 0xc4, 0xbf, 0x07 } },
-    { (uint32_t)25E6,   (uint32_t)80E3, { 0x8b, 0x9b, 0x03 } },
+    { (uint32_t)25E6,   (uint32_t)80E3, { 0x8b, 0x9b, 0x03 } }, // Attention!!! 20ns faster than the regular Bittime (12500ns)
     { (uint32_t)25E6,   (uint32_t)50E3, { 0xc9, 0xbf, 0x07 } },
-    { (uint32_t)25E6,   (uint32_t)40E3, { 0x97, 0x9b, 0x03 } },
+    { (uint32_t)25E6,   (uint32_t)40E3, { 0xcc, 0xbe, 0x07 } }, // Attention!!! 40ns faster than the regular Bittime (25000ns)
     { (uint32_t)25E6,   (uint32_t)20E3, { 0xd8, 0xbf, 0x07 } },
     { (uint32_t)25E6,   (uint32_t)10E3, { 0xf1, 0xbf, 0x07 } },
     //{ (uint32_t)25E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
@@ -4328,7 +4328,7 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
     { (uint32_t)40E6,  (uint32_t)500E3, { 0xc1, 0xad, 0x06 } },
     { (uint32_t)40E6,  (uint32_t)250E3, { 0xc3, 0xad, 0x06 } },
     { (uint32_t)40E6,  (uint32_t)200E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint32_t)40E6,  (uint32_t)125E3, { 0xc9, 0xa4, 0x04 } },
+    { (uint32_t)40E6,  (uint32_t)125E3, { 0xc7, 0xad, 0x06 } },
     { (uint32_t)40E6,  (uint32_t)100E3, { 0xc7, 0xbf, 0x07 } },
     { (uint32_t)40E6,   (uint32_t)80E3, { 0xc9, 0xbf, 0x07 } },
     { (uint32_t)40E6,   (uint32_t)50E3, { 0xcf, 0xbf, 0x07 } },
