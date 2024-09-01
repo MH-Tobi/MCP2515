@@ -97,4 +97,4 @@ See [examples](examples) folder.
 See [API.md](API.md).
 
 ## BitTime-Calculation
-A BitTime-Calculator is provided [here](docs\BitTimeCalculator.xlsx).
+A BitTime-Calculator is provided [here](docs/BitTimeCalculator.xlsx).
