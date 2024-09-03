@@ -4273,7 +4273,7 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
     return false;
   }
 
-  if (targetClockFrequency != 8E6 && targetClockFrequency != 16E6 && targetClockFrequency != 25E6 && targetClockFrequency != 40E6)
+  if (targetClockFrequency != (uint32_t)8E6 && targetClockFrequency != 16E6 && targetClockFrequency != 25E6 && targetClockFrequency != 40E6)
   {
     _lastMcpError = ERROR_MCP2515_CLOCKFREQUENCY_NOT_VALID;
     return false;
@@ -4579,7 +4579,8 @@ bool MCP2515::setSpiFrequency(uint32_t Frequency)
     return false;
   }
 
-  if ((uint32_t)Frequency > (uint32_t)MCP2515_MAX_SPI_SPEED)
+  if (((uint32_t)Frequency > (uint32_t)MCP2515_MAX_SPI_SPEED) ||
+      ((uint32_t)Frequency < (uint32_t)1e6))
   {
     return false;
   }
