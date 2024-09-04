@@ -294,6 +294,7 @@ class MCP2515
 
 		uint8_t check4InterruptFlags();
 		bool resetInterruptFlag(uint8_t Flag);
+		bool setInterruptFlag(uint8_t Flag);
 
 		// get Settings
 

@@ -5653,6 +5653,39 @@ bool MCP2515::resetInterruptFlag(uint8_t Flag)
 }
 
 /**
+ * @brief Sets the given Interrupt-Flag (only)
+ * @param Flag
+ * 7 = MERRF - Message Error Interrupt Flag
+ *
+ * 6 = WAKIF - Wake-up Interrupt Flag
+ *
+ * 5 = ERRIF - Error Interrupt Flag
+ *
+ * 4 = TX2IF - Transmit Buffer 2 Empty Interrupt Flag
+ *
+ * 3 = TX1IF - Transmit Buffer 1 Empty Interrupt Flag
+ *
+ * 2 = TX0IF - Transmit Buffer 0 Empty Interrupt Flag
+ *
+ * 1 = RX1IF - Receive Buffer 1 Full Interrupt Flag
+ *
+ * 0 = RX0IF - Receive Buffer 0 Full Interrupt Flag
+ * @return true when success, false on any error (check _lastMcpError)
+ */
+bool MCP2515::setInterruptFlag(uint8_t Flag)
+{
+  _lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (Flag > 7)
+  {
+    _lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return false;
+  }
+
+  return modifyCanInterruptFlag((0x01 << Flag), (0x01 << Flag));
+}
+
+/**
  * @brief Get the choosen ChipSelect-Pin
  * @return uint8_t Number of the CS-Pin
  */
