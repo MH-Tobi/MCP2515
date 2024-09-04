@@ -4858,7 +4858,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   }
 
   // Set the TX-Buffer empty Flags
-  if (!modifyCanInterruptFlag(0x1B, 0x1B))
+  if (!modifyCanInterruptFlag(0x1C, 0x1C))
   {
     _isInitialized = false;
     _lastMcpError = ERROR_MCP2515_INIT_SET_TX_BUFFER_FLAGS | getLastMCPError();
