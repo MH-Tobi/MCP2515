@@ -6,8 +6,8 @@ MCP2515 MCP2515Module;
 
 // Definition of Chip-Select-Pin for the SPI-Communication
 // Choose the Pin of the Arduino (or similar) which is connected with the CS-Pin of the MCP2515
-//uint8_t CS_Pin = 17;  // for Micro
-uint8_t CS_Pin = 53;  // for Mega
+uint8_t CS_Pin = 17;  // for Micro
+//uint8_t CS_Pin = 53;  // for Mega
 
 // Define possible BaudRate-Array
 uint64_t possibleBaudRates[12] = {

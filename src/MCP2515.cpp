@@ -1402,6 +1402,8 @@ bool MCP2515::modifyCanControl(uint8_t Mask, uint8_t Value)
     return false;
   }
 
+  delayMicroseconds(100);
+
   if (_reCheckEnabled)
   {
     if ((getCanControl() & Mask) != (Value & Mask))
@@ -4634,7 +4636,7 @@ bool MCP2515::setConfigurationMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x80) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_CONFIGURATION << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -4667,7 +4669,7 @@ bool MCP2515::setNormalMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x00) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_NORMAL << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -4700,7 +4702,7 @@ bool MCP2515::setSleepMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x20) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_SLEEP << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -4733,7 +4735,7 @@ bool MCP2515::setListenOnlyMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x60) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_LISTEN << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -4766,7 +4768,7 @@ bool MCP2515::setLoopbackMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, 0x40) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_LOOPBACK << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
