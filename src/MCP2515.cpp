@@ -5050,6 +5050,12 @@ uint8_t MCP2515::check4FreeTransmitBuffer()
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
 
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return 0xFF;
+  }
+
   if ((readStatusInstruction() & 0xA8) == 0x00)
   {
     return 0xFF;
