@@ -264,7 +264,7 @@ class MCP2515
 
 		bool setReCheckEnabler(bool reCheckEnabler);
 		bool changeBaudRate(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
-		bool changeClockFrequency(uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+		//bool changeClockFrequency(uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 		bool changeInterruptSetting(bool value, uint8_t InterruptBit);
 
 		bool enableFilterMask(uint8_t buffer = 0);

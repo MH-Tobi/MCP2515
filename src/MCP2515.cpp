@@ -4913,23 +4913,23 @@ bool MCP2515::changeBaudRate(uint32_t targetBaudRate)
   return true;
 }
 
-/**
- * @brief Changing the ClockFrequency.
- * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
- * @return true when success, false on any error (Check _lastMcpError)
- */
-bool MCP2515::changeClockFrequency(uint32_t targetClockFrequency)
-{
-  if ((uint32_t)targetClockFrequency != (uint32_t)_clockFrequency)
-  {
-    if (!changeBitTiming(_baudRate, targetClockFrequency))
-    {
-      return false;
-    }
-    this->_clockFrequency = targetClockFrequency;
-  }
-  return true;
-}
+///**
+// * @brief Changing the ClockFrequency.
+// * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
+// * @return true when success, false on any error (Check _lastMcpError)
+// */
+//bool MCP2515::changeClockFrequency(uint32_t targetClockFrequency)
+//{
+//  if ((uint32_t)targetClockFrequency != (uint32_t)_clockFrequency)
+//  {
+//    if (!changeBitTiming(_baudRate, targetClockFrequency))
+//    {
+//      return false;
+//    }
+//    this->_clockFrequency = targetClockFrequency;
+//  }
+//  return true;
+//}
 
 /**
  * @brief Enable/Disable an Interrupt.
