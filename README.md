@@ -1,7 +1,7 @@
 # MCP2515
 Library to control the MCP2515-CAN-Module.
 
-Not really tested yet.
+Tested with TestMCP2515-Library (upcoming "Extension").
 
 
 ## Setup
