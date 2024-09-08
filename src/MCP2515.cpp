@@ -5316,6 +5316,12 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
 
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
   if ((ID > 0x1FFFFFFF) ||
       (Extended != false && Extended != true) ||
       (DLC > 8))
