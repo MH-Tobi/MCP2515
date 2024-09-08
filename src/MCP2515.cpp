@@ -5393,6 +5393,12 @@ uint32_t MCP2515::getIdFromReceiveBuffer(uint8_t BufferNumber)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
 
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
   if (BufferNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
