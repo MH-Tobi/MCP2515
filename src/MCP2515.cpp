@@ -5618,6 +5618,20 @@ bool MCP2515::getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool
  */
 bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
+  if (BufferNumber > 1)
+  {
+    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return false;
+  }
+
   return modifyCanInterruptFlag(CANINTF_BIT_RXnIF(BufferNumber), 0x00);
 }
 
