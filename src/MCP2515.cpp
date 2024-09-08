@@ -5222,6 +5222,12 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
 
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
   if ((ID > 0x1FFFFFFF) ||
       (Extended != false && Extended != true))
   {
