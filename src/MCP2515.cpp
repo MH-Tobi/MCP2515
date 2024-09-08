@@ -5509,6 +5509,20 @@ uint8_t MCP2515::getRtrFromReceiveBuffer(uint8_t BufferNumber)
  */
 bool MCP2515::getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8])
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
+  if (BufferNumber > 1 || DLC > 8)
+  {
+    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return false;
+  }
+
   for (size_t m = 0; m < DLC; m++)
   {
     DataBuffer[m] = getReceiveBufferDataByte(BufferNumber, m);
