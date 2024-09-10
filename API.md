@@ -177,15 +177,6 @@ MCP2515Module.changeBaudRate(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE)
 - Returns on success `true`, on any failure `false`
 
 
-### Changing the ClockFrequency
-
-```c++
-MCP2515Module.changeClockFrequency(uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
-```
-- `targetClockFrequency` - possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
-- Returns on success `true`, on any failure `false`
-
-
 ### Enable/Disable an Interrupt
 
 ```c++
