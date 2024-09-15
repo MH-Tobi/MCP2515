@@ -54,7 +54,7 @@ void setup() {
   // Set the ChipSelect-Pin for the SPI-Communication
   while (!MCP2515Module.setSpiPins(CS_Pin))
   {
-    // When initialization of CAN-Bus failed (check MCP2515Error.h)
+    // When Setting the CS-Pin failed (check MCP2515Error.h)
     Serial.print("Set Pin-Error: 0x");
     Serial.println(MCP2515Module.getLastMCPError(), HEX);
 
@@ -72,7 +72,7 @@ void setup() {
   // Set the Oscillator-ClockRate if nessecary (per default 8MHz is set)
   while (!MCP2515Module.setClockFrequency((uint32_t)8E6))
   {
-    // When initialization of CAN-Bus failed (check MCP2515Error.h)
+    // When Setting the ClockFrequency failed (check MCP2515Error.h)
     Serial.print("Set Clock-Frequency-Error: 0x");
     Serial.println(MCP2515Module.getLastMCPError(), HEX);
 
@@ -87,10 +87,10 @@ void setup() {
   }
 
   Serial.println("Change SPI-Frequency.");
-  // Set the Oscillator-ClockRate if nessecary (per default 8MHz is set)
+  // Set the SPI-Frequency if nessecary (per default 10MHz is set)
   while (!MCP2515Module.setSpiFrequency(5e6))
   {
-    // When initialization of CAN-Bus failed (check MCP2515Error.h)
+    // When Setting the SPI-Frequency failed (check MCP2515Error.h)
     Serial.print("Set SPI-Frequency-Error: 0x");
     Serial.println(MCP2515Module.getLastMCPError(), HEX);
 
@@ -105,12 +105,11 @@ void setup() {
   }
 
   Serial.println("Initialize MCP2515.");
-  // Start the CAN bus at 500 kbps initially
+  // Initialize the MCP2515 with the selected Baudrate (per default 500kB is set)
   while (!MCP2515Module.init((uint64_t)500E3, true)) {
-    // When initialization of CAN-Bus failed (check MCP2515Error.h)
+    // When Initialize the MCP2515 failed (check MCP2515Error.h)
     Serial.print("Init-Error: 0x");
     Serial.println(MCP2515Module.getLastMCPError(), HEX);
-    Serial.println(MCP2515Module.getLastSPIError(), HEX);
 
     for (size_t i = 0; i < 5; i++)
     {
@@ -131,7 +130,7 @@ void setup() {
     Serial.print("Operation-Mode-Error: 0x");
     Serial.println(MCP2515Module.getLastMCPError(), HEX);
 
-    for (size_t i = 0; i < 5; i++)
+    for (size_t i = 0; i < 6; i++)
     {
       digitalWrite(LED_BUILTIN, HIGH);
       delay(250);
