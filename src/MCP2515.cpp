@@ -165,20 +165,6 @@ bool MCP2515::setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t Stand
  */
 uint8_t MCP2515::getFilterExtendedIdentifierHigh(uint8_t FilterNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (FilterNumber > 5)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
