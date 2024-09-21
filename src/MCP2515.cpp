@@ -1131,18 +1131,10 @@ uint8_t MCP2515::getTransmitErrorCounter()
  * @brief Get the Receive Error Counter Register (REG_REC) [1Dh]
  * @return uint8_t Receive Error Count
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getReceiveErrorCounter()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_REC);
 }
 
