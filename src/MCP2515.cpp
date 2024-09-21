@@ -4130,7 +4130,7 @@ bool MCP2515::changeBaudRate(uint32_t targetBaudRate)
   {
     if (!changeBitTiming(targetBaudRate, _clockFrequency))
     {
-      this->_lastMcpError = ERROR_MCP2515_CHANGE_BAUDRATE | _lastMcpError;
+      // Error will be set in changeBitTiming()
       return false;
     }
     this->_baudRate = targetBaudRate;
