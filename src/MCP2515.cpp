@@ -485,20 +485,6 @@ bool MCP2515::setMaskExtendedIdentifierHigh(uint8_t MaskNumber, uint8_t Extended
  */
 uint8_t MCP2515::getMaskExtendedIdentifierLow(uint8_t MaskNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (MaskNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
