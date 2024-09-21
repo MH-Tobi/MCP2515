@@ -1008,14 +1008,6 @@ uint8_t MCP2515::getCanControl()
  */
 bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint8_t CLKPRE)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((REQOP > 4) ||
       (ABAT != true && ABAT != false) ||
       (OSM != true && OSM != false) ||
@@ -1028,11 +1020,7 @@ bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint
 
   uint8_t Data = REQOP << 5 | ABAT << 4 | OSM << 3 | CLKEN << 2 | CLKPRE;
 
-  if (!writeInstruction(REG_CANCTRL, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CANCTRL, Data);
 
   if (_reCheckEnabled)
   {
