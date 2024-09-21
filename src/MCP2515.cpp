@@ -3477,14 +3477,6 @@ uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
  */
 bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequency)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   uint8_t OperationMode = _operationMode;
 
   if (targetBaudRate != 5E3 && targetBaudRate != 10E3 && targetBaudRate != 20E3 &&
@@ -3579,26 +3571,26 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
   {
     if (!setConfigurationMode())
     {
-      this->_lastMcpError = ERROR_MCP2515_CONFIGURATIONMODE_NOT_SET;
+      // Error will be set in setConfigurationMode()
       return false;
     }
   }
 
   if (!modifyConfigurationRegister1(0xFF, cnf[0]))
   {
-    this->_lastMcpError = ERROR_MCP2515_CNF1_NOT_SET;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF1_NOT_SET;
       return false;
   }
 
   if (!modifyConfigurationRegister2(0xFF, cnf[1]))
   {
-    this->_lastMcpError = ERROR_MCP2515_CNF2_NOT_SET;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF2_NOT_SET;
       return false;
   }
 
   if (!modifyConfigurationRegister3(0xC7, cnf[2]))
   {
-    this->_lastMcpError = ERROR_MCP2515_CNF3_NOT_SET;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF3_NOT_SET;
       return false;
   }
 
