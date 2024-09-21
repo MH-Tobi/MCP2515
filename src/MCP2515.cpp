@@ -3319,8 +3319,11 @@ bool MCP2515::rtsInstruction(bool TXBuffer_0, bool TXBuffer_1, bool TXBuffer_2)
     SPI.transfer(Instruction);
     digitalWrite(_csPin, HIGH);
     SPI.endTransaction();
+    return true;
+  } else {
+    this->_lastMcpError = ERROR_SPI_NO_TRANSMISSION_INITIATED;
+    return false;
   }
-  return true;
 }
 
 /**
