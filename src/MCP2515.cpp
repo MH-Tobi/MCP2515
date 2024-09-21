@@ -2083,14 +2083,6 @@ uint8_t MCP2515::getErrorFlag()
  */
 bool MCP2515::setErrorFlag(bool RX1OVR, bool RX0OVR)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((RX1OVR != true && RX1OVR!= false) ||
       (RX0OVR != true && RX0OVR!= false))
   {
@@ -2100,11 +2092,7 @@ bool MCP2515::setErrorFlag(bool RX1OVR, bool RX0OVR)
 
   uint8_t Data = RX1OVR << 7 | RX0OVR << 6;
 
-  if (!writeInstruction(REG_EFLG, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_EFLG, Data);
 
   if (_reCheckEnabled)
   {
