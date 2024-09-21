@@ -4839,7 +4839,6 @@ uint8_t MCP2515::getRtrFromReceiveBuffer(uint8_t BufferNumber)
  * @param DLC expected Data Length Code
  * @param DataBuffer Message-Data-Buffer which has to be filled
  * @return true when success, false on any error (check _lastMcpError)
- * @todo ErrorHandling
  */
 bool MCP2515::getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8])
 {
@@ -4860,7 +4859,14 @@ bool MCP2515::getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_
   for (size_t m = 0; m < DLC; m++)
   {
     DataBuffer[m] = getReceiveBufferDataByte(BufferNumber, m);
+
+    if (_lastMcpError != EMPTY_VALUE_16_BIT)
+    {
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_DATA;
+      return false;
+    }
   }
+
   return true;
 }
 
