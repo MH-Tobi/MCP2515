@@ -2675,14 +2675,6 @@ uint8_t MCP2515::getTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNum
  */
 bool MCP2515::setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber, uint8_t Data)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (BufferNumber > 2 || ByteNumber > 7)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -2692,60 +2684,28 @@ bool MCP2515::setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber
   switch (ByteNumber)
   {
   case 0:
-    if (!writeInstruction(REG_TXBnD0(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD0(BufferNumber), Data);
     break;
   case 1:
-    if (!writeInstruction(REG_TXBnD1(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD1(BufferNumber), Data);
     break;
   case 2:
-    if (!writeInstruction(REG_TXBnD2(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD2(BufferNumber), Data);
     break;
   case 3:
-    if (!writeInstruction(REG_TXBnD3(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD3(BufferNumber), Data);
     break;
   case 4:
-    if (!writeInstruction(REG_TXBnD4(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD4(BufferNumber), Data);
     break;
   case 5:
-    if (!writeInstruction(REG_TXBnD5(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD5(BufferNumber), Data);
     break;
   case 6:
-    if (!writeInstruction(REG_TXBnD6(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD6(BufferNumber), Data);
     break;
   case 7:
-    if (!writeInstruction(REG_TXBnD7(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD7(BufferNumber), Data);
     break;
   default:
     this->_lastMcpError = ERROR_MCP2515_UNKNOWN_SWITCH;
