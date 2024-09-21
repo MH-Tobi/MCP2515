@@ -4187,7 +4187,7 @@ bool MCP2515::changeInterruptSetting(bool value, uint8_t Interrupt)
 
   if (!modifyCanInterruptEnable(InterruptBit, EnablerValue))
   {
-    this->_lastMcpError = ERROR_MCP2515_CHANGE_INTERRUPT | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHANGE_INTERRUPT;
     return false;
   }
 
