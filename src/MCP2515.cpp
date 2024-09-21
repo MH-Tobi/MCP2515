@@ -2416,14 +2416,6 @@ uint8_t MCP2515::getTransmitBufferStandardIdentifierLow(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8_t StandardId_2_0, bool ExtendedIdEn, uint8_t ExtendedId_17_16)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (StandardId_2_0 > 7) ||
       (ExtendedIdEn != true && ExtendedIdEn != false) ||
@@ -2435,11 +2427,7 @@ bool MCP2515::setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8
 
   uint8_t Data = StandardId_2_0 << 5 | ExtendedIdEn << 3 | ExtendedId_17_16;
 
-  if (!writeInstruction(REG_TXBnSIDL(BufferNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnSIDL(BufferNumber), Data);
 
   if (_reCheckEnabled)
   {
