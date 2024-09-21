@@ -684,14 +684,6 @@ bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE,
  */
 bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & ~(BFPCTRL_BIT_BnBFS(0) | BFPCTRL_BIT_BnBFS(1) |
                 BFPCTRL_BIT_BnBFE(0) | BFPCTRL_BIT_BnBFE(1) |
                 BFPCTRL_BIT_BnBFM(0) | BFPCTRL_BIT_BnBFM(1))) != 0x00)
@@ -702,7 +694,7 @@ bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_BFPCTRL, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
