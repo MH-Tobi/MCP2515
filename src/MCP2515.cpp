@@ -313,14 +313,6 @@ uint8_t MCP2515::getMaskStandardIdentifierHigh(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t StandardId_10_3)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -333,11 +325,7 @@ bool MCP2515::setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t Standard
     return false;
   }
 
-  if (!writeInstruction(REG_RXMnSIDH(MaskNumber), StandardId_10_3))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXMnSIDH(MaskNumber), StandardId_10_3);
 
   if (_reCheckEnabled)
   {
