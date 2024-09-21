@@ -1487,14 +1487,6 @@ uint8_t MCP2515::getConfigurationRegister1()
  */
 bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1510,11 +1502,7 @@ bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
 
   uint8_t Data = SJW << 6 | BRP;
 
-  if (!writeInstruction(REG_CNF1, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CNF1, Data);
 
   if (_reCheckEnabled)
   {
