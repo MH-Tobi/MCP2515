@@ -19,12 +19,6 @@
  */
 uint8_t MCP2515::getFilterStandardIdentifierHigh(uint8_t FilterNumber)
 {
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (FilterNumber > 5)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
