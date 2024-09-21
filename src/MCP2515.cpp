@@ -4806,7 +4806,6 @@ uint8_t MCP2515::getFrameFromReceiveBuffer(uint8_t BufferNumber)
  * 1 = Message is a Remote-Transmission-Request
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
- * @todo ErrorHandling
  */
 uint8_t MCP2515::getRtrFromReceiveBuffer(uint8_t BufferNumber)
 {
