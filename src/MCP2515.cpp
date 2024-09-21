@@ -2760,19 +2760,11 @@ bool MCP2515::setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber
  *
  * 0 = Acceptance Filter 0 (RXF0)
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  * @note If a rollover from RXB0 to RXB1 occurs, the FILHIT0 bit will reflect the filter that accepted the message that rolled over.
  */
 uint8_t MCP2515::getReceiveBuffer0Control()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_RXBnCTRL(0));
 }
 
