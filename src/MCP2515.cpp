@@ -4691,7 +4691,6 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
  * @return uint32_t Message-ID
  *
  * On Error it will return EMPTY_VALUE_32_BIT (Check _lastMcpError).
- * @todo ErrorHandling
  */
 uint32_t MCP2515::getIdFromReceiveBuffer(uint8_t BufferNumber)
 {
@@ -4712,12 +4711,30 @@ uint32_t MCP2515::getIdFromReceiveBuffer(uint8_t BufferNumber)
   uint32_t Message_ID = ((getReceiveBufferStandardIdentifierHigh(BufferNumber) << 3) & 0x07F8) |
                         ((getReceiveBufferStandardIdentifierLow(BufferNumber) >> 5) & 0x07);
 
+  if (_lastMcpError != EMPTY_VALUE_16_BIT)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_STANDARD_ID;
+    return EMPTY_VALUE_32_BIT;
+  }
+
   if ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE)
   {
     Message_ID = ((Message_ID << 18) & 0x1FFC0000) |
                  ((((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
                  ((getReceiveBufferExtendedIdentifierHigh(BufferNumber) << 8) & 0xFF00) |
                  getReceiveBufferExtendedIdentifierLow(BufferNumber);
+
+    if (_lastMcpError != EMPTY_VALUE_16_BIT)
+    {
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_ID;
+      return EMPTY_VALUE_32_BIT;
+    }
+  }
+
+  if (_lastMcpError != EMPTY_VALUE_16_BIT)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
+    return EMPTY_VALUE_32_BIT;
   }
 
   return Message_ID;
