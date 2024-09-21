@@ -4558,7 +4558,11 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
         continue;
       }
 
-      modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00);
+      if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00))
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_RESET_FLAG;
+        return false;
+      }
 
       return true;
     }
