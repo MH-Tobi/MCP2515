@@ -4578,7 +4578,6 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
  * @param DLC Data-Length-Code of the Message
  * @param DataBuffer Address-Pointer to the DataBuffer of the Message
  * @return True if a Message was received, False when not (or on Error check _lastMcpError)
- * @todo ErrorHandling
  */
 bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&DataBuffer)[8])
 {
@@ -4609,6 +4608,14 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
             continue;
         }
       }else{
+        // Because getReceiveBufferStandardIdentifierLow() returns EMPTY_VALUE_8_BIT on Error,
+        // only to check here if Error occurs.
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_EXTENDED;
+          return false;
+        }
+
         if (Extended)
         {
             continue;
@@ -4618,12 +4625,24 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
       uint32_t Message_ID = ((getReceiveBufferStandardIdentifierHigh(i) << 3) & 0x07F8) |
                         ((getReceiveBufferStandardIdentifierLow(i) >> 5) & 0x07);
 
+      if (_lastMcpError != EMPTY_VALUE_16_BIT)
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_STANDARD_ID;
+        return false;
+      }
+
       if (Extended)
       {
         Message_ID = ((Message_ID << 18) & 0x1FFC0000) |
                      ((((getReceiveBufferStandardIdentifierLow(i) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
                      ((getReceiveBufferExtendedIdentifierHigh(i) << 8) & 0xFF00) |
                      getReceiveBufferExtendedIdentifierLow(i);
+
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_EXTENDED_ID;
+          return false;
+        }
       }
 
       if (ID != Message_ID)
@@ -4631,7 +4650,15 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
         continue;
       }
 
-      if ((getReceiveBufferDataLengthCode(i) & RXBnDLC_BIT_DLC) != DLC)
+      uint8_t MessageDLC = (getReceiveBufferDataLengthCode(i) & RXBnDLC_BIT_DLC);
+
+      if (_lastMcpError != EMPTY_VALUE_16_BIT)
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_DLC;
+        return false;
+      }
+
+      if (MessageDLC != DLC)
       {
         continue;
       }
@@ -4640,9 +4667,17 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
       {
         DataBuffer[m] = getReceiveBufferDataByte(i, m);
 
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_GET_DATA;
+          return false;
+        }
       }
 
-      modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00);
+      if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00))
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_RESET_FLAG;
+      }
 
       return true;
     }
