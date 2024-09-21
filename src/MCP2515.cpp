@@ -5074,6 +5074,12 @@ bool MCP2515::resetInterruptFlag(uint8_t Flag)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
 
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return EMPTY_VALUE_8_BIT;
+  }
+
   if (Flag > 7)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
