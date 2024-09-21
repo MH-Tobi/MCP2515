@@ -4520,7 +4520,7 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
         // only to check here if Error occurs.
         if (_lastMcpError != EMPTY_VALUE_16_BIT)
         {
-          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_EXTENDED;
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
           return false;
         }
 
@@ -4535,7 +4535,7 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
 
       if (_lastMcpError != EMPTY_VALUE_16_BIT)
       {
-        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_STANDARD_ID;
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_STANDARD_ID;
         return false;
       }
 
@@ -4548,7 +4548,7 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
 
         if (_lastMcpError != EMPTY_VALUE_16_BIT)
         {
-          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_EXTENDED_ID;
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_ID;
           return false;
         }
       }
@@ -4560,7 +4560,7 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
 
       if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00))
       {
-        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_RESET_FLAG;
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
       }
 
       return true;
@@ -4612,7 +4612,7 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
         // only to check here if Error occurs.
         if (_lastMcpError != EMPTY_VALUE_16_BIT)
         {
-          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_EXTENDED;
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
           return false;
         }
 
@@ -4627,7 +4627,7 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
 
       if (_lastMcpError != EMPTY_VALUE_16_BIT)
       {
-        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_STANDARD_ID;
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_STANDARD_ID;
         return false;
       }
 
@@ -4640,7 +4640,7 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
 
         if (_lastMcpError != EMPTY_VALUE_16_BIT)
         {
-          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_EXTENDED_ID;
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_ID;
           return false;
         }
       }
@@ -4654,7 +4654,7 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
 
       if (_lastMcpError != EMPTY_VALUE_16_BIT)
       {
-        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_DLC;
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_DLC;
         return false;
       }
 
@@ -4669,14 +4669,14 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
 
         if (_lastMcpError != EMPTY_VALUE_16_BIT)
         {
-          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_GET_DATA;
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_DATA;
           return false;
         }
       }
 
       if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00))
       {
-        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RECEIVE_RESET_FLAG;
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
       }
 
       return true;
