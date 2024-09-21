@@ -3949,7 +3949,7 @@ bool MCP2515::resetInstruction()
  * @note Doc p. 65; Kap. 12.5
  * @param Address Register-Address
  * @param Value Register-Data
- * @return true on success, false when not (Check _lastMcpError)
+ * @return Returns only true (no Error will be set).
  */
 bool MCP2515::writeInstruction(uint8_t Address, uint8_t Value)
 {
@@ -4098,7 +4098,7 @@ bool MCP2515::rtsInstruction(bool TXBuffer_0, bool TXBuffer_1, bool TXBuffer_2)
  *
  * ^Buffer 0 has higher priority; therefore, RXB0 status is reflected in bits[4:0].
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::rxStatusInstruction()
 {
@@ -4119,7 +4119,7 @@ uint8_t MCP2515::rxStatusInstruction()
  * @param Address Register-Address
  * @return Register-Value
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::readInstruction(uint8_t Address)
 {
@@ -4156,7 +4156,7 @@ uint8_t MCP2515::readInstruction(uint8_t Address)
  *
  * Bit 7 - TX2IF (CANINTF[4])   - Transmit Buffer 2 Empty Interrupt Flag bit
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::readStatusInstruction()
 {
