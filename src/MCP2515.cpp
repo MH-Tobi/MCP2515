@@ -1416,14 +1416,6 @@ bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, 
  */
 bool MCP2515::modifyConfigurationRegister2(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1432,7 +1424,7 @@ bool MCP2515::modifyConfigurationRegister2(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_CNF2, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
