@@ -2591,14 +2591,6 @@ uint8_t MCP2515::getTransmitBufferDataLengthCode(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, uint8_t DLC)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((RTR != true && RTR != false) ||
       (DLC > 8))
   {
@@ -2607,11 +2599,7 @@ bool MCP2515::setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, ui
   }
 
   uint8_t Data = RTR << 6 | DLC;
-  if (!writeInstruction(REG_TXBnDLC(BufferNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnDLC(BufferNumber), Data);
 
   if (_reCheckEnabled)
   {
