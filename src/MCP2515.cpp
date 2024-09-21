@@ -251,14 +251,6 @@ uint8_t MCP2515::getFilterExtendedIdentifierLow(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t ExtendedId_7_0)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -271,11 +263,7 @@ bool MCP2515::setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t Exten
     return false;
   }
 
-  if (!writeInstruction(REG_RXFnEID0(FilterNumber), ExtendedId_7_0))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXFnEID0(FilterNumber), ExtendedId_7_0);
 
   if (_reCheckEnabled)
   {
