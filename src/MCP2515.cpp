@@ -4394,7 +4394,6 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
  * @param BufferNumber 0 - 2
  * @param Priority Message-Priority 0 - 3
  * @return true when success, false on any error (check _lastMcpError)
- * @todo ErrorHandling during while-loop
  */
 bool MCP2515::sendMessage(uint8_t BufferNumber, uint8_t Priority)
 {
@@ -4415,16 +4414,23 @@ bool MCP2515::sendMessage(uint8_t BufferNumber, uint8_t Priority)
 
   if (!modifyTransmitBufferControl(BufferNumber, 0x0B, (0x08 | Priority)))
   {
-    this->_lastMcpError = ERROR_MCP2515_INITIATE_SENDING | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INITIATE_SENDING;
     return false;
   }
 
   bool aborted = false;
+  bool error_during_sending = false;
+  uint16_t ErrorValue = EMPTY_VALUE_16_BIT;
 
   // While the Message Transmit Request bit is set
   while (getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXREQ) {
     // Check if an error occures during the transmission
-    if (getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXERR) {
+    if ((getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXERR) || (_lastMcpError != EMPTY_VALUE_16_BIT)) {
+
+      if (_lastMcpError != EMPTY_VALUE_16_BIT){
+        error_during_sending = true;
+        ErrorValue = ERROR_MCP2515_ERROR_DURING_SENDING;
+      }
       // set aborted to true
       aborted = true;
 
@@ -4443,7 +4449,7 @@ bool MCP2515::sendMessage(uint8_t BufferNumber, uint8_t Priority)
     // when the abortion is successfull reset the "Abort All Pending Transmissions"-bit
     modifyCanControl(CANCTRL_BIT_ABAT, 0x00);
     modifyCanInterruptFlag(0x1B, 0x1B);
-    this->_lastMcpError=ERROR_MCP2515_MESSAGE_SENDING_ABORTED;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_MESSAGE_SENDING_ABORTED;
     return false;
   }
 
