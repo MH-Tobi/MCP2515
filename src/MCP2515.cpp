@@ -1675,14 +1675,6 @@ uint8_t MCP2515::getCanInterruptEnable()
  */
 bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2IE, bool TX1IE, bool TX0IE, bool RX1IE, bool RX0IE)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((MERRE != true && MERRE!= false) ||
       (WAKIE != true && WAKIE!= false) ||
       (ERRIE != true && ERRIE!= false) ||
@@ -1698,11 +1690,7 @@ bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2
 
   uint8_t Data = MERRE << 7 | WAKIE << 6 | ERRIE << 5 | TX2IE << 4 | TX1IE << 3 | TX0IE << 2 | RX1IE << 1 | RX0IE;
 
-  if (!writeInstruction(REG_CANINTE, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CANINTE, Data);
 
   if (_reCheckEnabled)
   {
