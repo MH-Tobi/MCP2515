@@ -4913,7 +4913,16 @@ bool MCP2515::getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool
     Data_Bytes[i] = getReceiveBufferDataByte(BufferNumber, i);
   }
 
-  releaseReceiveBuffer(BufferNumber);
+  if (_lastMcpError != EMPTY_VALUE_16_BIT)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_ALL_DATA;
+    return false;
+  }
+
+  if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(BufferNumber), 0x00))
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
+  }
 
   bool RTR_Message = ((Data_RX_Controller & RXBnCTRL_BIT_RXRTR) == RXBnCTRL_BIT_RXRTR) ? true : false;
   bool Extended_Frame = ((Data_Standard_Low & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE) ? true : false;
