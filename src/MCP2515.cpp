@@ -4040,14 +4040,14 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   // Reset the MCP2515
   if (!resetInstruction()) {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_RESET_FAILED | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_RESET_FAILED;
     return false;
   }
 
   // Change the Bit-Timing
   if (!changeBaudRate(BaudRate)) {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_CHANGE_BITTIMING | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_CHANGE_BITTIMING;
     return false;
   }
 
@@ -4055,7 +4055,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!modifyTXnRTSPinControl(TXRTSCTRL_BIT_BnRTSM(0) | TXRTSCTRL_BIT_BnRTSM(1) | TXRTSCTRL_BIT_BnRTSM(2), 0x00))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_TX_PIN_CONTROL | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_TX_PIN_CONTROL;
     return false;
   }
 
@@ -4063,7 +4063,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!modifyRXnBFPinControl(BFPCTRL_BIT_BnBFE(0) | BFPCTRL_BIT_BnBFE(1), 0x00))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_RX_PIN_CONTROL | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_RX_PIN_CONTROL;
     return false;
   }
 
@@ -4071,7 +4071,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!setCanInterruptEnable(false, false, false, false, false, false, false, false))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_SET_INTERRUPTS | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_SET_INTERRUPTS;
     return false;
   }
 
@@ -4079,7 +4079,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!modifyCanInterruptFlag(0x1C, 0x1C))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_SET_TX_BUFFER_FLAGS | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_SET_TX_BUFFER_FLAGS;
     return false;
   }
 
@@ -4087,14 +4087,14 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!disableFilterMask(0) || !disableFilterMask(1))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_DISABLE_MASKS_FILTERS | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_DISABLE_MASKS_FILTERS;
     return false;
   }
 
   // Change to Operation-Mode Normal
   if (!setNormalMode()) {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_SET_NORMAL_MODE | _lastMcpError;
+    this->_lastMcpError =_lastMcpError | ERROR_MCP2515_INIT_SET_NORMAL_MODE;
     return false;
   }
 
