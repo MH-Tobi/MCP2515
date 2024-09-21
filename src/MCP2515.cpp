@@ -1764,17 +1764,9 @@ bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2
  */
 bool MCP2515::modifyCanInterruptEnable(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (!bitModifyInstruction(REG_CANINTE, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
