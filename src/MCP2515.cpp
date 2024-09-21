@@ -4770,7 +4770,6 @@ uint8_t MCP2515::getDlcFromReceiveBuffer(uint8_t BufferNumber)
  * 1 = Extended Frame
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
- * @todo ErrorHandling
  */
 uint8_t MCP2515::getFrameFromReceiveBuffer(uint8_t BufferNumber)
 {
@@ -4782,7 +4781,19 @@ uint8_t MCP2515::getFrameFromReceiveBuffer(uint8_t BufferNumber)
     return EMPTY_VALUE_8_BIT;
   }
 
-  return ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE) ? 1 : 0;
+  if ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE)
+  {
+    return 1;
+  }else{
+    // Because getReceiveBufferStandardIdentifierLow() returns EMPTY_VALUE_8_BIT on Error,
+    // only to check here if Error occurs.
+    if (_lastMcpError != EMPTY_VALUE_16_BIT)
+    {
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
+    }
+
+    return 0;
+  }
 }
 
 /**
