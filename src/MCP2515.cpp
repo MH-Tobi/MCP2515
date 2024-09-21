@@ -5039,6 +5039,14 @@ bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
  */
 uint8_t MCP2515::check4InterruptFlags()
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return EMPTY_VALUE_8_BIT;
+  }
+
   return getCanInterruptFlag();
 }
 
@@ -5061,7 +5069,6 @@ uint8_t MCP2515::check4InterruptFlags()
  *
  * 0 = RX0IF - Receive Buffer 0 Full Interrupt Flag
  * @return true when success, false on any error (check _lastMcpError)
- * @todo ErrorHandling
  */
 bool MCP2515::resetInterruptFlag(uint8_t Flag)
 {
