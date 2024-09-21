@@ -570,18 +570,10 @@ bool MCP2515::setMaskExtendedIdentifierLow(uint8_t MaskNumber, uint8_t ExtendedI
  *
  * 0 = Digital Output mode
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getRXnBFPinControl()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_BFPCTRL);
 }
 
