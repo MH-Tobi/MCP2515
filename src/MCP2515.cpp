@@ -1163,18 +1163,10 @@ uint8_t MCP2515::getReceiveErrorCounter()
  *
  * (PHSEG2 + 1) x TQ. Minimum valid setting for PS2 is 2 TQs.
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getConfigurationRegister3()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CNF3);
 }
 
