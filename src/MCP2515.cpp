@@ -4881,7 +4881,6 @@ bool MCP2515::getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_
  * @param DLC DLC Variable which has to be filled
  * @param DataBuffer Message-Data-Buffer which has to be filled
  * @return true when success, false on any error (check _lastMcpError)
- * @todo ErrorHandling
  */
 bool MCP2515::getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC), uint8_t (&DataBuffer)[8])
 {
@@ -4965,7 +4964,6 @@ bool MCP2515::getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool
  * @brief Release the given RX-Buffer
  * @param BufferNumber 0 - 1
  * @return true when success, false on any error (check _lastMcpError)
- * @todo ErrorHandling
  */
 bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
 {
