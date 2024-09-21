@@ -749,18 +749,10 @@ bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
  *
  * 0 = Digital input
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getTXnRTSPinControl()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_TXRTSCTRL);
 }
 
