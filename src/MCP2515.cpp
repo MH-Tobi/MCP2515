@@ -2795,14 +2795,6 @@ uint8_t MCP2515::getReceiveBuffer0Control()
  */
 bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((RXM != 0 && RXM != 3) ||
       (BUKT != true && BUKT != false))
   {
@@ -2812,11 +2804,7 @@ bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
 
   uint8_t Data = RXM << 5 | BUKT << 2;
 
-  if (!writeInstruction(REG_RXBnCTRL(0), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXBnCTRL(0), Data);
 
   if (_reCheckEnabled)
   {
