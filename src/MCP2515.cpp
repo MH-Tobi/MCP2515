@@ -613,14 +613,6 @@ uint8_t MCP2515::getRXnBFPinControl()
  */
 bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE, bool B1BFM, bool B0BFM)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((B1BFS != true && B1BFS != false) ||
       (B0BFS != true && B0BFS != false) ||
       (B1BFE != true && B1BFE != false) ||
@@ -634,11 +626,7 @@ bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE,
 
   uint8_t Data = B1BFS << 5 | B0BFS << 4 | B1BFE << 3 | B0BFE << 2 | B1BFM << 1 | B0BFM;
 
-  if (!writeInstruction(REG_BFPCTRL, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_BFPCTRL, Data);
 
   if (_reCheckEnabled)
   {
