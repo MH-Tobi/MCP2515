@@ -4746,7 +4746,6 @@ uint32_t MCP2515::getIdFromReceiveBuffer(uint8_t BufferNumber)
  * @return uint8_t Message-DLC
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
- * @todo ErrorHandling
  */
 uint8_t MCP2515::getDlcFromReceiveBuffer(uint8_t BufferNumber)
 {
