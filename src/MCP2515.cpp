@@ -4282,31 +4282,24 @@ uint8_t MCP2515::check4FreeTransmitBuffer()
     return 0xFF;
   }
 
-  if ((readStatusInstruction() & 0xA8) == 0x00)
-  {
-    if (_lastMcpError != EMPTY_VALUE_16_BIT)
-    {
-      this->_lastMcpError = ERROR_MCP2515_CHECK_FREE_TRANSMIT_BUFFER | _lastMcpError;
-    }
+  uint8_t Value = readStatusInstruction();
 
+  if ((Value & 0xA8) == 0x00)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NO_TRANSMITBUFFER_FREE;
     return 0xFF;
   }
 
   for (size_t i = 0; i < 3; i++)
   {
-    if ((readStatusInstruction() & (0x08 << (2 * i))) != 0 )
+    if ((Value & (0x08 << (2 * i))) != 0 )
     {
       return i;
       break;
     }
-
-    if (_lastMcpError != EMPTY_VALUE_16_BIT)
-    {
-      this->_lastMcpError = ERROR_MCP2515_CHECK_FREE_TRANSMIT_BUFFER | _lastMcpError;
-      return 0xFF;
-      break;
-    }
   }
+
+  this->_lastMcpError = ERROR_MCP2515_UNDEFINED;
   return 0xFF;
 }
 
