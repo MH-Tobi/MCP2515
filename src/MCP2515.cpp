@@ -3646,7 +3646,6 @@ MCP2515::MCP2515() :
   _baudRate(MCP2515_DEFAULT_BAUDRATE),
   _isInitialized(false),
   _lastMcpError(EMPTY_VALUE_16_BIT),
-  _lastSpiError(EMPTY_VALUE_16_BIT),
   _reCheckEnabled(true)
 {
 }
