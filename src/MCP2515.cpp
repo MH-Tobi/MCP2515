@@ -1897,14 +1897,6 @@ uint8_t MCP2515::getCanInterruptFlag()
  */
 bool MCP2515::setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF, bool TX1IF, bool TX0IF, bool RX1IF, bool RX0IF)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((MERRF != true && MERRF!= false) ||
       (WAKIF != true && WAKIF!= false) ||
       (ERRIF != true && ERRIF!= false) ||
@@ -1920,11 +1912,7 @@ bool MCP2515::setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF
 
   uint8_t Data = MERRF << 7 | WAKIF << 6 | ERRIF << 5 | TX2IF << 4 | TX1IF << 3 | TX0IF << 2 | RX1IF << 1 | RX0IF;
 
-  if (!writeInstruction(REG_CANINTF, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CANINTF, Data);
 
   if (_reCheckEnabled)
   {
