@@ -2526,14 +2526,6 @@ uint8_t MCP2515::getTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8_t ExtendedId_7_0)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (ExtendedId_7_0 > 255))
   {
@@ -2541,11 +2533,7 @@ bool MCP2515::setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8
     return false;
   }
 
-  if (!writeInstruction(REG_TXBnEID0(BufferNumber), ExtendedId_7_0))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnEID0(BufferNumber), ExtendedId_7_0);
 
   if (_reCheckEnabled)
   {
