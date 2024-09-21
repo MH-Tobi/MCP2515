@@ -2848,14 +2848,6 @@ bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
  */
 bool MCP2515::modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & ~(RXBnCTRL_BIT_RXM | RXBnCTRL_BIT_BUFFER0_BUKT)) != 0x00)
   {
     this->_lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
@@ -2864,7 +2856,7 @@ bool MCP2515::modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_RXBnCTRL(0), Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
