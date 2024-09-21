@@ -3579,19 +3579,19 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
   if (!modifyConfigurationRegister1(0xFF, cnf[0]))
   {
     this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF1_NOT_SET;
-      return false;
+    return false;
   }
 
   if (!modifyConfigurationRegister2(0xFF, cnf[1]))
   {
     this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF2_NOT_SET;
-      return false;
+    return false;
   }
 
   if (!modifyConfigurationRegister3(0xC7, cnf[2]))
   {
     this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF3_NOT_SET;
-      return false;
+    return false;
   }
 
   delayMicroseconds(10);
@@ -3820,7 +3820,7 @@ bool MCP2515::setClockFrequency(uint32_t ClockFrequency)
 
   if ((uint32_t)ClockFrequency > (uint32_t)MCP2515_MAX_CLOCK_FREQUENCY)
   {
-    this->_lastMcpError = ERROR_MCP2515_CLOCK_FREQUENCY_NOT_ALLOWED;
+    this->_lastMcpError = ERROR_MCP2515_CLOCKFREQUENCY_NOT_ALLOWED;
     return false;
   }
 
