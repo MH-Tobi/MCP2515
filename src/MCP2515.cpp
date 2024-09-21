@@ -4337,7 +4337,7 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
   {
     if (_lastMcpError != EMPTY_VALUE_16_BIT)
     {
-      this->_lastMcpError = ERROR_MCP2515_CHECK_FREE_TRANSMIT_BUFFER | _lastMcpError;
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK_FREE_TRANSMIT_BUFFER;
       return false;
     }
 
@@ -4360,7 +4360,7 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 
   if (ErrorCount > 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_TRANSMITBUFFER_ID_FILLING | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_TRANSMITBUFFER_ID_FILLING;
     return false;
   }
 
@@ -4376,13 +4376,13 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 
   if (ErrorCount > 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_TRANSMITBUFFER_DATA_FILLING | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_TRANSMITBUFFER_DATA_FILLING;
     return false;
   }
 
   if (!resetInterruptFlag((0x02 + BufferNumber)))
   {
-    this->_lastMcpError = ERROR_MCP2515_RESET_INTERRUPT_FLAG | _lastMcpError;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_INTERRUPT_FLAG;
     return false;
   }
 
