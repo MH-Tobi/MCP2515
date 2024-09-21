@@ -5036,7 +5036,6 @@ bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
  * 0 = No interrupt is pending
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
- * @todo ErrorHandling
  */
 uint8_t MCP2515::check4InterruptFlags()
 {
