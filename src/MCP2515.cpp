@@ -1086,14 +1086,6 @@ bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint
  */
 bool MCP2515::modifyCanControl(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & CANCTRL_BIT_REQOP) != 0x00)
   {
     // Check if Result of bitModify results in an invalid Condition. (CANCTRL_BIT_REQOP never > 4)
@@ -1106,7 +1098,7 @@ bool MCP2515::modifyCanControl(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_CANCTRL, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
