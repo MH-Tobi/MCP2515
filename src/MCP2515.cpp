@@ -2230,14 +2230,6 @@ uint8_t MCP2515::getTransmitBufferControl(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t TXP)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (TXREQ != true && TXREQ!= false) ||
       (TXP > 3))
@@ -2248,11 +2240,7 @@ bool MCP2515::setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t
 
   uint8_t Data = TXREQ << 3 | TXP;
 
-  if (!writeInstruction(REG_TXBnCTRL(BufferNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnCTRL(BufferNumber), Data);
 
   if (_reCheckEnabled)
   {
