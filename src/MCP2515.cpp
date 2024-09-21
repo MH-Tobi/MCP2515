@@ -2564,14 +2564,6 @@ bool MCP2515::setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8
  */
 uint8_t MCP2515::getTransmitBufferDataLengthCode(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
