@@ -4461,7 +4461,6 @@ bool MCP2515::sendMessage(uint8_t BufferNumber, uint8_t Priority)
  * @param ID Message-ID
  * @param Extended bool true if it is a Extended Frame
  * @return True if a RemoteTransmissionRequest for the Message was received, False when not (or on Error check _lastMcpError)
- * @todo ErrorHandling
  */
 bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
 {
@@ -4517,6 +4516,14 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
             continue;
         }
       }else{
+        // Because getReceiveBufferStandardIdentifierLow() returns EMPTY_VALUE_8_BIT on Error,
+        // only to check here if Error occurs.
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_EXTENDED;
+          return false;
+        }
+
         if (Extended)
         {
             continue;
@@ -4526,12 +4533,24 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
       uint32_t RTR_ID = ((getReceiveBufferStandardIdentifierHigh(i) << 3) & 0x07F8) |
                         ((getReceiveBufferStandardIdentifierLow(i) >> 5) & 0x07);
 
+      if (_lastMcpError != EMPTY_VALUE_16_BIT)
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_STANDARD_ID;
+        return false;
+      }
+
       if (Extended)
       {
         RTR_ID = ((RTR_ID << 18) & 0x1FFC0000) |
                  ((((getReceiveBufferStandardIdentifierLow(i) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
                  ((getReceiveBufferExtendedIdentifierHigh(i) << 8) & 0xFF00) |
                  getReceiveBufferExtendedIdentifierLow(i);
+
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK4RTR_EXTENDED_ID;
+          return false;
+        }
       }
 
       if (ID != RTR_ID)
