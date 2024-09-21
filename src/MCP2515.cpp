@@ -3672,19 +3672,6 @@ uint16_t MCP2515::getLastMCPError()
 }
 
 /**
- * @brief Returns the last SPI-Error.
- *
- * The last SPI-Error will always been reset at the beginning of an SPI-Instruction.
- * @return uint16_t SPI-Error
- *
- * 0x0000 = no Error
- */
-uint16_t MCP2515::getLastSPIError()
-{
-	return _lastSpiError;
-}
-
-/**
  * @brief Set the ReCheck-Enabler.
  *
  * When it's enabled, after Setting some bit it will check if the bit is set successfully.
