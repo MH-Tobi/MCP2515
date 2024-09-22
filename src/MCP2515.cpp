@@ -3807,7 +3807,7 @@ bool MCP2515::setSpiFrequency(uint32_t Frequency)
 /**
  * @brief Set the MCP2515 Clock-Frequency.
  * @note Use this Method only before the Initialisation of the MCP2515.
- * @param ClockFrequency max. allowed Value for the MCP2515 is 40e6 Hz.
+ * @param ClockFrequency allowed Values are 8MHz, 16MHz, 25MHz or 40MHz.
  * @return true when success, false on any error
  */
 bool MCP2515::setClockFrequency(uint32_t ClockFrequency)
@@ -3818,9 +3818,9 @@ bool MCP2515::setClockFrequency(uint32_t ClockFrequency)
     return false;
   }
 
-  if ((uint32_t)ClockFrequency > (uint32_t)MCP2515_MAX_CLOCK_FREQUENCY)
+  if (ClockFrequency != 8E6 && ClockFrequency != 16E6 && ClockFrequency != 25E6 && ClockFrequency != 40E6)
   {
-    this->_lastMcpError = ERROR_MCP2515_CLOCKFREQUENCY_NOT_ALLOWED;
+    this->_lastMcpError = ERROR_MCP2515_CLOCKFREQUENCY_NOT_VALID;
     return false;
   }
 
@@ -4381,7 +4381,7 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 
   if (!resetInterruptFlag((0x02 + BufferNumber)))
   {
-    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_INTERRUPT_FLAG;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
     return false;
   }
 
