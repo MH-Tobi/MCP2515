@@ -101,16 +101,6 @@ MCP2515Module.getLastMCPError();
 - When no Error occured it will show `0x0000`
 
 
-### Get the last SPI-Error
-
-```c++
-MCP2515Module.getLastSPIError();
-```
-- Returns the last SPI-Error.
-- The last SPI-Error will always been reset at the beginning of an SPI-Instruction.
-- When no Error occured it will show `0x0000`
-
-
 
 ## MCP2515-Operationmodes
 
