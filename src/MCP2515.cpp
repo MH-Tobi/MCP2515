@@ -19,20 +19,6 @@
  */
 uint8_t MCP2515::getFilterStandardIdentifierHigh(uint8_t FilterNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (FilterNumber > 5)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -58,14 +44,6 @@ uint8_t MCP2515::getFilterStandardIdentifierHigh(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterStandardIdentifierHigh(uint8_t FilterNumber, uint8_t StandardId_10_3)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -78,11 +56,7 @@ bool MCP2515::setFilterStandardIdentifierHigh(uint8_t FilterNumber, uint8_t Stan
     return false;
   }
 
-  if (!writeInstruction(REG_RXFnSIDH(FilterNumber), StandardId_10_3))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXFnSIDH(FilterNumber), StandardId_10_3);
 
   if (_reCheckEnabled)
   {
@@ -119,20 +93,6 @@ bool MCP2515::setFilterStandardIdentifierHigh(uint8_t FilterNumber, uint8_t Stan
  */
 uint8_t MCP2515::getFilterStandardIdentifierLow(uint8_t FilterNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (FilterNumber > 5)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -165,14 +125,6 @@ uint8_t MCP2515::getFilterStandardIdentifierLow(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t StandardId_2_0, bool ExtendedIdEn, uint8_t ExtendedId_17_16)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -187,11 +139,7 @@ bool MCP2515::setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t Stand
 
   uint8_t Data = StandardId_2_0 << 5 | ExtendedIdEn << 3 | ExtendedId_17_16;
 
-  if (!writeInstruction(REG_RXFnSIDL(FilterNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXFnSIDL(FilterNumber), Data);
 
   if (_reCheckEnabled)
   {
@@ -217,20 +165,6 @@ bool MCP2515::setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t Stand
  */
 uint8_t MCP2515::getFilterExtendedIdentifierHigh(uint8_t FilterNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (FilterNumber > 5)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -255,14 +189,6 @@ uint8_t MCP2515::getFilterExtendedIdentifierHigh(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterExtendedIdentifierHigh(uint8_t FilterNumber, uint8_t ExtendedId_15_8)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -275,11 +201,7 @@ bool MCP2515::setFilterExtendedIdentifierHigh(uint8_t FilterNumber, uint8_t Exte
     return false;
   }
 
-  if (!writeInstruction(REG_RXFnEID8(FilterNumber), ExtendedId_15_8))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXFnEID8(FilterNumber), ExtendedId_15_8);
 
   if (_reCheckEnabled)
   {
@@ -305,20 +227,6 @@ bool MCP2515::setFilterExtendedIdentifierHigh(uint8_t FilterNumber, uint8_t Exte
  */
 uint8_t MCP2515::getFilterExtendedIdentifierLow(uint8_t FilterNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (FilterNumber > 5)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -343,14 +251,6 @@ uint8_t MCP2515::getFilterExtendedIdentifierLow(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t ExtendedId_7_0)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -363,11 +263,7 @@ bool MCP2515::setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t Exten
     return false;
   }
 
-  if (!writeInstruction(REG_RXFnEID0(FilterNumber), ExtendedId_7_0))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXFnEID0(FilterNumber), ExtendedId_7_0);
 
   if (_reCheckEnabled)
   {
@@ -393,20 +289,6 @@ bool MCP2515::setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t Exten
  */
 uint8_t MCP2515::getMaskStandardIdentifierHigh(uint8_t MaskNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (MaskNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -431,14 +313,6 @@ uint8_t MCP2515::getMaskStandardIdentifierHigh(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t StandardId_10_3)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -451,11 +325,7 @@ bool MCP2515::setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t Standard
     return false;
   }
 
-  if (!writeInstruction(REG_RXMnSIDH(MaskNumber), StandardId_10_3))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXMnSIDH(MaskNumber), StandardId_10_3);
 
   if (_reCheckEnabled)
   {
@@ -486,20 +356,6 @@ bool MCP2515::setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t Standard
  */
 uint8_t MCP2515::getMaskStandardIdentifierLow(uint8_t MaskNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (MaskNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -527,14 +383,6 @@ uint8_t MCP2515::getMaskStandardIdentifierLow(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskStandardIdentifierLow(uint8_t MaskNumber, uint8_t StandardId_2_0, uint8_t ExtendedId_17_16)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -549,11 +397,7 @@ bool MCP2515::setMaskStandardIdentifierLow(uint8_t MaskNumber, uint8_t StandardI
 
   uint8_t Data = StandardId_2_0 << 5 | ExtendedId_17_16;
 
-  if (!writeInstruction(REG_RXMnSIDL(MaskNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXMnSIDL(MaskNumber), Data);
 
   if (_reCheckEnabled)
   {
@@ -579,20 +423,6 @@ bool MCP2515::setMaskStandardIdentifierLow(uint8_t MaskNumber, uint8_t StandardI
  */
 uint8_t MCP2515::getMaskExtendedIdentifierHigh(uint8_t MaskNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (MaskNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -617,14 +447,6 @@ uint8_t MCP2515::getMaskExtendedIdentifierHigh(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskExtendedIdentifierHigh(uint8_t MaskNumber, uint8_t ExtendedId_15_8)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -637,11 +459,7 @@ bool MCP2515::setMaskExtendedIdentifierHigh(uint8_t MaskNumber, uint8_t Extended
     return false;
   }
 
-  if (!writeInstruction(REG_RXMnEID8(MaskNumber), ExtendedId_15_8))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXMnEID8(MaskNumber), ExtendedId_15_8);
 
   if (_reCheckEnabled)
   {
@@ -667,20 +485,6 @@ bool MCP2515::setMaskExtendedIdentifierHigh(uint8_t MaskNumber, uint8_t Extended
  */
 uint8_t MCP2515::getMaskExtendedIdentifierLow(uint8_t MaskNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
-  if (_operationMode != MCP2515_OP_CONFIGURATION)
-  {
-    this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (MaskNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -705,14 +509,6 @@ uint8_t MCP2515::getMaskExtendedIdentifierLow(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskExtendedIdentifierLow(uint8_t MaskNumber, uint8_t ExtendedId_7_0)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -725,11 +521,7 @@ bool MCP2515::setMaskExtendedIdentifierLow(uint8_t MaskNumber, uint8_t ExtendedI
     return false;
   }
 
-  if (!writeInstruction(REG_RXMnEID0(MaskNumber), ExtendedId_7_0))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXMnEID0(MaskNumber), ExtendedId_7_0);
 
   if (_reCheckEnabled)
   {
@@ -778,18 +570,10 @@ bool MCP2515::setMaskExtendedIdentifierLow(uint8_t MaskNumber, uint8_t ExtendedI
  *
  * 0 = Digital Output mode
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getRXnBFPinControl()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_BFPCTRL);
 }
 
@@ -829,14 +613,6 @@ uint8_t MCP2515::getRXnBFPinControl()
  */
 bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE, bool B1BFM, bool B0BFM)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((B1BFS != true && B1BFS != false) ||
       (B0BFS != true && B0BFS != false) ||
       (B1BFE != true && B1BFE != false) ||
@@ -850,11 +626,7 @@ bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE,
 
   uint8_t Data = B1BFS << 5 | B0BFS << 4 | B1BFE << 3 | B0BFE << 2 | B1BFM << 1 | B0BFM;
 
-  if (!writeInstruction(REG_BFPCTRL, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_BFPCTRL, Data);
 
   if (_reCheckEnabled)
   {
@@ -912,14 +684,6 @@ bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE,
  */
 bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & ~(BFPCTRL_BIT_BnBFS(0) | BFPCTRL_BIT_BnBFS(1) |
                 BFPCTRL_BIT_BnBFE(0) | BFPCTRL_BIT_BnBFE(1) |
                 BFPCTRL_BIT_BnBFM(0) | BFPCTRL_BIT_BnBFM(1))) != 0x00)
@@ -930,7 +694,7 @@ bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_BFPCTRL, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -985,18 +749,10 @@ bool MCP2515::modifyRXnBFPinControl(uint8_t Mask, uint8_t Value)
  *
  * 0 = Digital input
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getTXnRTSPinControl()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_TXRTSCTRL);
 }
 
@@ -1026,14 +782,6 @@ uint8_t MCP2515::getTXnRTSPinControl()
  */
 bool MCP2515::setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1050,11 +798,7 @@ bool MCP2515::setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM)
 
   uint8_t Data = B2RTSM << 2 | B1RTSM << 1 | B0RTSM;
 
-  if (!writeInstruction(REG_TXRTSCTRL, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXRTSCTRL, Data);
 
   if (_reCheckEnabled)
   {
@@ -1099,14 +843,6 @@ bool MCP2515::setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM)
  */
 bool MCP2515::modifyTXnRTSPinControl(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1121,7 +857,7 @@ bool MCP2515::modifyTXnRTSPinControl(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_TXRTSCTRL, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -1170,18 +906,10 @@ bool MCP2515::modifyTXnRTSPinControl(uint8_t Mask, uint8_t Value)
  *
  * 111 = RXB1 interrupt
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getCanStatus()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CANSTAT);
 }
 
@@ -1228,18 +956,10 @@ uint8_t MCP2515::getCanStatus()
  *
  * 11 = FCLKOUT = System Clock/8
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getCanControl()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CANCTRL);
 }
 
@@ -1288,14 +1008,6 @@ uint8_t MCP2515::getCanControl()
  */
 bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint8_t CLKPRE)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((REQOP > 4) ||
       (ABAT != true && ABAT != false) ||
       (OSM != true && OSM != false) ||
@@ -1308,11 +1020,7 @@ bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint
 
   uint8_t Data = REQOP << 5 | ABAT << 4 | OSM << 3 | CLKEN << 2 | CLKPRE;
 
-  if (!writeInstruction(REG_CANCTRL, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CANCTRL, Data);
 
   if (_reCheckEnabled)
   {
@@ -1378,14 +1086,6 @@ bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint
  */
 bool MCP2515::modifyCanControl(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & CANCTRL_BIT_REQOP) != 0x00)
   {
     // Check if Result of bitModify results in an invalid Condition. (CANCTRL_BIT_REQOP never > 4)
@@ -1398,7 +1098,7 @@ bool MCP2515::modifyCanControl(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_CANCTRL, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -1420,18 +1120,10 @@ bool MCP2515::modifyCanControl(uint8_t Mask, uint8_t Value)
  * @brief Get the Transmit Error Counter Register (REG_TEC) [1Ch]
  * @return uint8_t Transmit Error Count
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getTransmitErrorCounter()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_TEC);
 }
 
@@ -1439,18 +1131,10 @@ uint8_t MCP2515::getTransmitErrorCounter()
  * @brief Get the Receive Error Counter Register (REG_REC) [1Dh]
  * @return uint8_t Receive Error Count
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getReceiveErrorCounter()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_REC);
 }
 
@@ -1479,18 +1163,10 @@ uint8_t MCP2515::getReceiveErrorCounter()
  *
  * (PHSEG2 + 1) x TQ. Minimum valid setting for PS2 is 2 TQs.
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getConfigurationRegister3()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CNF3);
 }
 
@@ -1524,14 +1200,6 @@ uint8_t MCP2515::getConfigurationRegister3()
  */
 bool MCP2515::setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1548,11 +1216,7 @@ bool MCP2515::setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2)
 
   uint8_t Data = SOF << 7 | WAKFIL << 6 | PHSEG2;
 
-  if (!writeInstruction(REG_CNF3, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CNF3, Data);
 
   if (_reCheckEnabled)
   {
@@ -1601,14 +1265,6 @@ bool MCP2515::setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2)
  */
 bool MCP2515::modifyConfigurationRegister3(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1623,7 +1279,7 @@ bool MCP2515::modifyConfigurationRegister3(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_CNF3, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -1662,18 +1318,10 @@ bool MCP2515::modifyConfigurationRegister3(uint8_t Mask, uint8_t Value)
  *
  * (PRSEG + 1) x TQ.
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getConfigurationRegister2()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CNF2);
 }
 
@@ -1704,14 +1352,6 @@ uint8_t MCP2515::getConfigurationRegister2()
  */
 bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, uint8_t PRSEG)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1729,11 +1369,7 @@ bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, 
 
   uint8_t Data = BTLMODE << 7 | SAM << 6 | PHSEG1 << 3 | PRSEG;
 
-  if (!writeInstruction(REG_CNF2, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CNF2, Data);
 
   if (_reCheckEnabled)
   {
@@ -1780,14 +1416,6 @@ bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, 
  */
 bool MCP2515::modifyConfigurationRegister2(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1796,7 +1424,7 @@ bool MCP2515::modifyConfigurationRegister2(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_CNF2, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -1829,18 +1457,10 @@ bool MCP2515::modifyConfigurationRegister2(uint8_t Mask, uint8_t Value)
  *
  * TQ = 2 x (BRP + 1)/FOSC.
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getConfigurationRegister1()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CNF1);
 }
 
@@ -1867,14 +1487,6 @@ uint8_t MCP2515::getConfigurationRegister1()
  */
 bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1890,11 +1502,7 @@ bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
 
   uint8_t Data = SJW << 6 | BRP;
 
-  if (!writeInstruction(REG_CNF1, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CNF1, Data);
 
   if (_reCheckEnabled)
   {
@@ -1935,14 +1543,6 @@ bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
  */
 bool MCP2515::modifyConfigurationRegister1(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
@@ -1951,7 +1551,7 @@ bool MCP2515::modifyConfigurationRegister1(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_CNF1, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -2018,18 +1618,10 @@ bool MCP2515::modifyConfigurationRegister1(uint8_t Mask, uint8_t Value)
  *
  * 0 = Disabled
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getCanInterruptEnable()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CANINTE);
 }
 
@@ -2083,14 +1675,6 @@ uint8_t MCP2515::getCanInterruptEnable()
  */
 bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2IE, bool TX1IE, bool TX0IE, bool RX1IE, bool RX0IE)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((MERRE != true && MERRE!= false) ||
       (WAKIE != true && WAKIE!= false) ||
       (ERRIE != true && ERRIE!= false) ||
@@ -2106,11 +1690,7 @@ bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2
 
   uint8_t Data = MERRE << 7 | WAKIE << 6 | ERRIE << 5 | TX2IE << 4 | TX1IE << 3 | TX0IE << 2 | RX1IE << 1 | RX0IE;
 
-  if (!writeInstruction(REG_CANINTE, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CANINTE, Data);
 
   if (_reCheckEnabled)
   {
@@ -2184,17 +1764,9 @@ bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2
  */
 bool MCP2515::modifyCanInterruptEnable(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (!bitModifyInstruction(REG_CANINTE, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -2261,18 +1833,10 @@ bool MCP2515::modifyCanInterruptEnable(uint8_t Mask, uint8_t Value)
  *
  * 0 = No interrupt is pending
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getCanInterruptFlag()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_CANINTF);
 }
 
@@ -2333,14 +1897,6 @@ uint8_t MCP2515::getCanInterruptFlag()
  */
 bool MCP2515::setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF, bool TX1IF, bool TX0IF, bool RX1IF, bool RX0IF)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((MERRF != true && MERRF!= false) ||
       (WAKIF != true && WAKIF!= false) ||
       (ERRIF != true && ERRIF!= false) ||
@@ -2356,11 +1912,7 @@ bool MCP2515::setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF
 
   uint8_t Data = MERRF << 7 | WAKIF << 6 | ERRIF << 5 | TX2IF << 4 | TX1IF << 3 | TX0IF << 2 | RX1IF << 1 | RX0IF;
 
-  if (!writeInstruction(REG_CANINTF, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_CANINTF, Data);
 
   if (_reCheckEnabled)
   {
@@ -2434,17 +1986,9 @@ bool MCP2515::setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF
  */
 bool MCP2515::modifyCanInterruptFlag(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (!bitModifyInstruction(REG_CANINTF, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -2511,18 +2055,10 @@ bool MCP2515::modifyCanInterruptFlag(uint8_t Mask, uint8_t Value)
  *
  * Resets when both REC and TEC are less than 96
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getErrorFlag()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_EFLG);
 }
 
@@ -2547,14 +2083,6 @@ uint8_t MCP2515::getErrorFlag()
  */
 bool MCP2515::setErrorFlag(bool RX1OVR, bool RX0OVR)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((RX1OVR != true && RX1OVR!= false) ||
       (RX0OVR != true && RX0OVR!= false))
   {
@@ -2564,11 +2092,7 @@ bool MCP2515::setErrorFlag(bool RX1OVR, bool RX0OVR)
 
   uint8_t Data = RX1OVR << 7 | RX0OVR << 6;
 
-  if (!writeInstruction(REG_EFLG, Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_EFLG, Data);
 
   if (_reCheckEnabled)
   {
@@ -2606,14 +2130,6 @@ bool MCP2515::setErrorFlag(bool RX1OVR, bool RX0OVR)
  */
 bool MCP2515::modifyErrorFlag(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & ~(EFLG_BIT_RXnOVR(0) | EFLG_BIT_RXnOVR(1))) != 0x00)
   {
     this->_lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
@@ -2622,7 +2138,7 @@ bool MCP2515::modifyErrorFlag(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_EFLG, Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -2680,14 +2196,6 @@ bool MCP2515::modifyErrorFlag(uint8_t Mask, uint8_t Value)
  */
 uint8_t MCP2515::getTransmitBufferControl(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -2722,14 +2230,6 @@ uint8_t MCP2515::getTransmitBufferControl(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t TXP)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (TXREQ != true && TXREQ!= false) ||
       (TXP > 3))
@@ -2740,11 +2240,7 @@ bool MCP2515::setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t
 
   uint8_t Data = TXREQ << 3 | TXP;
 
-  if (!writeInstruction(REG_TXBnCTRL(BufferNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnCTRL(BufferNumber), Data);
 
   if (_reCheckEnabled)
   {
@@ -2786,14 +2282,6 @@ bool MCP2515::setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t
  */
 bool MCP2515::modifyTransmitBufferControl(uint8_t BufferNumber, uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -2808,7 +2296,7 @@ bool MCP2515::modifyTransmitBufferControl(uint8_t BufferNumber, uint8_t Mask, ui
 
   if (!bitModifyInstruction(REG_TXBnCTRL(BufferNumber), Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -2834,14 +2322,6 @@ bool MCP2515::modifyTransmitBufferControl(uint8_t BufferNumber, uint8_t Mask, ui
  */
 uint8_t MCP2515::getTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -2864,14 +2344,6 @@ uint8_t MCP2515::getTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber, uint8_t StandardId_10_3)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (StandardId_10_3 > 255))
   {
@@ -2879,11 +2351,7 @@ bool MCP2515::setTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber, uint
     return false;
   }
 
-  if (!writeInstruction(REG_TXBnSIDH(BufferNumber), StandardId_10_3))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnSIDH(BufferNumber), StandardId_10_3);
 
   if (_reCheckEnabled)
   {
@@ -2918,14 +2386,6 @@ bool MCP2515::setTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber, uint
  */
 uint8_t MCP2515::getTransmitBufferStandardIdentifierLow(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -2956,14 +2416,6 @@ uint8_t MCP2515::getTransmitBufferStandardIdentifierLow(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8_t StandardId_2_0, bool ExtendedIdEn, uint8_t ExtendedId_17_16)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (StandardId_2_0 > 7) ||
       (ExtendedIdEn != true && ExtendedIdEn != false) ||
@@ -2975,11 +2427,7 @@ bool MCP2515::setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8
 
   uint8_t Data = StandardId_2_0 << 5 | ExtendedIdEn << 3 | ExtendedId_17_16;
 
-  if (!writeInstruction(REG_TXBnSIDL(BufferNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnSIDL(BufferNumber), Data);
 
   if (_reCheckEnabled)
   {
@@ -3003,14 +2451,6 @@ bool MCP2515::setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8
  */
 uint8_t MCP2515::getTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3033,14 +2473,6 @@ uint8_t MCP2515::getTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber, uint8_t ExtendedId_15_8)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (ExtendedId_15_8 > 255))
   {
@@ -3048,11 +2480,7 @@ bool MCP2515::setTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber, uint
     return false;
   }
 
-  if (!writeInstruction(REG_TXBnEID8(BufferNumber), ExtendedId_15_8))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnEID8(BufferNumber), ExtendedId_15_8);
 
   if (_reCheckEnabled)
   {
@@ -3076,14 +2504,6 @@ bool MCP2515::setTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber, uint
  */
 uint8_t MCP2515::getTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3106,14 +2526,6 @@ uint8_t MCP2515::getTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8_t ExtendedId_7_0)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((BufferNumber > 2) ||
       (ExtendedId_7_0 > 255))
   {
@@ -3121,11 +2533,7 @@ bool MCP2515::setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8
     return false;
   }
 
-  if (!writeInstruction(REG_TXBnEID0(BufferNumber), ExtendedId_7_0))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnEID0(BufferNumber), ExtendedId_7_0);
 
   if (_reCheckEnabled)
   {
@@ -3156,14 +2564,6 @@ bool MCP2515::setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8
  */
 uint8_t MCP2515::getTransmitBufferDataLengthCode(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3191,14 +2591,6 @@ uint8_t MCP2515::getTransmitBufferDataLengthCode(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, uint8_t DLC)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((RTR != true && RTR != false) ||
       (DLC > 8))
   {
@@ -3207,11 +2599,7 @@ bool MCP2515::setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, ui
   }
 
   uint8_t Data = RTR << 6 | DLC;
-  if (!writeInstruction(REG_TXBnDLC(BufferNumber), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_TXBnDLC(BufferNumber), Data);
 
   if (_reCheckEnabled)
   {
@@ -3235,14 +2623,6 @@ bool MCP2515::setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, ui
  */
 uint8_t MCP2515::getTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 2 || ByteNumber > 7)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3295,14 +2675,6 @@ uint8_t MCP2515::getTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNum
  */
 bool MCP2515::setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber, uint8_t Data)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (BufferNumber > 2 || ByteNumber > 7)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3312,60 +2684,28 @@ bool MCP2515::setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber
   switch (ByteNumber)
   {
   case 0:
-    if (!writeInstruction(REG_TXBnD0(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD0(BufferNumber), Data);
     break;
   case 1:
-    if (!writeInstruction(REG_TXBnD1(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD1(BufferNumber), Data);
     break;
   case 2:
-    if (!writeInstruction(REG_TXBnD2(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD2(BufferNumber), Data);
     break;
   case 3:
-    if (!writeInstruction(REG_TXBnD3(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD3(BufferNumber), Data);
     break;
   case 4:
-    if (!writeInstruction(REG_TXBnD4(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD4(BufferNumber), Data);
     break;
   case 5:
-    if (!writeInstruction(REG_TXBnD5(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD5(BufferNumber), Data);
     break;
   case 6:
-    if (!writeInstruction(REG_TXBnD6(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD6(BufferNumber), Data);
     break;
   case 7:
-    if (!writeInstruction(REG_TXBnD7(BufferNumber), Data))
-    {
-      this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-      return false;
-    }
+    writeInstruction(REG_TXBnD7(BufferNumber), Data);
     break;
   default:
     this->_lastMcpError = ERROR_MCP2515_UNKNOWN_SWITCH;
@@ -3420,19 +2760,11 @@ bool MCP2515::setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber
  *
  * 0 = Acceptance Filter 0 (RXF0)
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  * @note If a rollover from RXB0 to RXB1 occurs, the FILHIT0 bit will reflect the filter that accepted the message that rolled over.
  */
 uint8_t MCP2515::getReceiveBuffer0Control()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_RXBnCTRL(0));
 }
 
@@ -3463,14 +2795,6 @@ uint8_t MCP2515::getReceiveBuffer0Control()
  */
 bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((RXM != 0 && RXM != 3) ||
       (BUKT != true && BUKT != false))
   {
@@ -3480,11 +2804,7 @@ bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
 
   uint8_t Data = RXM << 5 | BUKT << 2;
 
-  if (!writeInstruction(REG_RXBnCTRL(0), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXBnCTRL(0), Data);
 
   if (_reCheckEnabled)
   {
@@ -3528,14 +2848,6 @@ bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
  */
 bool MCP2515::modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & ~(RXBnCTRL_BIT_RXM | RXBnCTRL_BIT_BUFFER0_BUKT)) != 0x00)
   {
     this->_lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
@@ -3544,7 +2856,7 @@ bool MCP2515::modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_RXBnCTRL(0), Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -3593,18 +2905,10 @@ bool MCP2515::modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value)
  *
  * 000 = Acceptance Filter 0 (RXF0) (only if the BUKT bit is set in RXB0CTRL)
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
+ * No Error will be set.
  */
 uint8_t MCP2515::getReceiveBuffer1Control()
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   return readInstruction(REG_RXBnCTRL(1));
 }
 
@@ -3628,14 +2932,6 @@ uint8_t MCP2515::getReceiveBuffer1Control()
  */
 bool MCP2515::setReceiveBuffer1Control(uint8_t RXM)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if (RXM != 0 && RXM != 3)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3644,11 +2940,7 @@ bool MCP2515::setReceiveBuffer1Control(uint8_t RXM)
 
   uint8_t Data = RXM << 5;
 
-  if (!writeInstruction(REG_RXBnCTRL(1), Data))
-  {
-    this->_lastMcpError = ERROR_MCP2515_WRITE_INSTRUCTION;
-    return false;
-  }
+  writeInstruction(REG_RXBnCTRL(1), Data);
 
   if (_reCheckEnabled)
   {
@@ -3684,14 +2976,6 @@ bool MCP2515::setReceiveBuffer1Control(uint8_t RXM)
  */
 bool MCP2515::modifyReceiveBuffer1Control(uint8_t Mask, uint8_t Value)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   if ((Mask & ~RXBnCTRL_BIT_RXM) != 0x00)
   {
     this->_lastMcpError = ERROR_MCP2515_MASK_NOT_VALID;
@@ -3700,7 +2984,7 @@ bool MCP2515::modifyReceiveBuffer1Control(uint8_t Mask, uint8_t Value)
 
   if (!bitModifyInstruction(REG_RXBnCTRL(1), Mask, Value))
   {
-    this->_lastMcpError = ERROR_MCP2515_BITMODIFY_INSTRUCTION;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_BITMODIFY_INSTRUCTION;
     return false;
   }
 
@@ -3726,14 +3010,6 @@ bool MCP2515::modifyReceiveBuffer1Control(uint8_t Mask, uint8_t Value)
  */
 uint8_t MCP2515::getReceiveBufferStandardIdentifierHigh(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3771,14 +3047,6 @@ uint8_t MCP2515::getReceiveBufferStandardIdentifierHigh(uint8_t BufferNumber)
  */
 uint8_t MCP2515::getReceiveBufferStandardIdentifierLow(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3797,14 +3065,6 @@ uint8_t MCP2515::getReceiveBufferStandardIdentifierLow(uint8_t BufferNumber)
  */
 uint8_t MCP2515::getReceiveBufferExtendedIdentifierHigh(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3823,14 +3083,6 @@ uint8_t MCP2515::getReceiveBufferExtendedIdentifierHigh(uint8_t BufferNumber)
  */
 uint8_t MCP2515::getReceiveBufferExtendedIdentifierLow(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3856,14 +3108,6 @@ uint8_t MCP2515::getReceiveBufferExtendedIdentifierLow(uint8_t BufferNumber)
  */
 uint8_t MCP2515::getReceiveBufferDataLengthCode(uint8_t BufferNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3883,14 +3127,6 @@ uint8_t MCP2515::getReceiveBufferDataLengthCode(uint8_t BufferNumber)
  */
 uint8_t MCP2515::getReceiveBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return EMPTY_VALUE_8_BIT;
-  }
-
   if (BufferNumber > 1 || ByteNumber > 7)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -3933,12 +3169,10 @@ uint8_t MCP2515::getReceiveBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumb
 /**
  * @brief Reinitialize the internal registers of the MCP2515 and set the Configuration mode.
  * @note Doc p. 65; Kap. 12.2
- * @return true on success, false when not
+ * @return true on success, false when not (Check _lastMcpError)
  */
 bool MCP2515::resetInstruction()
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   SPI.beginTransaction(_spiSettings);
   digitalWrite(_csPin, LOW);
   SPI.transfer(MCP2515_SPI_INSTRUCTION_RESET);
@@ -3951,7 +3185,7 @@ bool MCP2515::resetInstruction()
   if (_reCheckEnabled)
   {
     if (((getCanStatus() & CANSTAT_BIT_OPMOD) >> 5) != MCP2515_OP_CONFIGURATION) {
-      this->_lastSpiError = ERROR_SPI_CONFIGURATION_MODE_NOT_SET;
+      this->_lastMcpError = ERROR_SPI_CONFIGURATION_MODE_NOT_SET;
       return false;
     }
   }
@@ -3965,12 +3199,10 @@ bool MCP2515::resetInstruction()
  * @note Doc p. 65; Kap. 12.5
  * @param Address Register-Address
  * @param Value Register-Data
- * @return true on success, false when not
+ * @return Returns only true (no Error will be set).
  */
 bool MCP2515::writeInstruction(uint8_t Address, uint8_t Value)
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   SPI.beginTransaction(_spiSettings);
   digitalWrite(_csPin, LOW);
   SPI.transfer(MCP2515_SPI_INSTRUCTION_WRITE);
@@ -3993,12 +3225,10 @@ bool MCP2515::writeInstruction(uint8_t Address, uint8_t Value)
  * @param Address Register-Adress
  * @param Mask Mask
  * @param Value Value
- * @return true on success, false when not
+ * @return true on success, false when not (Check _lastMcpError)
  */
 bool MCP2515::bitModifyInstruction(uint8_t Address, uint8_t Mask, uint8_t Value)
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   if (Address==REG_BFPCTRL or Address==REG_TXRTSCTRL or Address==REG_CANCTRL or Address==REG_CNF3 or
       Address==REG_CNF2 or Address==REG_CNF1 or Address==REG_CANINTE or Address==REG_CANINTF or
       Address==REG_EFLG or Address==REG_TXBnCTRL(0) or Address==REG_TXBnCTRL(1) or Address==REG_TXBnCTRL(2) or
@@ -4016,7 +3246,7 @@ bool MCP2515::bitModifyInstruction(uint8_t Address, uint8_t Mask, uint8_t Value)
     return true;
   }
 
-  this->_lastSpiError = ERROR_SPI_REGISTER_NOT_ALLOWED;
+  this->_lastMcpError = ERROR_SPI_REGISTER_NOT_ALLOWED;
   return false;
 }
 
@@ -4041,30 +3271,28 @@ bool MCP2515::bitModifyInstruction(uint8_t Address, uint8_t Mask, uint8_t Value)
  * @param b TX-Buffer Adress-Pointer (false or true)
  * @param c TX-Buffer Adress-Pointer (false or true)
  * @param Value Data
- * @return true on success, false when not
+ * @return true on success, false when not (Check _lastMcpError)
  */
 bool MCP2515::loadTxBufferInstruction(uint8_t Value, bool a, bool b, bool c)
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   if ((a != false && a != true) ||
       (b != false && b != true) ||
       (c != false && c != true))
   {
-    this->_lastSpiError = ERROR_SPI_VALUE_OUTA_RANGE;
+    this->_lastMcpError = ERROR_SPI_VALUE_OUTA_RANGE;
     return false;
-  } else {
-    uint8_t Instruction = MCP2515_SPI_INSTRUCTION_LOAD_TX_BUFFER | a << 2 | b << 1 | c;
-
-    SPI.beginTransaction(_spiSettings);
-    digitalWrite(_csPin, LOW);
-    SPI.transfer(Instruction);
-    SPI.transfer(Value);
-    digitalWrite(_csPin, HIGH);
-    SPI.endTransaction();
-
-    return true;
   }
+
+  uint8_t Instruction = MCP2515_SPI_INSTRUCTION_LOAD_TX_BUFFER | a << 2 | b << 1 | c;
+
+  SPI.beginTransaction(_spiSettings);
+  digitalWrite(_csPin, LOW);
+  SPI.transfer(Instruction);
+  SPI.transfer(Value);
+  digitalWrite(_csPin, HIGH);
+  SPI.endTransaction();
+
+  return true;
 }
 
 /**
@@ -4073,17 +3301,15 @@ bool MCP2515::loadTxBufferInstruction(uint8_t Value, bool a, bool b, bool c)
  * @param TXBuffer_0 Initiate transmission for TX-Buffer 0 (false or true)
  * @param TXBuffer_1 Initiate transmission for TX-Buffer 1 (false or true)
  * @param TXBuffer_2 Initiate transmission for TX-Buffer 2 (false or true)
- * @return true on success, false when not
+ * @return true on success, false when not (Check _lastMcpError)
  */
 bool MCP2515::rtsInstruction(bool TXBuffer_0, bool TXBuffer_1, bool TXBuffer_2)
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   if ((TXBuffer_0 != false && TXBuffer_0 != true) ||
       (TXBuffer_1 != false && TXBuffer_1 != true) ||
       (TXBuffer_2 != false && TXBuffer_2 != true))
   {
-    this->_lastSpiError = ERROR_SPI_VALUE_OUTA_RANGE;
+    this->_lastMcpError = ERROR_SPI_VALUE_OUTA_RANGE;
     return false;
   } else if (TXBuffer_0 || TXBuffer_1 || TXBuffer_2)
   {
@@ -4093,8 +3319,11 @@ bool MCP2515::rtsInstruction(bool TXBuffer_0, bool TXBuffer_1, bool TXBuffer_2)
     SPI.transfer(Instruction);
     digitalWrite(_csPin, HIGH);
     SPI.endTransaction();
+    return true;
+  } else {
+    this->_lastMcpError = ERROR_SPI_NO_TRANSMISSION_INITIATED;
+    return false;
   }
-  return true;
 }
 
 /**
@@ -4122,12 +3351,10 @@ bool MCP2515::rtsInstruction(bool TXBuffer_0, bool TXBuffer_1, bool TXBuffer_2)
  *
  * ^Buffer 0 has higher priority; therefore, RXB0 status is reflected in bits[4:0].
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastSpiError).
+ * No Error will be set.
  */
 uint8_t MCP2515::rxStatusInstruction()
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   uint8_t value;
   SPI.beginTransaction(_spiSettings);
   digitalWrite(_csPin, LOW);
@@ -4145,12 +3372,10 @@ uint8_t MCP2515::rxStatusInstruction()
  * @param Address Register-Address
  * @return Register-Value
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastSpiError).
+ * No Error will be set.
  */
 uint8_t MCP2515::readInstruction(uint8_t Address)
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   uint8_t value;
 
   SPI.beginTransaction(_spiSettings);
@@ -4184,12 +3409,10 @@ uint8_t MCP2515::readInstruction(uint8_t Address)
  *
  * Bit 7 - TX2IF (CANINTF[4])   - Transmit Buffer 2 Empty Interrupt Flag bit
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastSpiError).
+ * No Error will be set.
  */
 uint8_t MCP2515::readStatusInstruction()
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   uint8_t value;
 
   SPI.beginTransaction(_spiSettings);
@@ -4221,18 +3444,16 @@ uint8_t MCP2515::readStatusInstruction()
  * @param m RX-Buffer Adress-Pointer (false or true)
  * @return Buffer-Value
  *
- * On Error it will return EMPTY_VALUE_8_BIT (Check _lastSpiError).
+ * On Error it will return EMPTY_VALUE_8_BIT (Check _lastMcpError).
  */
 uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
 {
-  this->_lastSpiError = EMPTY_VALUE_16_BIT;
-
   uint8_t value;
 
   if ((n != false && n != true) ||
       (m != false && m != true))
   {
-    this->_lastSpiError = ERROR_SPI_VALUE_OUTA_RANGE;
+    this->_lastMcpError = ERROR_SPI_VALUE_OUTA_RANGE;
     return false;
   }
 
@@ -4256,14 +3477,6 @@ uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
  */
 bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequency)
 {
-  this->_lastMcpError = EMPTY_VALUE_16_BIT;
-
-  if (!_isInitialized)
-  {
-    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
   uint8_t OperationMode = _operationMode;
 
   if (targetBaudRate != 5E3 && targetBaudRate != 10E3 && targetBaudRate != 20E3 &&
@@ -4358,27 +3571,27 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
   {
     if (!setConfigurationMode())
     {
-      this->_lastMcpError = ERROR_MCP2515_CONFIGURATIONMODE_NOT_SET;
+      // Error will be set in setConfigurationMode()
       return false;
     }
   }
 
   if (!modifyConfigurationRegister1(0xFF, cnf[0]))
   {
-    this->_lastMcpError = ERROR_MCP2515_CNF1_NOT_SET;
-      return false;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF1_NOT_SET;
+    return false;
   }
 
   if (!modifyConfigurationRegister2(0xFF, cnf[1]))
   {
-    this->_lastMcpError = ERROR_MCP2515_CNF2_NOT_SET;
-      return false;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF2_NOT_SET;
+    return false;
   }
 
   if (!modifyConfigurationRegister3(0xC7, cnf[2]))
   {
-    this->_lastMcpError = ERROR_MCP2515_CNF3_NOT_SET;
-      return false;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CNF3_NOT_SET;
+    return false;
   }
 
   delayMicroseconds(10);
@@ -4433,7 +3646,6 @@ MCP2515::MCP2515() :
   _baudRate(MCP2515_DEFAULT_BAUDRATE),
   _isInitialized(false),
   _lastMcpError(EMPTY_VALUE_16_BIT),
-  _lastSpiError(EMPTY_VALUE_16_BIT),
   _reCheckEnabled(true)
 {
 }
@@ -4456,19 +3668,6 @@ MCP2515::~MCP2515()
 uint16_t MCP2515::getLastMCPError()
 {
 	return _lastMcpError;
-}
-
-/**
- * @brief Returns the last SPI-Error.
- *
- * The last SPI-Error will always been reset at the beginning of an SPI-Instruction.
- * @return uint16_t SPI-Error
- *
- * 0x0000 = no Error
- */
-uint16_t MCP2515::getLastSPIError()
-{
-	return _lastSpiError;
 }
 
 /**
@@ -4507,10 +3706,14 @@ bool MCP2515::setReCheckEnabler(bool reCheckEnabler)
  */
 bool MCP2515::setSpiPins(uint8_t cs)
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
   if (_isInitialized)
   {
+    this->_lastMcpError = ERROR_MCP2515_IS_INITIALIZED;
     return false;
   }
+
   this->_csPin = cs;
 
   return true;
@@ -4524,21 +3727,22 @@ bool MCP2515::setSpiPins(uint8_t cs)
  */
 bool MCP2515::setSpiMode(uint8_t SpiMode)
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
   if (_isInitialized)
   {
+    this->_lastMcpError = ERROR_MCP2515_IS_INITIALIZED;
     return false;
   }
 
   if (SpiMode != SPI_MODE0 && SpiMode != SPI_MODE3)
   {
+    this->_lastMcpError = ERROR_MCP2515_SPI_MODE_NOT_ALLOWED;
     return false;
   }
 
-  if (SpiMode != _spiMode)
-  {
-    this->_spiMode = SpiMode;
-    SPISettings _spiSettings(_spiFrequency, _dataOrder, SpiMode);
-  }
+  this->_spiMode = SpiMode;
+  SPISettings _spiSettings(_spiFrequency, _dataOrder, SpiMode);
 
   return true;
 }
@@ -4551,21 +3755,22 @@ bool MCP2515::setSpiMode(uint8_t SpiMode)
  */
 bool MCP2515::setDataOrder(uint8_t DataOrder)
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
   if (_isInitialized)
   {
+    this->_lastMcpError = ERROR_MCP2515_IS_INITIALIZED;
     return false;
   }
 
   if (DataOrder != MSBFIRST)
   {
+    this->_lastMcpError = ERROR_MCP2515_DATA_ORDER_NOT_ALLOWED;
     return false;
   }
 
-  if (DataOrder != _dataOrder)
-  {
-    this->_dataOrder = DataOrder;
-    SPISettings _spiSettings(_spiFrequency, DataOrder, _spiMode);
-  }
+  this->_dataOrder = DataOrder;
+  SPISettings _spiSettings(_spiFrequency, DataOrder, _spiMode);
 
   return true;
 }
@@ -4578,22 +3783,23 @@ bool MCP2515::setDataOrder(uint8_t DataOrder)
  */
 bool MCP2515::setSpiFrequency(uint32_t Frequency)
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
   if (_isInitialized)
   {
+    this->_lastMcpError = ERROR_MCP2515_IS_INITIALIZED;
     return false;
   }
 
   if (((uint32_t)Frequency > (uint32_t)MCP2515_MAX_SPI_SPEED) ||
       ((uint32_t)Frequency < (uint32_t)1e6))
   {
+    this->_lastMcpError = ERROR_MCP2515_SPI_FREQUENCY_NOT_ALLOWED;
     return false;
   }
 
-  //if ((uint32_t)Frequency != (uint32_t)_spiFrequency)
-  //{
-    this->_spiFrequency = Frequency;
-    SPISettings _spiSettings(Frequency, _dataOrder, _spiMode);
-  //}
+  this->_spiFrequency = Frequency;
+  SPISettings _spiSettings(Frequency, _dataOrder, _spiMode);
 
   return true;
 }
@@ -4601,18 +3807,20 @@ bool MCP2515::setSpiFrequency(uint32_t Frequency)
 /**
  * @brief Set the MCP2515 Clock-Frequency.
  * @note Use this Method only before the Initialisation of the MCP2515.
- * @param ClockFrequency max. allowed Value for the MCP2515 is 40e6 Hz.
+ * @param ClockFrequency allowed Values are 8MHz, 16MHz, 25MHz or 40MHz.
  * @return true when success, false on any error
  */
 bool MCP2515::setClockFrequency(uint32_t ClockFrequency)
 {
   if (_isInitialized)
   {
+    this->_lastMcpError = ERROR_MCP2515_IS_INITIALIZED;
     return false;
   }
 
-  if ((uint32_t)ClockFrequency > (uint32_t)MCP2515_MAX_CLOCK_FREQUENCY)
+  if (ClockFrequency != 8E6 && ClockFrequency != 16E6 && ClockFrequency != 25E6 && ClockFrequency != 40E6)
   {
+    this->_lastMcpError = ERROR_MCP2515_CLOCKFREQUENCY_NOT_VALID;
     return false;
   }
 
@@ -4646,7 +3854,7 @@ bool MCP2515::setConfigurationMode()
 
   if (counter <= 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET;
+    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET | _lastMcpError;
     return false;
   }
 
@@ -4679,7 +3887,7 @@ bool MCP2515::setNormalMode()
 
   if (counter <= 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET;
+    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET | _lastMcpError;
     return false;
   }
 
@@ -4712,7 +3920,7 @@ bool MCP2515::setSleepMode()
 
   if (counter <= 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET;
+    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET | _lastMcpError;
     return false;
   }
 
@@ -4745,7 +3953,7 @@ bool MCP2515::setListenOnlyMode()
 
   if (counter <= 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET;
+    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET | _lastMcpError;
     return false;
   }
 
@@ -4778,7 +3986,7 @@ bool MCP2515::setLoopbackMode()
 
   if (counter <= 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET;
+    this->_lastMcpError = ERROR_MCP2515_OPERATION_MODE_NOT_SET | _lastMcpError;
     return false;
   }
 
@@ -4807,6 +4015,13 @@ bool MCP2515::setLoopbackMode()
 bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_IS_INITIALIZED;
+    return false;
+  }
+
   this->_reCheckEnabled = reCheckEnabled;
 
   if (_csPin == 0)
@@ -4824,14 +4039,14 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   // Reset the MCP2515
   if (!resetInstruction()) {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_RESET_FAILED | getLastSPIError();
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_RESET_FAILED;
     return false;
   }
 
   // Change the Bit-Timing
   if (!changeBaudRate(BaudRate)) {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_CHANGE_BITTIMING | getLastMCPError();
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_CHANGE_BITTIMING;
     return false;
   }
 
@@ -4839,7 +4054,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!modifyTXnRTSPinControl(TXRTSCTRL_BIT_BnRTSM(0) | TXRTSCTRL_BIT_BnRTSM(1) | TXRTSCTRL_BIT_BnRTSM(2), 0x00))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_TX_PIN_CONTROL | getLastMCPError();
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_TX_PIN_CONTROL;
     return false;
   }
 
@@ -4847,7 +4062,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!modifyRXnBFPinControl(BFPCTRL_BIT_BnBFE(0) | BFPCTRL_BIT_BnBFE(1), 0x00))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_RX_PIN_CONTROL | getLastMCPError();
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_RX_PIN_CONTROL;
     return false;
   }
 
@@ -4855,7 +4070,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!setCanInterruptEnable(false, false, false, false, false, false, false, false))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_SET_INTERRUPTS | getLastMCPError();
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_SET_INTERRUPTS;
     return false;
   }
 
@@ -4863,7 +4078,7 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!modifyCanInterruptFlag(0x1C, 0x1C))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_SET_TX_BUFFER_FLAGS | getLastMCPError();
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_SET_TX_BUFFER_FLAGS;
     return false;
   }
 
@@ -4871,14 +4086,14 @@ bool MCP2515::init(uint32_t BaudRate, bool reCheckEnabled)
   if (!disableFilterMask(0) || !disableFilterMask(1))
   {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_DISABLE_MASKS_FILTERS | getLastMCPError();
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INIT_DISABLE_MASKS_FILTERS;
     return false;
   }
 
   // Change to Operation-Mode Normal
   if (!setNormalMode()) {
     this->_isInitialized = false;
-    this->_lastMcpError = ERROR_MCP2515_INIT_SET_NORMAL_MODE | getLastMCPError();
+    this->_lastMcpError =_lastMcpError | ERROR_MCP2515_INIT_SET_NORMAL_MODE;
     return false;
   }
 
@@ -4902,34 +4117,25 @@ void MCP2515::deinit()
  */
 bool MCP2515::changeBaudRate(uint32_t targetBaudRate)
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
   if (targetBaudRate != _baudRate)
   {
     if (!changeBitTiming(targetBaudRate, _clockFrequency))
     {
+      // Error will be set in changeBitTiming()
       return false;
     }
     this->_baudRate = targetBaudRate;
   }
   return true;
 }
-
-///**
-// * @brief Changing the ClockFrequency.
-// * @param targetClockFrequency possible ClockFrequencys= (8E6, 16E6, 25E6, 40E6)
-// * @return true when success, false on any error (Check _lastMcpError)
-// */
-//bool MCP2515::changeClockFrequency(uint32_t targetClockFrequency)
-//{
-//  if ((uint32_t)targetClockFrequency != (uint32_t)_clockFrequency)
-//  {
-//    if (!changeBitTiming(_baudRate, targetClockFrequency))
-//    {
-//      return false;
-//    }
-//    this->_clockFrequency = targetClockFrequency;
-//  }
-//  return true;
-//}
 
 /**
  * @brief Enable/Disable an Interrupt.
@@ -4961,6 +4167,12 @@ bool MCP2515::changeInterruptSetting(bool value, uint8_t Interrupt)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
 
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
   if ((Interrupt > 7) ||
       (value != false && value != true))
   {
@@ -4974,6 +4186,7 @@ bool MCP2515::changeInterruptSetting(bool value, uint8_t Interrupt)
 
   if (!modifyCanInterruptEnable(InterruptBit, EnablerValue))
   {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHANGE_INTERRUPT;
     return false;
   }
 
@@ -4988,6 +4201,12 @@ bool MCP2515::changeInterruptSetting(bool value, uint8_t Interrupt)
 bool MCP2515::enableFilterMask(uint8_t buffer)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
 
   if (buffer > 1)
   {
@@ -5018,6 +4237,12 @@ bool MCP2515::enableFilterMask(uint8_t buffer)
 bool MCP2515::disableFilterMask(uint8_t buffer)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
 
   if (buffer > 1)
   {
@@ -5056,19 +4281,24 @@ uint8_t MCP2515::check4FreeTransmitBuffer()
     return 0xFF;
   }
 
-  if ((readStatusInstruction() & 0xA8) == 0x00)
+  uint8_t Value = readStatusInstruction();
+
+  if ((Value & 0xA8) == 0x00)
   {
+    this->_lastMcpError = ERROR_MCP2515_NO_TRANSMITBUFFER_FREE;
     return 0xFF;
   }
 
   for (size_t i = 0; i < 3; i++)
   {
-    if ((readStatusInstruction() & (0x08 << (2 * i))) != 0 )
+    if ((Value & (0x08 << (2 * i))) != 0 )
     {
       return i;
       break;
     }
   }
+
+  this->_lastMcpError = ERROR_MCP2515_UNDEFINED;
   return 0xFF;
 }
 
@@ -5104,6 +4334,12 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 
   if ((check4InterruptFlags() & (0x04 << BufferNumber)) != (0x04 << BufferNumber))
   {
+    if (_lastMcpError != EMPTY_VALUE_16_BIT)
+    {
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_CHECK_FREE_TRANSMIT_BUFFER;
+      return false;
+    }
+
     this->_lastMcpError = ERROR_MCP2515_TRANSMITBUFFER_NOT_FREE;
     return false;
   }
@@ -5123,7 +4359,7 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 
   if (ErrorCount > 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_TRANSMITBUFFER_ID_FILLING;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_TRANSMITBUFFER_ID_FILLING;
     return false;
   }
 
@@ -5139,13 +4375,13 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 
   if (ErrorCount > 0)
   {
-    this->_lastMcpError = ERROR_MCP2515_TRANSMITBUFFER_DATA_FILLING;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_TRANSMITBUFFER_DATA_FILLING;
     return false;
   }
 
   if (!resetInterruptFlag((0x02 + BufferNumber)))
   {
-    this->_lastMcpError = ERROR_MCP2515_RESET_INTERRUPT_FLAG;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
     return false;
   }
 
@@ -5177,16 +4413,23 @@ bool MCP2515::sendMessage(uint8_t BufferNumber, uint8_t Priority)
 
   if (!modifyTransmitBufferControl(BufferNumber, 0x0B, (0x08 | Priority)))
   {
-    this->_lastMcpError=0x0010;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_INITIATE_SENDING;
     return false;
   }
 
   bool aborted = false;
+  bool error_during_sending = false;
+  uint16_t ErrorValue = EMPTY_VALUE_16_BIT;
 
   // While the Message Transmit Request bit is set
   while (getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXREQ) {
     // Check if an error occures during the transmission
-    if (getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXERR) {
+    if ((getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXERR) || (_lastMcpError != EMPTY_VALUE_16_BIT)) {
+
+      if (_lastMcpError != EMPTY_VALUE_16_BIT){
+        error_during_sending = true;
+        ErrorValue = ERROR_MCP2515_ERROR_DURING_SENDING;
+      }
       // set aborted to true
       aborted = true;
 
@@ -5205,7 +4448,7 @@ bool MCP2515::sendMessage(uint8_t BufferNumber, uint8_t Priority)
     // when the abortion is successfull reset the "Abort All Pending Transmissions"-bit
     modifyCanControl(CANCTRL_BIT_ABAT, 0x00);
     modifyCanInterruptFlag(0x1B, 0x1B);
-    this->_lastMcpError=0x0020;
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_MESSAGE_SENDING_ABORTED;
     return false;
   }
 
@@ -5272,6 +4515,14 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
             continue;
         }
       }else{
+        // Because getReceiveBufferStandardIdentifierLow() returns EMPTY_VALUE_8_BIT on Error,
+        // only to check here if Error occurs.
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
+          return false;
+        }
+
         if (Extended)
         {
             continue;
@@ -5281,12 +4532,24 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
       uint32_t RTR_ID = ((getReceiveBufferStandardIdentifierHigh(i) << 3) & 0x07F8) |
                         ((getReceiveBufferStandardIdentifierLow(i) >> 5) & 0x07);
 
+      if (_lastMcpError != EMPTY_VALUE_16_BIT)
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_STANDARD_ID;
+        return false;
+      }
+
       if (Extended)
       {
         RTR_ID = ((RTR_ID << 18) & 0x1FFC0000) |
                  ((((getReceiveBufferStandardIdentifierLow(i) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
                  ((getReceiveBufferExtendedIdentifierHigh(i) << 8) & 0xFF00) |
                  getReceiveBufferExtendedIdentifierLow(i);
+
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_ID;
+          return false;
+        }
       }
 
       if (ID != RTR_ID)
@@ -5294,7 +4557,10 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
         continue;
       }
 
-      modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00);
+      if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00))
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
+      }
 
       return true;
     }
@@ -5341,6 +4607,14 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
             continue;
         }
       }else{
+        // Because getReceiveBufferStandardIdentifierLow() returns EMPTY_VALUE_8_BIT on Error,
+        // only to check here if Error occurs.
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
+          return false;
+        }
+
         if (Extended)
         {
             continue;
@@ -5350,12 +4624,24 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
       uint32_t Message_ID = ((getReceiveBufferStandardIdentifierHigh(i) << 3) & 0x07F8) |
                         ((getReceiveBufferStandardIdentifierLow(i) >> 5) & 0x07);
 
+      if (_lastMcpError != EMPTY_VALUE_16_BIT)
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_STANDARD_ID;
+        return false;
+      }
+
       if (Extended)
       {
         Message_ID = ((Message_ID << 18) & 0x1FFC0000) |
                      ((((getReceiveBufferStandardIdentifierLow(i) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
                      ((getReceiveBufferExtendedIdentifierHigh(i) << 8) & 0xFF00) |
                      getReceiveBufferExtendedIdentifierLow(i);
+
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_ID;
+          return false;
+        }
       }
 
       if (ID != Message_ID)
@@ -5363,7 +4649,15 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
         continue;
       }
 
-      if ((getReceiveBufferDataLengthCode(i) & RXBnDLC_BIT_DLC) != DLC)
+      uint8_t MessageDLC = (getReceiveBufferDataLengthCode(i) & RXBnDLC_BIT_DLC);
+
+      if (_lastMcpError != EMPTY_VALUE_16_BIT)
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_DLC;
+        return false;
+      }
+
+      if (MessageDLC != DLC)
       {
         continue;
       }
@@ -5372,9 +4666,17 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
       {
         DataBuffer[m] = getReceiveBufferDataByte(i, m);
 
+        if (_lastMcpError != EMPTY_VALUE_16_BIT)
+        {
+          this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_DATA;
+          return false;
+        }
       }
 
-      modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00);
+      if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(i), 0x00))
+      {
+        this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
+      }
 
       return true;
     }
@@ -5408,12 +4710,30 @@ uint32_t MCP2515::getIdFromReceiveBuffer(uint8_t BufferNumber)
   uint32_t Message_ID = ((getReceiveBufferStandardIdentifierHigh(BufferNumber) << 3) & 0x07F8) |
                         ((getReceiveBufferStandardIdentifierLow(BufferNumber) >> 5) & 0x07);
 
+  if (_lastMcpError != EMPTY_VALUE_16_BIT)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_STANDARD_ID;
+    return EMPTY_VALUE_32_BIT;
+  }
+
   if ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE)
   {
     Message_ID = ((Message_ID << 18) & 0x1FFC0000) |
                  ((((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
                  ((getReceiveBufferExtendedIdentifierHigh(BufferNumber) << 8) & 0xFF00) |
                  getReceiveBufferExtendedIdentifierLow(BufferNumber);
+
+    if (_lastMcpError != EMPTY_VALUE_16_BIT)
+    {
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_ID;
+      return EMPTY_VALUE_32_BIT;
+    }
+  }
+
+  if (_lastMcpError != EMPTY_VALUE_16_BIT)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
+    return EMPTY_VALUE_32_BIT;
   }
 
   return Message_ID;
@@ -5429,6 +4749,12 @@ uint32_t MCP2515::getIdFromReceiveBuffer(uint8_t BufferNumber)
 uint8_t MCP2515::getDlcFromReceiveBuffer(uint8_t BufferNumber)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
 
   if (BufferNumber > 1)
   {
@@ -5454,13 +4780,31 @@ uint8_t MCP2515::getFrameFromReceiveBuffer(uint8_t BufferNumber)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
 
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
   if (BufferNumber > 1)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return EMPTY_VALUE_8_BIT;
   }
 
-  return ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE) ? 1 : 0;
+  if ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE)
+  {
+    return 1;
+  }else{
+    // Because getReceiveBufferStandardIdentifierLow() returns EMPTY_VALUE_8_BIT on Error,
+    // only to check here if Error occurs.
+    if (_lastMcpError != EMPTY_VALUE_16_BIT)
+    {
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_EXTENDED_FLAG;
+    }
+
+    return 0;
+  }
 }
 
 /**
@@ -5477,6 +4821,12 @@ uint8_t MCP2515::getFrameFromReceiveBuffer(uint8_t BufferNumber)
 uint8_t MCP2515::getRtrFromReceiveBuffer(uint8_t BufferNumber)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
 
   if (BufferNumber > 1)
   {
@@ -5526,7 +4876,14 @@ bool MCP2515::getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_
   for (size_t m = 0; m < DLC; m++)
   {
     DataBuffer[m] = getReceiveBufferDataByte(BufferNumber, m);
+
+    if (_lastMcpError != EMPTY_VALUE_16_BIT)
+    {
+      this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_DATA;
+      return false;
+    }
   }
+
   return true;
 }
 
@@ -5572,7 +4929,16 @@ bool MCP2515::getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool
     Data_Bytes[i] = getReceiveBufferDataByte(BufferNumber, i);
   }
 
-  releaseReceiveBuffer(BufferNumber);
+  if (_lastMcpError != EMPTY_VALUE_16_BIT)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_GET_ALL_DATA;
+    return false;
+  }
+
+  if (!modifyCanInterruptFlag(CANINTF_BIT_RXnIF(BufferNumber), 0x00))
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_RESET_FLAG;
+  }
 
   bool RTR_Message = ((Data_RX_Controller & RXBnCTRL_BIT_RXRTR) == RXBnCTRL_BIT_RXRTR) ? true : false;
   bool Extended_Frame = ((Data_Standard_Low & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE) ? true : false;
@@ -5690,6 +5056,14 @@ bool MCP2515::releaseReceiveBuffer(uint8_t BufferNumber)
  */
 uint8_t MCP2515::check4InterruptFlags()
 {
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return EMPTY_VALUE_8_BIT;
+  }
+
   return getCanInterruptFlag();
 }
 
@@ -5716,6 +5090,12 @@ uint8_t MCP2515::check4InterruptFlags()
 bool MCP2515::resetInterruptFlag(uint8_t Flag)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return EMPTY_VALUE_8_BIT;
+  }
 
   if (Flag > 7)
   {
@@ -5749,6 +5129,12 @@ bool MCP2515::resetInterruptFlag(uint8_t Flag)
 bool MCP2515::setInterruptFlag(uint8_t Flag)
 {
   this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return EMPTY_VALUE_8_BIT;
+  }
 
   if (Flag > 7)
   {

@@ -96,7 +96,6 @@ class MCP2515
 		uint32_t _baudRate;
 		bool _isInitialized;
 		uint16_t _lastMcpError;
-  		uint16_t _lastSpiError;
 		bool _reCheckEnabled;
 
 
@@ -237,7 +236,6 @@ class MCP2515
 		// for Error-Handling
 
 		uint16_t getLastMCPError();
-		uint16_t getLastSPIError();
 
 		// only before initialisation
 
