@@ -82,6 +82,12 @@
 
 #define MCP2515_DEFAULT_BAUDRATE	500E3
 
+struct Filter
+{
+	uint32_t ID;
+	bool Extended;
+};
+
 
 class MCP2515
 {
@@ -97,6 +103,8 @@ class MCP2515
 		bool _isInitialized;
 		uint16_t _lastMcpError;
 		bool _reCheckEnabled;
+		Filter _filterSettings[6];
+		uint32_t _maskSettings[2];
 
 
 
@@ -265,8 +273,12 @@ class MCP2515
 		//bool changeClockFrequency(uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 		bool changeInterruptSetting(bool value, uint8_t InterruptBit);
 
+		// Filter/Mask-Handling
+
 		bool enableFilterMask(uint8_t buffer = 0);
 		bool disableFilterMask(uint8_t buffer = 0);
+		bool setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended);
+		bool setMask(uint8_t MaskNumber, uint32_t ID);
 
 		// Message-Handling
 		// Transmission
