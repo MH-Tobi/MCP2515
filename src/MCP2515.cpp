@@ -3625,8 +3625,6 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
 }
 
 
-
-
 /***********************************************************************************************************************
  * 									Public Methods
  **********************************************************************************************************************/
@@ -3646,7 +3644,9 @@ MCP2515::MCP2515() :
   _baudRate(MCP2515_DEFAULT_BAUDRATE),
   _isInitialized(false),
   _lastMcpError(EMPTY_VALUE_16_BIT),
-  _reCheckEnabled(true)
+  _reCheckEnabled(true),
+  _filterSettings{{0,false}, {0,false}, {0,false}, {0,false}, {0,false}, {0,false}},
+  _maskSettings{0, 0}
 {
 }
 
@@ -3806,9 +3806,9 @@ bool MCP2515::setSpiFrequency(uint32_t Frequency)
 
 /**
  * @brief Set the MCP2515 Clock-Frequency.
- * @note Use this Method only before the Initialisation of the MCP2515.
  * @param ClockFrequency allowed Values are 8MHz, 16MHz, 25MHz or 40MHz.
  * @return true when success, false on any error
+ * @note Use this Method only before the Initialisation of the MCP2515.
  */
 bool MCP2515::setClockFrequency(uint32_t ClockFrequency)
 {
@@ -4263,6 +4263,168 @@ bool MCP2515::disableFilterMask(uint8_t buffer)
     return false;
     break;
   }
+}
+
+/**
+ * @brief Set a Filter ID.
+ * @param FilterNumber Filter Number (0-5)
+ * @param ID Filter ID
+ * @param Extended true = Filter is applied only to extended frames; false = Filter is applied only to standard frames
+ * @return true when success, false on any error (Check _lastMcpError)
+ */
+bool MCP2515::setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended)
+{
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  uint8_t OperationMode = _operationMode;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
+  if (FilterNumber > 5 || (Extended != false && Extended != true) ||
+      (Extended == false && ID > 0x7FF) || (Extended == true && ID > 0x1FFFFFFF))
+  {
+    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return false;
+  }
+
+  if (_operationMode != MCP2515_OP_CONFIGURATION)
+  {
+    if (!setConfigurationMode())
+    {
+      // Error will be set in setConfigurationMode()
+      return false;
+    }
+  }
+
+  uint8_t ErrorCount = 0;
+  if (Extended) {
+    ErrorCount = ErrorCount + (setFilterStandardIdentifierHigh(FilterNumber, (ID >> 21))) ? 0 : 1;
+    ErrorCount = ErrorCount + (setFilterStandardIdentifierLow(FilterNumber, ((ID >> 18) & 0x07), Extended, ((ID >> 16) & 0x03))) ? 0 : 1;
+    ErrorCount = ErrorCount + (setFilterExtendedIdentifierHigh(FilterNumber, ((ID >> 8) & 0xFF))) ? 0 : 1;
+    ErrorCount = ErrorCount + (setFilterExtendedIdentifierLow(FilterNumber, (ID & 0xFF))) ? 0 : 1;
+  } else {
+    ErrorCount = ErrorCount + (setFilterStandardIdentifierHigh(FilterNumber, (ID >> 3))) ? 0 : 1;
+    ErrorCount = ErrorCount + (setFilterStandardIdentifierLow(FilterNumber, (ID & 0x03), Extended, 0x00)) ? 0 : 1;
+    ErrorCount = ErrorCount + (setFilterExtendedIdentifierHigh(FilterNumber, 0x00)) ? 0 : 1;
+    ErrorCount = ErrorCount + (setFilterExtendedIdentifierLow(FilterNumber, 0x00)) ? 0 : 1;
+  }
+
+  if (ErrorCount > 0)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_FILTER_ID_FILLING;
+    return false;
+  }
+
+  _filterSettings[FilterNumber].Extended = Extended;
+  _filterSettings[FilterNumber].ID = ID;
+
+  if (OperationMode != _operationMode)
+  {
+    switch (OperationMode)
+    {
+    case MCP2515_OP_LISTEN:
+      return setListenOnlyMode();
+      break;
+    case MCP2515_OP_LOOPBACK:
+      return setLoopbackMode();
+      break;
+    case MCP2515_OP_NORMAL:
+      return setNormalMode();
+      break;
+    case MCP2515_OP_SLEEP:
+      return setSleepMode();
+      break;
+    case MCP2515_OP_CONFIGURATION:
+      return setConfigurationMode();
+      break;
+    default:
+      this->_lastMcpError = ERROR_MCP2515_UNKNOWN_SWITCH;
+      return false;
+      break;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * @brief Set a Mask ID.
+ * @param MaskNumber Mask Number (0-1)
+ * @param ID Mask ID
+ * @return true when success, false on any error (Check _lastMcpError)
+ */
+bool MCP2515::setMask(uint8_t MaskNumber, uint32_t ID)
+{
+  this->_lastMcpError = EMPTY_VALUE_16_BIT;
+
+  uint8_t OperationMode = _operationMode;
+
+  if (!_isInitialized)
+  {
+    this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
+    return false;
+  }
+
+  if (MaskNumber > 1 || ID > 0x1FFFFFFF)
+  {
+    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
+    return false;
+  }
+
+  if (_operationMode != MCP2515_OP_CONFIGURATION)
+  {
+    if (!setConfigurationMode())
+    {
+      // Error will be set in setConfigurationMode()
+      return false;
+    }
+  }
+
+  uint8_t ErrorCount = 0;
+  ErrorCount = ErrorCount + (setMaskStandardIdentifierHigh(MaskNumber, (ID >> 21))) ? 0 : 1;
+  ErrorCount = ErrorCount + (setMaskStandardIdentifierLow(MaskNumber, ((ID >> 18) & 0x07), ((ID >> 16) & 0x03))) ? 0 : 1;
+  ErrorCount = ErrorCount + (setMaskExtendedIdentifierHigh(MaskNumber, ((ID >> 8) & 0xFF))) ? 0 : 1;
+  ErrorCount = ErrorCount + (setMaskExtendedIdentifierLow(MaskNumber, (ID & 0xFF))) ? 0 : 1;
+
+  if (ErrorCount > 0)
+  {
+    this->_lastMcpError = _lastMcpError | ERROR_MCP2515_MASK_ID_FILLING;
+    return false;
+  }
+
+  _maskSettings[MaskNumber] = ID;
+
+  if (OperationMode != _operationMode)
+  {
+    switch (OperationMode)
+    {
+    case MCP2515_OP_LISTEN:
+      return setListenOnlyMode();
+      break;
+    case MCP2515_OP_LOOPBACK:
+      return setLoopbackMode();
+      break;
+    case MCP2515_OP_NORMAL:
+      return setNormalMode();
+      break;
+    case MCP2515_OP_SLEEP:
+      return setSleepMode();
+      break;
+    case MCP2515_OP_CONFIGURATION:
+      return setConfigurationMode();
+      break;
+    default:
+      this->_lastMcpError = ERROR_MCP2515_UNKNOWN_SWITCH;
+      return false;
+      break;
+    }
+  }
+
+  return true;
 }
 
 /**
