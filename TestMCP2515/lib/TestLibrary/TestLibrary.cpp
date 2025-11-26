@@ -35,7 +35,7 @@ bool _initialize_Module(MCP2515 &Module, uint8_t CS_Pin, uint32_t SPIFrequency, 
     if (!Module.setClockFrequency(ClockFrequency)){
         Serial.println("\t- Setting Clock-Frequency failed.");
     }
-    
+
     delay(100);
 
     if (CS_Pin != 0)
@@ -247,9 +247,9 @@ uint8_t testSetSpiPins(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettin
     } else {
         Serial.println("\t- passed");
     }
-    
+
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test setSpiPins-Function when initialized");
@@ -267,7 +267,7 @@ uint8_t testSetSpiPins(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettin
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Module.deinit();
     delay(1000);
@@ -316,7 +316,7 @@ uint8_t testSetSpiMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettin
     } else {
         Serial.println("\t- passed");
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -505,7 +505,7 @@ uint8_t testSetDataOrder(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
 
 
 uint8_t testSetSpiFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
-    
+
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -549,7 +549,7 @@ uint8_t testSetSpiFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
     } else {
         Serial.println("\t- passed");
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -674,9 +674,9 @@ uint8_t testSetClockFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     } else {
         Serial.println("\t- passed");
     }
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     delay(500);
 
     if (!Module.setSpiFrequency(defaultSPIFrequency)){
@@ -810,7 +810,7 @@ uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t def
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -823,7 +823,7 @@ uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t def
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test setConfigurationMode-Function when initialized");
-    
+
     if (!Module.setConfigurationMode())
     {
         Serial.print("\t- Failed. Setting ConfigurationMode not successfull in initialized Mode with Error 0x");
@@ -839,7 +839,7 @@ uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t def
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setConfigurationMode-Function with wrong CS-Pin Configuration");
-    
+
     delay(500);
     pinMode(CS_Pin, INPUT_PULLUP);
     delay(500);
@@ -916,7 +916,7 @@ uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -932,7 +932,7 @@ uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test setNormalMode-Function when initialized");
-    
+
     if (!Module.setNormalMode())
     {
         Serial.print("\t- Failed. Setting NormalMode not successfull in initialized Mode with Error 0x");
@@ -951,7 +951,7 @@ uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     while (!Module.setConfigurationMode()){
         delay(100);
     }
-    
+
     delay(500);
     pinMode(CS_Pin, INPUT_PULLUP);
     delay(500);
@@ -1028,7 +1028,7 @@ uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1041,7 +1041,7 @@ uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test setListenOnlyMode-Function when initialized");
-    
+
     if (!Module.setListenOnlyMode())
     {
         Serial.print("\t- Failed. Setting ListenOnlyMode not successfull in initialized Mode with Error 0x");
@@ -1057,7 +1057,7 @@ uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setListenOnlyMode-Function with wrong CS-Pin Configuration");
-    
+
     delay(500);
     pinMode(CS_Pin, INPUT_PULLUP);
     delay(500);
@@ -1135,7 +1135,7 @@ uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1148,7 +1148,7 @@ uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test setLoopbackMode-Function when initialized");
-    
+
     if (!Module.setLoopbackMode())
     {
         Serial.print("\t- Failed. Setting LoopbackMode not successfull in initialized Mode with Error 0x");
@@ -1164,7 +1164,7 @@ uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setLoopbackMode-Function with wrong CS-Pin Configuration");
-    
+
     delay(500);
     pinMode(CS_Pin, INPUT_PULLUP);
     delay(500);
@@ -1244,7 +1244,7 @@ uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1258,7 +1258,7 @@ uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test setSleepMode-Function when initialized");
-    
+
     if (!Module.setSleepMode())
     {
         Serial.print("\t- Failed. Setting SleepMode not successfull in initialized Mode with Error 0x");
@@ -1274,11 +1274,11 @@ uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
 
     delay(1000);
     Module.resetInterruptFlag(6);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setSleepMode-Function with wrong CS-Pin Configuration");
-    
+
     delay(500);
     pinMode(CS_Pin, INPUT_PULLUP);
     delay(500);
@@ -1346,7 +1346,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
 
     if (Module.setReCheckEnabler(false)){
         Serial.println("\t- Failed. Setting ReCheckEnabler successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -1357,7 +1357,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1368,7 +1368,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test setReCheckEnabler-Function when initialized");
-    
+
     if (!Module.setReCheckEnabler(true))
     {
         Serial.print("\t- Failed. Setting ReCheckEnabler not successfull in initialized Mode with Error 0x");
@@ -1379,7 +1379,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setReCheckEnabler-Function with defined Values");
@@ -1390,7 +1390,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
         Serial.print("\t- Failed. Setting ReCheckEnabler true failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t- passed");
     }
@@ -1404,7 +1404,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
         Serial.print("\t- Failed. Setting ReCheckEnabler false failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t- passed");
     }
@@ -1433,7 +1433,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
     uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
     uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
     uint8_t possibleBaudrateCounter = 0;
-    
+
     uint8_t Errors = 0;
 
     delay(500);
@@ -1478,7 +1478,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
     } else {
         Serial.println("\t- passed");
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1493,7 +1493,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
     Serial.println(".2: Test changeBaudRate-Function when initialized");
 
     possibleBaudrateCounter++;
-    
+
     if (!Module.changeBaudRate(possibleBaudRates[possibleBaudrateCounter]))
     {
         if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) == ERROR_MCP2515_CNF_NOT_FOUND){
@@ -1510,7 +1510,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
 
                 Module.changeBaudRate(possibleBaudRates[possibleBaudrateCounter]);
             }
-                        
+
             if (Module.getLastMCPError() == 0x00){
                 Serial.println("\t- passed");
             } else {
@@ -1523,7 +1523,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
         }
-        
+
     } else {
         Serial.println("\t- passed");
     }
@@ -1599,7 +1599,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
             Serial.println("kB");
             Errors++;
         }
-        
+
         delay(500);
     }
 
@@ -1643,7 +1643,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Errors++;
             } else {
                 Serial.println("\t- passed");
-            }            
+            }
         }
         delay(500);
     }
@@ -1692,7 +1692,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Errors++;
             } else {
                 Serial.println("\t- passed");
-            }            
+            }
         }
         delay(500);
     }
@@ -1741,7 +1741,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Errors++;
             } else {
                 Serial.println("\t- passed");
-            }            
+            }
         }
         delay(500);
     }
@@ -1790,7 +1790,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Errors++;
             } else {
                 Serial.println("\t- passed");
-            }            
+            }
         }
         delay(500);
     }
@@ -1852,7 +1852,7 @@ uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t d
     if (Module.changeInterruptSetting(true, 1)){
         Serial.println("\t- Failed. Change InterruptSetting successfull");
         Module.changeInterruptSetting(false, 1);
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -1869,7 +1869,7 @@ uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t d
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     while (!_initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, defaultBaudrate)){
         delay(100);
-    }   
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test changeInterruptSetting-Function when initialized");
@@ -1885,7 +1885,7 @@ uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t d
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test changeInterruptSetting-Function with defined Values");
@@ -2007,7 +2007,7 @@ uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t d
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2051,7 +2051,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
     if (Module.enableFilterMask(0)){
         Serial.println("\t- Failed. Enable FilterMask successfull");
         Module.disableFilterMask(0);
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -2062,7 +2062,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2073,7 +2073,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test enableFilterMask-Function when initialized");
-    
+
     if (!Module.enableFilterMask(0))
     {
         Serial.print("\t- Failed. Enable FilterMask not successfull in initialized Mode with Error 0x");
@@ -2085,7 +2085,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test enableFilterMask-Function with defined Values");
@@ -2103,7 +2103,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
             Serial.print("\t- Failed. Enable FilterMask failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
             Module.disableFilterMask(i);
@@ -2111,7 +2111,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2131,7 +2131,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
             Serial.println("\t- Failed. Enable FilterMask successfull");
             Module.disableFilterMask(i);
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -2145,7 +2145,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2187,7 +2187,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
 
     if (Module.disableFilterMask(0)){
         Serial.println("\t- Failed. Disnable FilterMask successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -2198,7 +2198,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2209,7 +2209,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test disableFilterMask-Function when initialized");
-    
+
     if (!Module.disableFilterMask(0))
     {
         Serial.print("\t- Failed. Disable FilterMask not successfull in initialized Mode with Error 0x");
@@ -2220,7 +2220,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test disableFilterMask-Function with defined Values");
@@ -2238,14 +2238,14 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
             Serial.print("\t- Failed. Disable FilterMask failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2264,7 +2264,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
         {
             Serial.println("\t- Failed. Disnable FilterMask successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -2278,7 +2278,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2321,7 +2321,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
 
     if (Module.check4FreeTransmitBuffer() != 0xFF){
         Serial.println("\t- Failed. Check for a free Transmit-Buffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -2332,7 +2332,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2349,9 +2349,9 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
-    
+
     if (Module.check4FreeTransmitBuffer() == 0xFF)
     {
         Serial.print("\t- Failed. Check for a free Transmit-Buffer not successfull in initialized Mode with Error 0x");
@@ -2362,7 +2362,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test check4FreeTransmitBuffer-Function for each TX-Buffer");
@@ -2372,7 +2372,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
     {
         Module.resetInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 3; i++)
@@ -2395,7 +2395,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
             Serial.print("\t\t- Failed. Check for a free Transmit-Buffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t\t- passed");
         }
@@ -2404,7 +2404,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
 
         Module.resetInterruptFlag((i + 2));
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2453,7 +2453,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
     if (Module.fillTransmitBuffer(0, 1, true, false, 4, Data)){
         Serial.println("\t- Failed. Fill Transmit-Buffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -2464,7 +2464,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2481,9 +2481,9 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
-    
+
     if (!Module.fillTransmitBuffer(0, 1, true, false, 4, Data))
     {
         Serial.print("\t- Failed. Fill Transmit-Buffer not successfull in initialized Mode with Error 0x");
@@ -2495,7 +2495,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test fillTransmitBuffer-Function for each TX-Buffer");
@@ -2505,7 +2505,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.resetInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 3; i++)
@@ -2528,7 +2528,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t\t- passed");
         }
@@ -2537,7 +2537,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         Module.resetInterruptFlag((i + 2));
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2549,7 +2549,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 3; i < 5; i++)
@@ -2567,7 +2567,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.println("\t\t- Failed. Fill Transmit-Buffer successfull");
             Module.setInterruptFlag((i + 2));
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -2581,7 +2581,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2593,7 +2593,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 3; i++)
@@ -2612,7 +2612,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t\t- passed");
         }
@@ -2621,7 +2621,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         Module.setInterruptFlag(2);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2633,7 +2633,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 3; i < 5; i++)
@@ -2652,7 +2652,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.println("\t\t- Failed. Fill Transmit-Buffer successfull");
             Module.setInterruptFlag(2);
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -2666,7 +2666,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2678,7 +2678,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     Serial.print(Teststep, DEC);
@@ -2689,7 +2689,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t\t- passed");
     }
@@ -2697,7 +2697,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     delay(500);
 
     Module.setInterruptFlag(2);
-    
+
     Serial.print(Teststep, DEC);
     Serial.println(".7.2: Fill Transmit-Buffer with Extended False");
 
@@ -2706,7 +2706,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t\t- passed");
     }
@@ -2724,7 +2724,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     Serial.print(Teststep, DEC);
@@ -2735,7 +2735,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t\t- passed");
     }
@@ -2743,7 +2743,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     delay(500);
 
     Module.setInterruptFlag(2);
-    
+
     Serial.print(Teststep, DEC);
     Serial.println(".8.2: Fill Transmit-Buffer with Extended False");
 
@@ -2752,7 +2752,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t\t- passed");
     }
@@ -2770,7 +2770,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 9; i++)
@@ -2786,7 +2786,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t\t- passed");
         }
@@ -2795,7 +2795,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         Module.setInterruptFlag(2);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2807,7 +2807,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 9; i < 12; i++)
@@ -2823,7 +2823,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.print("\t\t- Failed. Fill Transmit-Buffer successfull");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -2839,7 +2839,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         Module.setInterruptFlag(2);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2851,7 +2851,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     {
         Module.resetInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     if (Module.fillTransmitBuffer(0, 1, true, false, 4, Data))
@@ -2868,7 +2868,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.println("\t\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2919,7 +2919,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
 
     if (Module.sendMessage(0, 0)){
         Serial.println("\t- Failed. Send Message successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -2930,7 +2930,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2952,16 +2952,16 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     Serial.println("\t- Fill Transmit-Buffer 0 with Data");
     while (!Module.fillTransmitBuffer(0, ID, Extended, RTR, DLC, Data)){
         delay(100);
     }
-    
+
     delay(500);
-    
+
     Serial.println("\t- send Message");
     if (!Module.sendMessage(0, 0))
     {
@@ -2973,7 +2973,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test sendMessage-Function with each TX-Buffer");
@@ -2983,7 +2983,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 3; i++)
@@ -3008,14 +3008,14 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
             Serial.print("\t\t- Failed. Send Message failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3027,7 +3027,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 3; i < 6; i++)
@@ -3044,7 +3044,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
         {
             Serial.println("\t\t- Failed. Send Message successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -3058,7 +3058,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3070,7 +3070,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 4; i++)
@@ -3093,14 +3093,14 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
             Serial.print("\t\t- Failed. Send Message failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3112,7 +3112,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     for (size_t i = 5; i < 7; i++)
@@ -3129,7 +3129,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
         {
             Serial.println("\t\t- Failed. Send Message successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -3142,7 +3142,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
         }
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3159,7 +3159,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     {
         Module.setInterruptFlag((i + 2));
     }
-    
+
     delay(500);
 
     Serial.println("\t- Fill Transmit-Buffer 0 with Data");
@@ -3172,7 +3172,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     {
         Serial.println("\t\t- Failed. Send Message successfull");
         Errors++;
-        
+
     } else {
         if (((Module.getLastMCPError() & 0x0010) != 0x0010) && ((Module.getLastMCPError() & 0x0020) != 0x0020))
         {
@@ -3183,7 +3183,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
             Serial.println("\t\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3236,7 +3236,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
     if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
         Serial.println("\t- Failed. check4Rtr successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -3247,7 +3247,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3258,7 +3258,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test check4Rtr-Function when initialized");
-    
+
     Module.check4Rtr(ID, Extended);
 
     if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
@@ -3271,7 +3271,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test check4Rtr-Function with defined IDs");
@@ -3294,14 +3294,14 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
             Serial.print("\t- Failed. check4Rtr failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3325,7 +3325,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
         {
             Serial.println("\t- Failed. check4Rtr successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -3339,7 +3339,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3356,13 +3356,13 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
         Serial.print("\t- Failed. check4Rtr failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t- passed");
     }
 
     delay(500);
-    
+
     Serial.print(Teststep, DEC);
     Serial.println(".5.2: check4Rtr with Extended False");
 
@@ -3373,7 +3373,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
         Serial.print("\t- Failed. check4Rtr failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t- passed");
     }
@@ -3419,7 +3419,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     } else {
         Serial.println("\t\t- passed");
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3474,7 +3474,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
     if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
         Serial.println("\t- Failed. check4Receive successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -3485,7 +3485,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3496,7 +3496,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test check4Receive-Function when initialized");
-    
+
     Module.check4Receive(ID, Extended, DLC, Data_Receive);
 
     if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
@@ -3509,7 +3509,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test check4Receive-Function with defined IDs");
@@ -3532,14 +3532,14 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
             Serial.print("\t- Failed. check4Receive failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3563,7 +3563,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
         {
             Serial.println("\t- Failed. check4Receive successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -3577,7 +3577,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3594,13 +3594,13 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
         Serial.print("\t- Failed. check4Receive failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t- passed");
     }
 
     delay(500);
-    
+
     Serial.print(Teststep, DEC);
     Serial.println(".5.2: check4Receive with Extended False");
 
@@ -3611,7 +3611,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
         Serial.print("\t- Failed. check4Receive failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
         Errors++;
-        
+
     } else {
         Serial.println("\t- passed");
     }
@@ -3639,14 +3639,14 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
             Serial.print("\t- Failed. check4Receive failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3669,7 +3669,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
         {
             Serial.println("\t- Failed. check4Receive successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -3683,7 +3683,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3696,7 +3696,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     }
 
     delay(500);
-    
+
     Serial.println("\t- Fill Transmit-Buffer 0 with RTR-Message");
     while (!Module.fillTransmitBuffer(0, ID, Extended, RTR, DLC, Data_Transmit)){
         delay(100);
@@ -3739,7 +3739,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
             Serial.println("\t\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3796,7 +3796,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
 
     if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
         Serial.println("\t- Failed. getIdFromReceiveBuffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -3807,7 +3807,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3818,7 +3818,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test getIdFromReceiveBuffer-Function when initialized");
-    
+
     Module.getIdFromReceiveBuffer(0);
 
     if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
@@ -3831,7 +3831,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test getIdFromReceiveBuffer-Function from defined Receive-Buffers");
@@ -3853,14 +3853,14 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
             Serial.print("\t- Failed. getIdFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3883,7 +3883,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
         {
             Serial.println("\t- Failed. getIdFromReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -3897,7 +3897,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4007,7 +4007,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
     if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
         Serial.println("\t- Failed. getDlcFromReceiveBuffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -4018,7 +4018,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4029,7 +4029,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test getDlcFromReceiveBuffer-Function when initialized");
-    
+
     Module.getDlcFromReceiveBuffer(0);
 
     if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
@@ -4042,7 +4042,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test getDlcFromReceiveBuffer-Function from defined Receive-Buffers");
@@ -4064,14 +4064,14 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Serial.print("\t- Failed. getDlcFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4094,7 +4094,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
         {
             Serial.println("\t- Failed. getDlcFromReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -4108,7 +4108,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4218,7 +4218,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
 
     if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
         Serial.println("\t- Failed. getFrameFromReceiveBuffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -4229,7 +4229,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4240,7 +4240,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test getFrameFromReceiveBuffer-Function when initialized");
-    
+
     Module.getFrameFromReceiveBuffer(0);
 
     if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
@@ -4253,7 +4253,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test getFrameFromReceiveBuffer-Function from defined Receive-Buffers");
@@ -4275,14 +4275,14 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
             Serial.print("\t- Failed. getFrameFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4305,7 +4305,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
         {
             Serial.println("\t- Failed. getFrameFromReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -4319,7 +4319,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4429,7 +4429,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
     if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
         Serial.println("\t- Failed. getRtrFromReceiveBuffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -4440,7 +4440,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4451,7 +4451,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".2: Test getRtrFromReceiveBuffer-Function when initialized");
-    
+
     Module.getRtrFromReceiveBuffer(0);
 
     if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
@@ -4464,7 +4464,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test getRtrFromReceiveBuffer-Function from defined Receive-Buffers");
@@ -4486,14 +4486,14 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Serial.print("\t- Failed. getRtrFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4516,7 +4516,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
         {
             Serial.println("\t- Failed. getRtrFromReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -4530,7 +4530,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4636,7 +4636,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
 
     if (Module.getDataFromReceiveBuffer(0, DLC, Data_Receive)){
         Serial.println("\t- Failed. getDataFromReceiveBuffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -4647,7 +4647,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4669,7 +4669,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test getDataFromReceiveBuffer-Function from defined Receive-Buffers");
@@ -4689,14 +4689,14 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
             Serial.print("\t- Failed. getDataFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4717,7 +4717,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
         {
             Serial.println("\t- Failed. getDataFromReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -4731,7 +4731,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4753,14 +4753,14 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
             Serial.print("\t- Failed. getDataFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4781,7 +4781,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
         {
             Serial.println("\t- Failed. getDataFromReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -4795,7 +4795,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4912,7 +4912,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     uint8_t DLC_Receive = 0;
     uint8_t Data_Transmit[8] = {1, 2, 3, 4, 0, 0, 0, 0};
     uint8_t Data_Receive[8] = {0, 0, 0, 0};
-    
+
 
     uint8_t Errors = 0;
 
@@ -4934,7 +4934,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
     if (Module.getAllFromReceiveBuffer(0, ID_Receive, Extended_Receive, RTR_Receive, DLC_Receive, Data_Receive)){
         Serial.println("\t- Failed. getAllFromReceiveBuffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -4945,7 +4945,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4967,7 +4967,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test getAllFromReceiveBuffer-Function from defined Receive-Buffers");
@@ -4987,14 +4987,14 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Serial.print("\t- Failed. getAllFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5015,7 +5015,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
         {
             Serial.println("\t- Failed. getAllFromReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -5029,7 +5029,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5095,7 +5095,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Serial.println("\t- Failed. Received ID doesn't match sended ID");
             Errors++;
         }
-        
+
         delay(100);
 
         Serial.println("\t- Check if received Frame matches sended Frame");
@@ -5167,7 +5167,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
     uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
-    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];    
+    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
 
     uint8_t Errors = 0;
 
@@ -5189,7 +5189,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
 
     if (Module.releaseReceiveBuffer(0)){
         Serial.println("\t- Failed. releaseReceiveBuffer successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -5200,7 +5200,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5222,7 +5222,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test releaseReceiveBuffer-Function with defined Receive-Buffers");
@@ -5242,14 +5242,14 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
             Serial.print("\t- Failed. releaseReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5270,7 +5270,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
         {
             Serial.println("\t- Failed. releaseReceiveBuffer successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -5284,7 +5284,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5304,7 +5304,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
     uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
-    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];    
+    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
 
     uint8_t Errors = 0;
 
@@ -5328,7 +5328,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
 
     if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
         Serial.println("\t- Failed. check4InterruptFlags successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -5339,7 +5339,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5363,7 +5363,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test check4InterruptFlags-Function with each Flag");
@@ -5373,7 +5373,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
     {
         Module.resetInterruptFlag(i);
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 8; i++)
@@ -5400,7 +5400,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
             Serial.print("\t- Failed. check4InterruptFlags failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             Serial.println("\t- passed");
         }
@@ -5409,7 +5409,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
 
         Module.resetInterruptFlag(i);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5429,7 +5429,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
     uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
-    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];    
+    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
 
     uint8_t Errors = 0;
 
@@ -5451,7 +5451,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
     if (Module.resetInterruptFlag(0)){
         Serial.println("\t- Failed. resetInterruptFlag successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -5462,7 +5462,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5484,17 +5484,17 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test resetInterruptFlag-Function for defined Flag");
-    
+
     Serial.println("\t- Set all Interrupt Flags");
     for (size_t i = 0; i < 8; i++)
     {
         Module.setInterruptFlag(i);
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 8; i++)
@@ -5511,7 +5511,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Serial.print("\t- Failed. resetInterruptFlag failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             if ((Module.check4InterruptFlags() & (0x01 << i)) != (0x00 << i))
             {
@@ -5524,7 +5524,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5543,7 +5543,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         {
             Serial.println("\t- Failed. resetInterruptFlag successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -5557,7 +5557,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5577,7 +5577,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
     uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
-    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];    
+    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
 
     uint8_t Errors = 0;
 
@@ -5599,7 +5599,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
 
     if (Module.setInterruptFlag(0)){
         Serial.println("\t- Failed. setInterruptFlag successfull");
-        Errors++;    
+        Errors++;
     } else {
         if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
         {
@@ -5610,7 +5610,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
             Serial.println("\t- passed");
         }
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5632,17 +5632,17 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
     }
 
     delay(1000);
-    
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setInterruptFlag-Function for defined Flag");
-    
+
     Serial.println("\t- Reset all Interrupt Flags");
     for (size_t i = 0; i < 8; i++)
     {
         Module.resetInterruptFlag(i);
     }
-    
+
     delay(500);
 
     for (size_t i = 0; i < 8; i++)
@@ -5659,7 +5659,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
             Serial.print("\t- Failed. setInterruptFlag failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
-            
+
         } else {
             if ((Module.check4InterruptFlags() & (0x01 << i)) != (0x01 << i))
             {
@@ -5672,7 +5672,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5691,7 +5691,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
         {
             Serial.println("\t- Failed. setInterruptFlag successfull");
             Errors++;
-            
+
         } else {
             if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
             {
@@ -5705,11 +5705,694 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
 
         delay(500);
     }
-    
+
     delay(1000);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     delay(1000);
+    Serial.print(Teststep, DEC);
+    Serial.print(": Tests executed with ");
+    Serial.print(Errors, DEC);
+    Serial.println(" error.");
+    Serial.println();
+    delay(1000);
+
+    return Errors;
+}
+
+uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+    uint8_t CS_Pin = (uint8_t)defaultSettings[0];
+    //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
+    uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
+    uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
+    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
+
+    uint8_t Errors = 0;
+
+    delay(500);
+    if (Module.getIsInitialized())
+    {
+        Module.deinit();
+    }
+    delay(500);
+
+    Serial.print(Teststep, DEC);
+    Serial.println(": Test setFilter-Function");
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".1: Test setFilter-Function when not initialized");
+
+    if (Module.setFilter(0, 1, false)){
+        Serial.println("\t- Failed. setFilter successfull");
+        Errors++;
+    } else {
+        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        {
+            Serial.print("\t- Failed. setFilter failed with the wrong Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+        } else {
+            Serial.println("\t- passed");
+        }
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    while (!_initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, defaultBaudrate)){
+        delay(100);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".2: Test setFilter-Function when initialized");
+
+    if (!Module.setFilter(0, 1, false))
+    {
+        Serial.print("\t- Failed. setFilter not successfull in initialized Mode with Error 0x");
+        Serial.println(Module.getLastMCPError(), HEX);
+        Errors++;
+    } else {
+        Serial.println("\t- passed");
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".3: Test setFilter-Function with defined Filter-Buffers");
+
+    for (size_t i = 0; i < 6; i++)
+    {
+        Serial.print(Teststep, DEC);
+        Serial.print(".3.");
+        Serial.print((i+1), DEC);
+        Serial.print(": setFilter with Buffer ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (!Module.setFilter(i, 1, false))
+        {
+            Serial.print("\t- Failed. setFilter failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+
+        } else {
+            Serial.println("\t- passed");
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".4: Test setFilter-Function from undefined Filter-Buffers");
+
+    for (size_t i = 6; i < 10; i++)
+    {
+        Serial.print(Teststep, DEC);
+        Serial.print(".4.");
+        Serial.print((i-1), DEC);
+        Serial.print(": setFilter from Buffer ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (Module.setFilter(i, 1, false))
+        {
+            Serial.println("\t- Failed. setFilter successfull");
+            Errors++;
+
+        } else {
+            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            {
+                Serial.print("\t- Failed. setFilter failed with wrong Error 0x");
+                Serial.println(Module.getLastMCPError(), HEX);
+                Errors++;
+            } else {
+                Serial.println("\t- passed");
+            }
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Serial.print(Teststep, DEC);
+    Serial.println(".5: Test setFilter-Function with defined Standard-ID");
+
+    uint8_t additionalCounter = 0;
+    for (size_t i = 0; i <= 0x7FF; i+=682)
+    {
+        additionalCounter++;
+
+        Serial.print(Teststep, DEC);
+        Serial.print(".5.");
+        Serial.print((additionalCounter), DEC);
+        Serial.print(": setFilter with Standard-ID ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (!Module.setFilter(0, i+1, false))
+        {
+            Serial.print("\t- Failed. setFilter failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+
+        } else {
+            Serial.println("\t- passed");
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".6: Test setFilter-Function with undefined Standard-ID");
+
+    uint8_t additionalCounter = 0;
+    for (size_t i = 0x800; i < 0x804; i++)
+    {
+        additionalCounter++;
+        Serial.print(Teststep, DEC);
+        Serial.print(".6.");
+        Serial.print((additionalCounter), DEC);
+        Serial.print(": setFilter with Standard-ID ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (Module.setFilter(0, i, false))
+        {
+            Serial.println("\t- Failed. setFilter successfull");
+            Errors++;
+
+        } else {
+            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            {
+                Serial.print("\t- Failed. setFilter failed with wrong Error 0x");
+                Serial.println(Module.getLastMCPError(), HEX);
+                Errors++;
+            } else {
+                Serial.println("\t- passed");
+            }
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Serial.print(Teststep, DEC);
+    Serial.println(".7: Test setFilter-Function with defined Extended-ID");
+
+    uint8_t additionalCounter = 0;
+    for (size_t i = 0; i <= 0x1FFFFFFF; i+=178956970)
+    {
+        additionalCounter++;
+
+        Serial.print(Teststep, DEC);
+        Serial.print(".7.");
+        Serial.print((additionalCounter), DEC);
+        Serial.print(": setFilter with Extended-ID ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (!Module.setFilter(0, i+1, true))
+        {
+            Serial.print("\t- Failed. setFilter failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+
+        } else {
+            Serial.println("\t- passed");
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".8: Test setFilter-Function with undefined Extended-ID");
+
+    uint8_t additionalCounter = 0;
+    for (size_t i = 0x20000000; i < 0x20000004; i++)
+    {
+        additionalCounter++;
+        Serial.print(Teststep, DEC);
+        Serial.print(".8.");
+        Serial.print((additionalCounter), DEC);
+        Serial.print(": setFilter with Extended-ID ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (Module.setFilter(0,i, true))
+        {
+            Serial.println("\t- Failed. setFilter successfull");
+            Errors++;
+
+        } else {
+            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            {
+                Serial.print("\t- Failed. setFilter failed with wrong Error 0x");
+                Serial.println(Module.getLastMCPError(), HEX);
+                Errors++;
+            } else {
+                Serial.println("\t- passed");
+            }
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    delay(1000);
+    Serial.print(Teststep, DEC);
+    Serial.print(": Tests executed with ");
+    Serial.print(Errors, DEC);
+    Serial.println(" error.");
+    Serial.println();
+    delay(1000);
+
+    return Errors;
+}
+
+uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+    uint8_t CS_Pin = (uint8_t)defaultSettings[0];
+    //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
+    uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
+    uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
+    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
+
+    uint8_t Errors = 0;
+
+    delay(500);
+    if (Module.getIsInitialized())
+    {
+        Module.deinit();
+    }
+    delay(500);
+
+    Serial.print(Teststep, DEC);
+    Serial.println(": Test setMask-Function");
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".1: Test setMask-Function when not initialized");
+
+    if (Module.setMask(0, 1)){
+        Serial.println("\t- Failed. setMask successfull");
+        Errors++;
+    } else {
+        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        {
+            Serial.print("\t- Failed. setMask failed with the wrong Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+        } else {
+            Serial.println("\t- passed");
+        }
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    while (!_initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, defaultBaudrate)){
+        delay(100);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".2: Test setMask-Function when initialized");
+
+    if (!Module.setMask(0, 1))
+    {
+        Serial.print("\t- Failed. setMask not successfull in initialized Mode with Error 0x");
+        Serial.println(Module.getLastMCPError(), HEX);
+        Errors++;
+    } else {
+        Serial.println("\t- passed");
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".3: Test setMask-Function with defined Mask-Buffers");
+
+    for (size_t i = 0; i < 2; i++)
+    {
+        Serial.print(Teststep, DEC);
+        Serial.print(".3.");
+        Serial.print((i+1), DEC);
+        Serial.print(": setMask with Buffer ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (!Module.setMask(i, 1))
+        {
+            Serial.print("\t- Failed. setMask failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+
+        } else {
+            Serial.println("\t- passed");
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".4: Test setMask-Function from undefined Mask-Buffers");
+
+    for (size_t i = 6; i < 10; i++)
+    {
+        Serial.print(Teststep, DEC);
+        Serial.print(".4.");
+        Serial.print((i-1), DEC);
+        Serial.print(": setMask from Buffer ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (Module.setMask(i, 1))
+        {
+            Serial.println("\t- Failed. setMask successfull");
+            Errors++;
+
+        } else {
+            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            {
+                Serial.print("\t- Failed. setMask failed with wrong Error 0x");
+                Serial.println(Module.getLastMCPError(), HEX);
+                Errors++;
+            } else {
+                Serial.println("\t- passed");
+            }
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    Serial.print(Teststep, DEC);
+    Serial.println(".5: Test setMask-Function with defined ID");
+
+    uint8_t additionalCounter = 0;
+    for (size_t i = 0; i <= 0x1FFFFFFF; i+=178956970)
+    {
+        additionalCounter++;
+
+        Serial.print(Teststep, DEC);
+        Serial.print(".5.");
+        Serial.print((additionalCounter), DEC);
+        Serial.print(": setMask with ID ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (!Module.setMask(0, i+1))
+        {
+            Serial.print("\t- Failed. setMask failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+
+        } else {
+            Serial.println("\t- passed");
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".6: Test setMask-Function with undefined ID");
+
+    uint8_t additionalCounter = 0;
+    for (size_t i = 0x20000000; i < 0x20000004; i++)
+    {
+        additionalCounter++;
+        Serial.print(Teststep, DEC);
+        Serial.print(".6.");
+        Serial.print((additionalCounter), DEC);
+        Serial.print(": setMask with ID ");
+        Serial.println(i, DEC);
+
+        delay(500);
+
+        if (Module.setMask(0,i))
+        {
+            Serial.println("\t- Failed. setMask successfull");
+            Errors++;
+
+        } else {
+            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            {
+                Serial.print("\t- Failed. setMask failed with wrong Error 0x");
+                Serial.println(Module.getLastMCPError(), HEX);
+                Errors++;
+            } else {
+                Serial.println("\t- passed");
+            }
+        }
+
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    delay(1000);
+    Serial.print(Teststep, DEC);
+    Serial.print(": Tests executed with ");
+    Serial.print(Errors, DEC);
+    Serial.println(" error.");
+    Serial.println();
+    delay(1000);
+
+    return Errors;
+}
+
+uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+    uint8_t CS_Pin = (uint8_t)defaultSettings[0];
+    //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
+    uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
+    uint32_t defaultClockFrequency = (uint32_t)defaultSettings[3];
+    uint32_t defaultBaudrate = (uint32_t)defaultSettings[4];
+
+    struct CanMessage{
+        uint32_t ID;
+        bool Extended;
+        bool RTR;
+        uint8_t DLC;
+        uint8_t Data[8];
+    };
+
+    CanMessage allowedMessages[6] = {
+        {0x5B6, false, false, 4, {1, 2, 3, 4, 0, 0, 0, 0}},         // Mask 0, Filter 0
+        {0x360146, true, false, 4, {9, 10, 11, 12, 0, 0, 0, 0}},    // Mask 0, Filter 1
+        {0x5CF, false, false, 4, {13, 14, 15, 16, 0, 0, 0, 0}},     // Mask 1, Filter 2
+        {0x28A509, true, false, 4, {17, 18, 19, 20, 0, 0, 0, 0}},   // Mask 1, Filter 3
+        {0x579, false, false, 4, {21, 22, 23, 24, 0, 0, 0, 0}},     // Mask 1, Filter 4
+        {0xE8C4815, true, false, 4, {25, 26, 27, 28, 0, 0, 0, 0}}   // Mask 1, Filter 5
+    };
+
+    CanMessage blockedMessages[3] = {
+        {0x124, false, false, 4, {5, 6, 7, 8, 0, 0, 0, 0}},
+        {0x1ABCDE1, false, false, 4, {13, 14, 15, 16, 0, 0, 0, 0}},
+        {0x1ABCDE2, true, false, 4, {17, 18, 19, 20, 0, 0, 0, 0}}
+    };
+
+    uint8_t Errors = 0;
+
+    delay(1000);
+
+    Filter Filters[6]{
+        {0xB0, false},
+        {0x30074F, true},
+        {0x50F, false},
+        {0x20A0509, true},
+        {0x549, false},
+        {0x1E7C8895, true}
+    };
+
+    uint32_t Masks[2]{
+        0x10F0F0F0,
+        0xF0F0F0F
+    };
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    while (!_initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, defaultBaudrate)){
+        delay(100);
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    Serial.print(Teststep, DEC);
+    Serial.println(".1: Test Filter/Mask-Feature");
+
+    Serial.println("\t- Set OperationMode Loopback");
+    while (!Module.setLoopbackMode()){
+        delay(100);
+    }
+
+    delay(500);
+
+    Serial.println("\t- Set Filters");
+    for (size_t i = 0; i < 6; i++)
+    {
+        if (!Module.setFilter(i, Filters[i].ID, Filters[i].Extended)){
+            Serial.print("\t- Failed. setFilter failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+        }
+    }
+
+    delay(500);
+
+    Serial.println("\t- Set Masks");
+    for (size_t i = 0; i < 2; i++)
+    {
+        if (!Module.setMask(i, Masks[i])){
+            Serial.print("\t- Failed. setMask failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+        }
+    }
+
+    delay(500);
+
+    Serial.println("\t- Enable all Filters and Masks");
+    if (!Module.enableFilterMask(0) || !Module.enableFilterMask(1)){
+        Serial.print("\t- Failed. enableFilterMask failed with Error 0x");
+        Serial.println(Module.getLastMCPError(), HEX);
+        Errors++;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    delay(500);
+    Serial.print(Teststep, DEC);
+    Serial.println(".2: send allowed Messages and check for Reception");
+
+    for (size_t i = 0; i < 6; i++){
+        Serial.print(Teststep, DEC);
+        Serial.print(".2.");
+        Serial.print(i);
+        Serial.print(": send allowed Messages");
+        Serial.print(" with ID 0x");
+        Serial.print(allowedMessages[i].ID, HEX);
+        Serial.println(" and check for Reception");
+
+        while (!Module.fillTransmitBuffer(0, allowedMessages[i].ID, allowedMessages[i].Extended, allowedMessages[i].RTR, allowedMessages[i].DLC, allowedMessages[i].Data)){
+            delay(100);
+        }
+
+        delay(500);
+
+        while (!Module.sendMessage(0, 0)){
+            delay(100);
+        }
+
+        delay(500);
+
+        uint8_t Data_Receive[8] = {0};
+
+        Serial.println("\t- Check for received Message");
+        if (!Module.check4Receive(allowedMessages[i].ID, allowedMessages[i].Extended, allowedMessages[i].DLC, Data_Receive))
+        {
+            Serial.println("\t\t- Failed. No Message Received");
+            Errors++;
+        } else {
+            if (memcmp(Data_Receive, allowedMessages[i].Data, allowedMessages[i].DLC) != 0) {
+                Serial.println("\t\t- Failed. Data of the received Message doesn't match the sended Data.");
+                Errors++;
+            } else {
+                Serial.println("\t\t- passed");
+            }
+            Serial.println("\t\t- passed");
+        }
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    delay(500);
+    Serial.print(Teststep, DEC);
+    Serial.println(".3: send unallowed Messages and check for Reception");
+
+    for (size_t i = 0; i < 3; i++){
+        Serial.print(Teststep, DEC);
+        Serial.print(".3.");
+        Serial.print(i);
+        Serial.print(": send unallowed Messages");
+        Serial.print(" with ID 0x");
+        Serial.print(allowedMessages[i].ID, HEX);
+        Serial.println(" and check for Reception");
+
+        while (!Module.fillTransmitBuffer(0, blockedMessages[i].ID, blockedMessages[i].Extended, blockedMessages[i].RTR, blockedMessages[i].DLC, blockedMessages[i].Data)){
+            delay(100);
+        }
+
+        delay(500);
+
+        while (!Module.sendMessage(0, 0)){
+            delay(100);
+        }
+
+        delay(500);
+
+        uint8_t Data_Receive[8] = {0};
+
+        Serial.println("\t- Check for received Message");
+        if (Module.check4Receive(blockedMessages[i].ID, blockedMessages[i].Extended, blockedMessages[i].DLC, Data_Receive))
+        {
+            Serial.println("\t\t- Failed. Message Received");
+            Errors++;
+        } else {
+            Serial.println("\t\t- passed");
+        }
+        delay(500);
+    }
+
+    delay(1000);
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    delay(500);
+    while (!Module.setNormalMode()){
+        delay(100);
+    }
+    delay(500);
     Serial.print(Teststep, DEC);
     Serial.print(": Tests executed with ");
     Serial.print(Errors, DEC);
