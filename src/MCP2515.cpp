@@ -4580,18 +4580,12 @@ bool MCP2515::sendMessage(uint8_t BufferNumber, uint8_t Priority)
   }
 
   bool aborted = false;
-  bool error_during_sending = false;
-  uint16_t ErrorValue = EMPTY_VALUE_16_BIT;
 
   // While the Message Transmit Request bit is set
   while (getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXREQ) {
     // Check if an error occures during the transmission
     if ((getTransmitBufferControl(BufferNumber) & TXBnCTRL_BIT_TXERR) || (_lastMcpError != EMPTY_VALUE_16_BIT)) {
 
-      if (_lastMcpError != EMPTY_VALUE_16_BIT){
-        error_during_sending = true;
-        ErrorValue = ERROR_MCP2515_ERROR_DURING_SENDING;
-      }
       // set aborted to true
       aborted = true;
 
