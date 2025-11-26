@@ -5851,7 +5851,7 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     Serial.println(".5: Test setFilter-Function with defined Standard-ID");
 
     uint8_t additionalCounter = 0;
-    for (size_t i = 0; i <= 0x7FF; i+=682)
+    for (uint32_t i = 0; i <= 0x7FF; i+=682)
     {
         additionalCounter++;
 
@@ -5882,8 +5882,8 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     Serial.print(Teststep, DEC);
     Serial.println(".6: Test setFilter-Function with undefined Standard-ID");
 
-    uint8_t additionalCounter = 0;
-    for (size_t i = 0x800; i < 0x804; i++)
+    additionalCounter = 0;
+    for (uint32_t i = 0x800; i < 0x804; i++)
     {
         additionalCounter++;
         Serial.print(Teststep, DEC);
@@ -5920,8 +5920,8 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     Serial.print(Teststep, DEC);
     Serial.println(".7: Test setFilter-Function with defined Extended-ID");
 
-    uint8_t additionalCounter = 0;
-    for (size_t i = 0; i <= 0x1FFFFFFF; i+=178956970)
+    additionalCounter = 0;
+    for (uint32_t i = 0; i <= 0x1FFFFFFF; i+=178956970)
     {
         additionalCounter++;
 
@@ -5952,8 +5952,8 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     Serial.print(Teststep, DEC);
     Serial.println(".8: Test setFilter-Function with undefined Extended-ID");
 
-    uint8_t additionalCounter = 0;
-    for (size_t i = 0x20000000; i < 0x20000004; i++)
+    additionalCounter = 0;
+    for (uint32_t i = 0x20000000; i < 0x20000004; i++)
     {
         additionalCounter++;
         Serial.print(Teststep, DEC);
@@ -6128,7 +6128,7 @@ uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[
     Serial.println(".5: Test setMask-Function with defined ID");
 
     uint8_t additionalCounter = 0;
-    for (size_t i = 0; i <= 0x1FFFFFFF; i+=178956970)
+    for (uint32_t i = 0; i <= 0x1FFFFFFF; i+=178956970)
     {
         additionalCounter++;
 
@@ -6159,8 +6159,8 @@ uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[
     Serial.print(Teststep, DEC);
     Serial.println(".6: Test setMask-Function with undefined ID");
 
-    uint8_t additionalCounter = 0;
-    for (size_t i = 0x20000000; i < 0x20000004; i++)
+    additionalCounter = 0;
+    for (uint32_t i = 0x20000000; i < 0x20000004; i++)
     {
         additionalCounter++;
         Serial.print(Teststep, DEC);
