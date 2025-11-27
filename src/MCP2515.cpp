@@ -133,7 +133,7 @@ bool MCP2515::setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t Stand
     return false;
   }
 
-  if (FilterNumber > 5 || StandardId_2_0 > 7 || ExtendedId_17_16 > 3 || (ExtendedIdEn != true && ExtendedIdEn != false))
+  if (FilterNumber > 5 || StandardId_2_0 > 7 || ExtendedId_17_16 > 3)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -626,17 +626,6 @@ uint8_t MCP2515::getRXnBFPinControl()
  */
 bool MCP2515::setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE, bool B1BFM, bool B0BFM)
 {
-  if ((B1BFS != true && B1BFS != false) ||
-      (B0BFS != true && B0BFS != false) ||
-      (B1BFE != true && B1BFE != false) ||
-      (B0BFE != true && B0BFE != false) ||
-      (B1BFM != true && B1BFM != false) ||
-      (B0BFM != true && B0BFM != false))
-  {
-    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
-    return false;
-  }
-
   uint8_t Data = B1BFS << 5 | B0BFS << 4 | B1BFE << 3 | B0BFE << 2 | B1BFM << 1 | B0BFM;
 
   writeInstruction(REG_BFPCTRL, Data);
@@ -798,14 +787,6 @@ bool MCP2515::setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM)
   if (_operationMode != MCP2515_OP_CONFIGURATION)
   {
     this->_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
-    return false;
-  }
-
-  if ((B2RTSM != true && B2RTSM != false) ||
-      (B1RTSM != true && B1RTSM != false) ||
-      (B0RTSM != true && B0RTSM != false))
-  {
-    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
   }
 
@@ -1022,9 +1003,6 @@ uint8_t MCP2515::getCanControl()
 bool MCP2515::setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint8_t CLKPRE)
 {
   if ((REQOP > 4) ||
-      (ABAT != true && ABAT != false) ||
-      (OSM != true && OSM != false) ||
-      (CLKEN != true && CLKEN != false) ||
       (CLKPRE > 3))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -1219,9 +1197,7 @@ bool MCP2515::setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2)
     return false;
   }
 
-  if ((SOF != true && SOF != false) ||
-      (WAKFIL != true && WAKFIL != false) ||
-      (PHSEG2 > 7))
+  if (PHSEG2 > 7)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -1371,9 +1347,7 @@ bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, 
     return false;
   }
 
-  if ((BTLMODE != true && BTLMODE != false) ||
-      (SAM != true && SAM != false) ||
-      (PHSEG1 > 7) ||
+  if ((PHSEG1 > 7) ||
       (PRSEG > 7))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -1688,19 +1662,6 @@ uint8_t MCP2515::getCanInterruptEnable()
  */
 bool MCP2515::setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2IE, bool TX1IE, bool TX0IE, bool RX1IE, bool RX0IE)
 {
-  if ((MERRE != true && MERRE!= false) ||
-      (WAKIE != true && WAKIE!= false) ||
-      (ERRIE != true && ERRIE!= false) ||
-      (TX2IE != true && TX2IE!= false) ||
-      (TX1IE != true && TX1IE!= false) ||
-      (TX0IE != true && TX0IE!= false) ||
-      (RX1IE != true && RX1IE!= false) ||
-      (RX0IE != true && RX0IE!= false))
-  {
-    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
-    return false;
-  }
-
   uint8_t Data = MERRE << 7 | WAKIE << 6 | ERRIE << 5 | TX2IE << 4 | TX1IE << 3 | TX0IE << 2 | RX1IE << 1 | RX0IE;
 
   writeInstruction(REG_CANINTE, Data);
@@ -1910,26 +1871,13 @@ uint8_t MCP2515::getCanInterruptFlag()
  */
 bool MCP2515::setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF, bool TX1IF, bool TX0IF, bool RX1IF, bool RX0IF)
 {
-  if ((MERRF != true && MERRF!= false) ||
-      (WAKIF != true && WAKIF!= false) ||
-      (ERRIF != true && ERRIF!= false) ||
-      (TX2IF != true && TX2IF!= false) ||
-      (TX1IF != true && TX1IF!= false) ||
-      (TX0IF != true && TX0IF!= false) ||
-      (RX1IF != true && RX1IF!= false) ||
-      (RX0IF != true && RX0IF!= false))
-  {
-    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
-    return false;
-  }
-
   uint8_t Data = MERRF << 7 | WAKIF << 6 | ERRIF << 5 | TX2IF << 4 | TX1IF << 3 | TX0IF << 2 | RX1IF << 1 | RX0IF;
 
   writeInstruction(REG_CANINTF, Data);
 
   if (_reCheckEnabled)
   {
-    if (getCanInterruptFlag() != Data)
+    if (getCanInterruptFlag()!= Data)
     {
       this->_lastMcpError = ERROR_MCP2515_VALUE_NOT_SET;
       return false;
@@ -2096,13 +2044,6 @@ uint8_t MCP2515::getErrorFlag()
  */
 bool MCP2515::setErrorFlag(bool RX1OVR, bool RX0OVR)
 {
-  if ((RX1OVR != true && RX1OVR!= false) ||
-      (RX0OVR != true && RX0OVR!= false))
-  {
-    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
-    return false;
-  }
-
   uint8_t Data = RX1OVR << 7 | RX0OVR << 6;
 
   writeInstruction(REG_EFLG, Data);
@@ -2244,9 +2185,7 @@ uint8_t MCP2515::getTransmitBufferControl(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t TXP)
 {
-  if ((BufferNumber > 2) ||
-      (TXREQ != true && TXREQ!= false) ||
-      (TXP > 3))
+  if ((BufferNumber > 2) || (TXP > 3))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -2436,7 +2375,6 @@ bool MCP2515::setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8
 {
   if ((BufferNumber > 2) ||
       (StandardId_2_0 > 7) ||
-      (ExtendedIdEn != true && ExtendedIdEn != false) ||
       (ExtendedId_17_16 > 3))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -2614,8 +2552,7 @@ uint8_t MCP2515::getTransmitBufferDataLengthCode(uint8_t BufferNumber)
  */
 bool MCP2515::setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, uint8_t DLC)
 {
-  if ((RTR != true && RTR != false) ||
-      (DLC > 8))
+  if ((DLC > 8) || (BufferNumber > 2))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -2838,8 +2775,7 @@ uint8_t MCP2515::getReceiveBuffer0Control()
  */
 bool MCP2515::setReceiveBuffer0Control(uint8_t RXM, bool BUKT)
 {
-  if ((RXM != 0 && RXM != 3) ||
-      (BUKT != true && BUKT != false))
+  if (RXM != 0 && RXM != 3)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -3335,14 +3271,6 @@ bool MCP2515::bitModifyInstruction(uint8_t Address, uint8_t Mask, uint8_t Value)
  */
 bool MCP2515::loadTxBufferInstruction(uint8_t Value, bool a, bool b, bool c)
 {
-  if ((a != false && a != true) ||
-      (b != false && b != true) ||
-      (c != false && c != true))
-  {
-    this->_lastMcpError = ERROR_SPI_VALUE_OUTA_RANGE;
-    return false;
-  }
-
   uint8_t Instruction = MCP2515_SPI_INSTRUCTION_LOAD_TX_BUFFER | a << 2 | b << 1 | c;
 
   SPI.beginTransaction(_spiSettings);
@@ -3365,13 +3293,7 @@ bool MCP2515::loadTxBufferInstruction(uint8_t Value, bool a, bool b, bool c)
  */
 bool MCP2515::rtsInstruction(bool TXBuffer_0, bool TXBuffer_1, bool TXBuffer_2)
 {
-  if ((TXBuffer_0 != false && TXBuffer_0 != true) ||
-      (TXBuffer_1 != false && TXBuffer_1 != true) ||
-      (TXBuffer_2 != false && TXBuffer_2 != true))
-  {
-    this->_lastMcpError = ERROR_SPI_VALUE_OUTA_RANGE;
-    return false;
-  } else if (TXBuffer_0 || TXBuffer_1 || TXBuffer_2)
+  if (TXBuffer_0 || TXBuffer_1 || TXBuffer_2)
   {
     uint8_t Instruction = MCP2515_SPI_INSTRUCTION_RTS | TXBuffer_2 << 2 | TXBuffer_1 << 1 | TXBuffer_0;
     SPI.beginTransaction(_spiSettings);
@@ -3509,14 +3431,6 @@ uint8_t MCP2515::readStatusInstruction()
 uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
 {
   uint8_t value;
-
-  if ((n != false && n != true) ||
-      (m != false && m != true))
-  {
-    this->_lastMcpError = ERROR_SPI_VALUE_OUTA_RANGE;
-    return false;
-  }
-
   uint8_t Instruction = MCP2515_SPI_INSTRUCTION_READ_RX_BUFFER | n << 2 | m << 1;
 
   SPI.beginTransaction(_spiSettings);
@@ -3744,12 +3658,6 @@ bool MCP2515::setReCheckEnabler(bool reCheckEnabler)
   if (!_isInitialized)
   {
     this->_lastMcpError = ERROR_MCP2515_NOT_INITIALIZED;
-    return false;
-  }
-
-  if (reCheckEnabler != true && reCheckEnabler != false)
-  {
-    this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
   }
 
@@ -4233,8 +4141,7 @@ bool MCP2515::changeInterruptSetting(bool value, uint8_t Interrupt)
     return false;
   }
 
-  if ((Interrupt > 7) ||
-      (value != false && value != true))
+  if (Interrupt > 7)
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -4350,8 +4257,7 @@ bool MCP2515::setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended)
     return false;
   }
 
-  if (FilterNumber > 5 || (Extended != false && Extended != true) ||
-      (Extended == false && ID > 0x7FF) || (Extended == true && ID > 0x1FFFFFFF))
+  if (FilterNumber > 5 || (Extended == false && ID > 0x7FF) || (Extended == true && ID > 0x1FFFFFFF))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -4590,7 +4496,6 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
   if ((BufferNumber > 2) ||
       (ID > 0x1FFFFFFF && Extended == true) ||
       (ID > 0x7FF && Extended == false) ||
-      (RTR != false && RTR != true) ||
       (DLC > 8))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
@@ -4748,8 +4653,8 @@ bool MCP2515::check4Rtr(uint32_t ID, bool Extended)
     return false;
   }
 
-  if ((ID > 0x1FFFFFFF) ||
-      (Extended != false && Extended != true))
+  if ((Extended == true && ID > 0x1FFFFFFF) ||
+      (Extended == false && ID > 0x7FF))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
     return false;
@@ -4865,8 +4770,8 @@ bool MCP2515::check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
     return false;
   }
 
-  if ((ID > 0x1FFFFFFF) ||
-      (Extended != false && Extended != true) ||
+  if ((Extended == true && ID > 0x1FFFFFFF) ||
+      (Extended != false && ID > 0x7FF) ||
       (DLC > 8))
   {
     this->_lastMcpError = ERROR_MCP2515_VALUE_OUTA_RANGE;
