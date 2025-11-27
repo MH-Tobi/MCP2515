@@ -47,5 +47,8 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
 uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]);
 uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]);
 uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]);
+uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]);
+uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]);
+uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]);
 
 #endif

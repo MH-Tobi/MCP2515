@@ -38,7 +38,7 @@ void setup() {
 
   uint8_t TestCaseNumber = 0;
   uint8_t Errors = 0;
-  
+
   pinMode(defaultSettings[1], INPUT_PULLUP);
 
   Serial.println("=============================================================================");
@@ -108,6 +108,13 @@ void setup() {
   //Errors = Errors + testResetInterruptFlag(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
   //Errors = Errors + testSetInterruptFlag(TestCaseNumber, MCP2515Module, defaultSettings);
+  //TestCaseNumber++;
+  //Errors = Errors + testSetFilter(TestCaseNumber, MCP2515Module, defaultSettings);
+  //TestCaseNumber++;
+  //Errors = Errors + testSetMask(TestCaseNumber, MCP2515Module, defaultSettings);
+  //TestCaseNumber++;
+  //Errors = Errors + testFilterAndMask(TestCaseNumber, MCP2515Module, defaultSettings);
+
 
   Serial.println();
   Serial.println();
@@ -118,5 +125,3 @@ void setup() {
 void loop() {
 
 }
-
-

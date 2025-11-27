@@ -57,6 +57,8 @@
 | ERROR_MCP2515_GET_DLC | 0x005A | Occurs when retrieving the DLC failed. |
 | ERROR_MCP2515_GET_DATA | 0x005B | Occurs when retrieving the Data failed. |
 | ERROR_MCP2515_GET_ALL_DATA | 0x005C | Occurs when an error occurs while retrieving all data. |
+| ERROR_MCP2515_FILTER_ID_FILLING | 0x005D | Occurs when an error occurs while filling the Filter ID. |
+| ERROR_MCP2515_MASK_ID_FILLING | 0x005E | Occurs when an error occurs while filling the Mask ID. |
 | ERROR_MCP2515_MESSAGE_SENDING_ABORTED | 0x0060 | Occurs when the send operation was aborted. |
 | ERROR_MCP2515_ERROR_DURING_SENDING | 0x0001 | Appended to "ERROR_MCP2515_MESSAGE_SENDING_ABORTED" if the send operation was aborted due to a method error. |
 | ERROR_MCP2515_NOT_IMPLEMENTED | 0xFFFF | Occurs when Method is not implemented yet. |
