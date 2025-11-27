@@ -6220,18 +6220,18 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     };
 
     CanMessage allowedMessages[6] = {
-        {0x5B6, false, false, 4, {1, 2, 3, 4, 0, 0, 0, 0}},         // Mask 0, Filter 0
-        {0x360146, true, false, 4, {9, 10, 11, 12, 0, 0, 0, 0}},    // Mask 0, Filter 1
-        {0x5CF, false, false, 4, {13, 14, 15, 16, 0, 0, 0, 0}},     // Mask 1, Filter 2
-        {0x28A509, true, false, 4, {17, 18, 19, 20, 0, 0, 0, 0}},   // Mask 1, Filter 3
-        {0x579, false, false, 4, {21, 22, 23, 24, 0, 0, 0, 0}},     // Mask 1, Filter 4
-        {0xE8C4815, true, false, 4, {25, 26, 27, 28, 0, 0, 0, 0}}   // Mask 1, Filter 5
+        {0x00001B2, false, false, 4, {0x01, 0x02, 0x03, 0x04, 0x00, 0x00, 0x00, 0x00}},  // Mask 0, Filter 0; Note first two Databytes
+        {0x0360146, true , false, 4, {0x00, 0x00, 0x0B, 0x0C, 0x00, 0x00, 0x00, 0x00}},  // Mask 0, Filter 1
+        {0x000010F, false, false, 4, {0xA0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}},  // Mask 1, Filter 2; Note first two Databytes
+        {0x22AA509, true , false, 4, {0x11, 0x12, 0x13, 0x14, 0x00, 0x00, 0x00, 0x00}},  // Mask 1, Filter 3
+        {0x0000559, false, false, 4, {0x60, 0x90, 0x17, 0x18, 0x00, 0x00, 0x00, 0x00}},  // Mask 1, Filter 4; Note first two Databytes
+        {0xE8C4815, true , false, 4, {0x19, 0x1A, 0x1B, 0x1C, 0x00, 0x00, 0x00, 0x00}}   // Mask 1, Filter 5
     };
 
     CanMessage blockedMessages[3] = {
-        {0x124, false, false, 4, {5, 6, 7, 8, 0, 0, 0, 0}},
-        {0x1ABCDE1, false, false, 4, {13, 14, 15, 16, 0, 0, 0, 0}},
-        {0x1ABCDE2, true, false, 4, {17, 18, 19, 20, 0, 0, 0, 0}}
+        {0x00001B2, false, false, 4, {0xA5, 0x16, 0x07, 0x08, 0x00, 0x00, 0x00, 0x00}},  // Mask 0, Filter 1; Note first two Databytes
+        {0x1ABCDE1, true, false, 4, {0x0D, 0x0E, 0x0F, 0x10, 0x00, 0x00, 0x00, 0x00}},
+        {0x1ABCDE2, true , false, 4, {0x11, 0x12, 0x13, 0x14, 0x00, 0x00, 0x00, 0x00}}
     };
 
     uint8_t Errors = 0;
@@ -6239,28 +6239,34 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     delay(1000);
 
     Filter Filters[6]{
-        {0xB0, false},
-        {0x30074F, true},
-        {0x50F, false},
-        {0x20A0509, true},
-        {0x549, false},
+        {0x000000B0, false},
+        {0x0030074F, true},
+        {0x0000050F, false},
+        {0x020A0509, true},
+        {0x00000549, false},
         {0x1E7C8895, true}
     };
 
     uint32_t Masks[2]{
         0x10F0F0F0,
-        0xF0F0F0F
+        0x0F0F0F0F
     };
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    while (!_initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, defaultBaudrate)){
-        delay(100);
+
+    Serial.print(Teststep, DEC);
+    Serial.println(": Test Filter/Mask-Feature");
+
+    delay(500);
+    if (!Module.getIsInitialized())
+    {
+        while (!_initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, defaultBaudrate)){
+            delay(100);
+        }
     }
+    delay(500);
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    Serial.print(Teststep, DEC);
-    Serial.println(".1: Test Filter/Mask-Feature");
-
     Serial.println("\t- Set OperationMode Loopback");
     while (!Module.setLoopbackMode()){
         delay(100);
@@ -6276,6 +6282,7 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
         }
+        delay(100);
     }
 
     delay(500);
@@ -6288,27 +6295,34 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
             Serial.println(Module.getLastMCPError(), HEX);
             Errors++;
         }
+        delay(100);
     }
 
     delay(500);
 
     Serial.println("\t- Enable all Filters and Masks");
-    if (!Module.enableFilterMask(0) || !Module.enableFilterMask(1)){
-        Serial.print("\t- Failed. enableFilterMask failed with Error 0x");
-        Serial.println(Module.getLastMCPError(), HEX);
-        Errors++;
+    for (size_t i=1; i < 2; i++)
+    {
+        if (!Module.enableFilterMask(i)){
+            Serial.print("\t\t- Failed. enableFilterMask ");
+            Serial.print(i);
+            Serial.print(" failed with Error 0x");
+            Serial.println(Module.getLastMCPError(), HEX);
+            Errors++;
+        }
+        delay(100);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     delay(500);
     Serial.print(Teststep, DEC);
-    Serial.println(".2: send allowed Messages and check for Reception");
+    Serial.println(".1: send allowed Messages and check for Reception");
 
     for (size_t i = 0; i < 6; i++){
         Serial.print(Teststep, DEC);
-        Serial.print(".2.");
-        Serial.print(i);
-        Serial.print(": send allowed Messages");
+        Serial.print(".1.");
+        Serial.print(i+1);
+        Serial.print(": send allowed Message");
         Serial.print(" with ID 0x");
         Serial.print(allowedMessages[i].ID, HEX);
         Serial.println(" and check for Reception");
@@ -6319,6 +6333,11 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         delay(500);
 
+        Module.releaseReceiveBuffer(0);
+        delay(100);
+        Module.releaseReceiveBuffer(1);
+        delay(100);
+
         while (!Module.sendMessage(0, 0)){
             delay(100);
         }
@@ -6327,19 +6346,24 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         uint8_t Data_Receive[8] = {0};
 
-        Serial.println("\t- Check for received Message");
         if (!Module.check4Receive(allowedMessages[i].ID, allowedMessages[i].Extended, allowedMessages[i].DLC, Data_Receive))
         {
-            Serial.println("\t\t- Failed. No Message Received");
-            Errors++;
+            if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT){
+                Serial.print("\t- Failed. check4Receive failed with Error 0x");
+                Serial.println(Module.getLastMCPError(), HEX);
+                Errors++;
+                delay(500);
+            }else{
+                Serial.println("\t- Failed. No Message Received");
+                Errors++;
+            }
         } else {
             if (memcmp(Data_Receive, allowedMessages[i].Data, allowedMessages[i].DLC) != 0) {
-                Serial.println("\t\t- Failed. Data of the received Message doesn't match the sended Data.");
+                Serial.println("\t- Failed. Data of the received Message doesn't match the sended Data.");
                 Errors++;
             } else {
-                Serial.println("\t\t- passed");
+                Serial.println("\t- passed");
             }
-            Serial.println("\t\t- passed");
         }
         delay(500);
     }
@@ -6349,15 +6373,15 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     delay(500);
     Serial.print(Teststep, DEC);
-    Serial.println(".3: send unallowed Messages and check for Reception");
+    Serial.println(".2: send unallowed Messages and check for Reception");
 
     for (size_t i = 0; i < 3; i++){
         Serial.print(Teststep, DEC);
-        Serial.print(".3.");
-        Serial.print(i);
-        Serial.print(": send unallowed Messages");
+        Serial.print(".2.");
+        Serial.print(i+1);
+        Serial.print(": send unallowed Message");
         Serial.print(" with ID 0x");
-        Serial.print(allowedMessages[i].ID, HEX);
+        Serial.print(blockedMessages[i].ID, HEX);
         Serial.println(" and check for Reception");
 
         while (!Module.fillTransmitBuffer(0, blockedMessages[i].ID, blockedMessages[i].Extended, blockedMessages[i].RTR, blockedMessages[i].DLC, blockedMessages[i].Data)){
@@ -6374,13 +6398,12 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         uint8_t Data_Receive[8] = {0};
 
-        Serial.println("\t- Check for received Message");
         if (Module.check4Receive(blockedMessages[i].ID, blockedMessages[i].Extended, blockedMessages[i].DLC, Data_Receive))
         {
-            Serial.println("\t\t- Failed. Message Received");
+            Serial.println("\t- Failed. Message Received");
             Errors++;
         } else {
-            Serial.println("\t\t- passed");
+            Serial.println("\t- passed");
         }
         delay(500);
     }
