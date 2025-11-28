@@ -113,129 +113,130 @@ class MCP2515
 
 		// Register Setter/Getter/Modifier
 
-		uint8_t getFilterStandardIdentifierHigh(uint8_t FilterNumber);
-		bool setFilterStandardIdentifierHigh(uint8_t FilterNumber, uint8_t StandardId_10_3);
+		uint8_t getFilterStandardIdentifierHigh(const uint8_t FilterNumber);
+		bool setFilterStandardIdentifierHigh(const uint8_t FilterNumber, const uint8_t StandardId_10_3);
 
-		uint8_t getFilterStandardIdentifierLow(uint8_t FilterNumber);
-		bool setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t StandardId_2_0, bool ExtendedIdEn, uint8_t ExtendedId_17_16);
+		uint8_t getFilterStandardIdentifierLow(const uint8_t FilterNumber);
+		bool setFilterStandardIdentifierLow(const uint8_t FilterNumber, const uint8_t StandardId_2_0, const bool ExtendedIdEn, const uint8_t ExtendedId_17_16);
 
-		uint8_t getFilterExtendedIdentifierHigh(uint8_t FilterNumber);
-		bool setFilterExtendedIdentifierHigh(uint8_t FilterNumber, uint8_t ExtendedId_15_8);
+		uint8_t getFilterExtendedIdentifierHigh(const uint8_t FilterNumber);
+		bool setFilterExtendedIdentifierHigh(const uint8_t FilterNumber, const uint8_t ExtendedId_15_8);
 
-		uint8_t getFilterExtendedIdentifierLow(uint8_t FilterNumber);
-		bool setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t ExtendedId_7_0);
+		uint8_t getFilterExtendedIdentifierLow(const uint8_t FilterNumber);
+		bool setFilterExtendedIdentifierLow(const uint8_t FilterNumber, const uint8_t ExtendedId_7_0);
 
-		uint8_t getMaskStandardIdentifierHigh(uint8_t MaskNumber);
-		bool setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t StandardId_10_3);
+		uint8_t getMaskStandardIdentifierHigh(const uint8_t MaskNumber);
+		bool setMaskStandardIdentifierHigh(const uint8_t MaskNumber, const uint8_t StandardId_10_3);
 
-		uint8_t getMaskStandardIdentifierLow(uint8_t MaskNumber);
-		bool setMaskStandardIdentifierLow(uint8_t MaskNumber, uint8_t StandardId_2_0, uint8_t ExtendedId_17_16);
+		uint8_t getMaskStandardIdentifierLow(const uint8_t MaskNumber);
+		bool setMaskStandardIdentifierLow(const uint8_t MaskNumber, const uint8_t StandardId_2_0, const uint8_t ExtendedId_17_16);
 
-		uint8_t getMaskExtendedIdentifierHigh(uint8_t MaskNumber);
-		bool setMaskExtendedIdentifierHigh(uint8_t MaskNumber, uint8_t ExtendedId_15_8);
+		uint8_t getMaskExtendedIdentifierHigh(const uint8_t MaskNumber);
+		bool setMaskExtendedIdentifierHigh(const uint8_t MaskNumber, const uint8_t ExtendedId_15_8);
 
-		uint8_t getMaskExtendedIdentifierLow(uint8_t MaskNumber);
-		bool setMaskExtendedIdentifierLow(uint8_t MaskNumber, uint8_t ExtendedId_7_0);
+		uint8_t getMaskExtendedIdentifierLow(const uint8_t MaskNumber);
+		bool setMaskExtendedIdentifierLow(const uint8_t MaskNumber, const uint8_t ExtendedId_7_0);
 
 		uint8_t getRXnBFPinControl();
-		bool setRXnBFPinControl(bool B1BFS, bool B0BFS, bool B1BFE, bool B0BFE, bool B1BFM, bool B0BFM);
-		bool modifyRXnBFPinControl(uint8_t Mask, uint8_t Value);
+		bool setRXnBFPinControl(const bool B1BFS, const bool B0BFS, const bool B1BFE, const bool B0BFE, const bool B1BFM, const bool B0BFM);
+		bool modifyRXnBFPinControl(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getTXnRTSPinControl();
-		bool setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM);
-		bool modifyTXnRTSPinControl(uint8_t Mask, uint8_t Value);
+		bool setTXnRTSPinControl(const bool B2RTSM, const bool B1RTSM, const bool B0RTSM);
+		bool modifyTXnRTSPinControl(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getCanStatus();
 
 		uint8_t getCanControl();
-		bool setCanControl(uint8_t REQOP, bool ABAT, bool OSM, bool CLKEN, uint8_t CLKPRE);
-		bool modifyCanControl(uint8_t Mask, uint8_t Value);
+		bool setCanControl(const uint8_t REQOP, const bool ABAT, const bool OSM, const bool CLKEN, const uint8_t CLKPRE);
+		bool modifyCanControl(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getTransmitErrorCounter();
 		uint8_t getReceiveErrorCounter();
 
 		uint8_t getConfigurationRegister3();
-		bool setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2);
-		bool modifyConfigurationRegister3(uint8_t Mask, uint8_t Value);
+		bool setConfigurationRegister3(const bool SOF, const bool WAKFIL, const uint8_t PHSEG2);
+		bool modifyConfigurationRegister3(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getConfigurationRegister2();
-		bool setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, uint8_t PRSEG);
-		bool modifyConfigurationRegister2(uint8_t Mask, uint8_t Value);
+		bool setConfigurationRegister2(const bool BTLMODE, const bool SAM, const uint8_t PHSEG1, const uint8_t PRSEG);
+		bool modifyConfigurationRegister2(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getConfigurationRegister1();
-		bool setConfigurationRegister1(uint8_t SJW, uint8_t BRP);
-		bool modifyConfigurationRegister1(uint8_t Mask, uint8_t Value);
+		bool setConfigurationRegister1(const uint8_t SJW, const uint8_t BRP);
+		bool modifyConfigurationRegister1(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getCanInterruptEnable();
-		bool setCanInterruptEnable(bool MERRE, bool WAKIE, bool ERRIE, bool TX2IE, bool TX1IE, bool TX0IE, bool RX1IE, bool RX0IE);
-		bool modifyCanInterruptEnable(uint8_t Mask, uint8_t Value);
+		bool setCanInterruptEnable(const bool MERRE, const bool WAKIE, const bool ERRIE, const bool TX2IE, const bool TX1IE, const bool TX0IE, const bool RX1IE, const bool RX0IE);
+		bool modifyCanInterruptEnable(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getCanInterruptFlag();
-		bool setCanInterruptFlag(bool MERRF, bool WAKIF, bool ERRIF, bool TX2IF, bool TX1IF, bool TX0IF, bool RX1IF, bool RX0IF);
-		bool modifyCanInterruptFlag(uint8_t Mask, uint8_t Value);
+		bool setCanInterruptFlag(const bool MERRF, const bool WAKIF, const bool ERRIF, const bool TX2IF, const bool TX1IF, const bool TX0IF, const bool RX1IF, const bool RX0IF);
+		bool modifyCanInterruptFlag(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getErrorFlag();
-		bool setErrorFlag(bool RX1OVR, bool RX0OVR);
-		bool modifyErrorFlag(uint8_t Mask, uint8_t Value);
+		bool setErrorFlag(const bool RX1OVR, const bool RX0OVR);
+		bool modifyErrorFlag(const uint8_t Mask, const uint8_t Value);
 
-		uint8_t getTransmitBufferControl(uint8_t BufferNumber);
-		bool setTransmitBufferControl(uint8_t BufferNumber, bool TXREQ, uint8_t TXP);
-		bool modifyTransmitBufferControl(uint8_t BufferNumber, uint8_t Mask, uint8_t Value);
+		uint8_t getTransmitBufferControl(const uint8_t BufferNumber);
+		bool setTransmitBufferControl(const uint8_t BufferNumber, const bool TXREQ, const uint8_t TXP);
+		bool modifyTransmitBufferControl(const uint8_t BufferNumber, const uint8_t Mask, const uint8_t Value);
 
-		uint8_t getTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber);
-		bool setTransmitBufferStandardIdentifierHigh(uint8_t BufferNumber, uint8_t StandardId_10_3);
+		uint8_t getTransmitBufferStandardIdentifierHigh(const uint8_t BufferNumber);
+		bool setTransmitBufferStandardIdentifierHigh(const uint8_t BufferNumber, const uint8_t StandardId_10_3);
 
-		uint8_t getTransmitBufferStandardIdentifierLow(uint8_t BufferNumber);
-		bool setTransmitBufferStandardIdentifierLow(uint8_t BufferNumber, uint8_t StandardId_2_0, bool ExtendedIdEn, uint8_t ExtendedId_17_16);
+		uint8_t getTransmitBufferStandardIdentifierLow(const uint8_t BufferNumber);
+		bool setTransmitBufferStandardIdentifierLow(const uint8_t BufferNumber, const uint8_t StandardId_2_0, const bool ExtendedIdEn, const uint8_t ExtendedId_17_16);
 
-		uint8_t getTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber);
-		bool setTransmitBufferExtendedIdentifierHigh(uint8_t BufferNumber, uint8_t ExtendedId_15_8);
+		uint8_t getTransmitBufferExtendedIdentifierHigh(const uint8_t BufferNumber);
+		bool setTransmitBufferExtendedIdentifierHigh(const uint8_t BufferNumber, const uint8_t ExtendedId_15_8);
 
-		uint8_t getTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber);
-		bool setTransmitBufferExtendedIdentifierLow(uint8_t BufferNumber, uint8_t ExtendedId_7_0);
+		uint8_t getTransmitBufferExtendedIdentifierLow(const uint8_t BufferNumber);
+		bool setTransmitBufferExtendedIdentifierLow(const uint8_t BufferNumber, const uint8_t ExtendedId_7_0);
 
-		uint8_t getTransmitBufferDataLengthCode(uint8_t BufferNumber);
-		bool setTransmitBufferDataLengthCode(uint8_t BufferNumber, bool RTR, uint8_t DLC);
+		uint8_t getTransmitBufferDataLengthCode(const uint8_t BufferNumber);
+		bool setTransmitBufferDataLengthCode(const uint8_t BufferNumber, const bool RTR, const uint8_t DLC);
 
-		uint8_t getTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber);
-		bool setTransmitBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber, uint8_t Data);
+		uint8_t getTransmitBufferDataByte(const uint8_t BufferNumber, const uint8_t ByteNumber);
+		bool setTransmitBufferDataByte(const uint8_t BufferNumber, const uint8_t ByteNumber, const uint8_t Data);
 
 		uint8_t getReceiveBuffer0Control();
-		bool setReceiveBuffer0Control(uint8_t RXM, bool BUKT);
-		bool modifyReceiveBuffer0Control(uint8_t Mask, uint8_t Value);
+		bool setReceiveBuffer0Control(const uint8_t RXM, const bool BUKT);
+		bool modifyReceiveBuffer0Control(const uint8_t Mask, const uint8_t Value);
 
 		uint8_t getReceiveBuffer1Control();
-		bool setReceiveBuffer1Control(uint8_t RXM);
-		bool modifyReceiveBuffer1Control(uint8_t Mask, uint8_t Value);
+		bool setReceiveBuffer1Control(const uint8_t RXM);
+		bool modifyReceiveBuffer1Control(const uint8_t Mask, const uint8_t Value);
 
-		uint8_t getReceiveBufferStandardIdentifierHigh(uint8_t BufferNumber);
+		uint8_t getReceiveBufferStandardIdentifierHigh(const uint8_t BufferNumber);
 
-		uint8_t getReceiveBufferStandardIdentifierLow(uint8_t BufferNumber);
+		uint8_t getReceiveBufferStandardIdentifierLow(const uint8_t BufferNumber);
 
-		uint8_t getReceiveBufferExtendedIdentifierHigh(uint8_t BufferNumber);
+		uint8_t getReceiveBufferExtendedIdentifierHigh(const uint8_t BufferNumber);
 
-		uint8_t getReceiveBufferExtendedIdentifierLow(uint8_t BufferNumber);
+		uint8_t getReceiveBufferExtendedIdentifierLow(const uint8_t BufferNumber);
 
-		uint8_t getReceiveBufferDataLengthCode(uint8_t BufferNumber);
+		uint8_t getReceiveBufferDataLengthCode(const uint8_t BufferNumber);
 
-		uint8_t getReceiveBufferDataByte(uint8_t BufferNumber, uint8_t ByteNumber);
+		uint8_t getReceiveBufferDataByte(const uint8_t BufferNumber, const uint8_t ByteNumber);
 
 		// SPI-Instructions
 
 		bool resetInstruction();
-		bool writeInstruction(uint8_t Address, uint8_t Value);
-		bool bitModifyInstruction(uint8_t Address, uint8_t Mask, uint8_t Value);
-		bool loadTxBufferInstruction(uint8_t Value, bool a = false, bool b = false, bool c = false);
-		bool rtsInstruction(bool TXBuffer_0 = false, bool TXBuffer_1 = false, bool TXBuffer_2 = false);
+		bool writeInstruction(const uint8_t Address, const uint8_t Value);
+		bool bitModifyInstruction(const uint8_t Address, const uint8_t Mask, const uint8_t Value);
+		bool loadTxBufferInstruction(const uint8_t Value, const bool a = false, const bool b = false, const bool c = false);
+		bool rtsInstruction(const bool TXBuffer_0 = false, const bool TXBuffer_1 = false, const bool TXBuffer_2 = false);
 		uint8_t rxStatusInstruction();
-		uint8_t readInstruction(uint8_t Address);
+		uint8_t readInstruction(const uint8_t Address);
 		uint8_t readStatusInstruction();
-		uint8_t readRxBufferInstruction(bool n = false, bool m = false);
+		uint8_t readRxBufferInstruction(const bool n = false, const bool m = false);
 
 		// other privat Methods
 
-		bool changeBitTiming(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE, uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+		bool changeBitTiming(const uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE, const uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 
+		bool resetOperationMode(const MCP2515OperationMode OperationMode);
 
 	public:
 		// Constructors
@@ -249,15 +250,15 @@ class MCP2515
 
 		// only before initialisation
 
-		bool setSpiPins(uint8_t cs = 0);
-		bool setSpiMode(uint8_t SpiMode = MCP2515_SPI_MODE);
-		bool setDataOrder(uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
-		bool setSpiFrequency(uint32_t frequency = MCP2515_MAX_SPI_SPEED);
-  		bool setClockFrequency(uint32_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+		bool setSpiPins(const uint8_t cs = 0);
+		bool setSpiMode(const uint8_t SpiMode = MCP2515_SPI_MODE);
+		bool setDataOrder(const uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
+		bool setSpiFrequency(const uint32_t frequency = MCP2515_MAX_SPI_SPEED);
+		bool setClockFrequency(const uint32_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 
 		// De-/Initialisation of the MCP2515
 
-		bool init(uint32_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEnabled = true);
+		bool init(const uint32_t BaudRate = MCP2515_DEFAULT_BAUDRATE, const bool reCheckEnabled = true);
 		void deinit();
 
 		// MCP2515-Operationmodes
@@ -270,43 +271,43 @@ class MCP2515
 
 		// change Settings
 
-		bool setReCheckEnabler(bool reCheckEnabler);
-		bool changeBaudRate(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
+		bool setReCheckEnabler(const bool reCheckEnabler);
+		bool changeBaudRate(const uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
 		//bool changeClockFrequency(uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
-		bool changeInterruptSetting(bool value, uint8_t InterruptBit);
+		bool changeInterruptSetting(const bool value, const uint8_t InterruptBit);
 
 		// Filter/Mask-Handling
 
-		bool enableFilterMask(uint8_t buffer = 0);
-		bool disableFilterMask(uint8_t buffer = 0);
-		bool setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended);
-		bool setMask(uint8_t MaskNumber, uint32_t ID);
+		bool enableFilterMask(const uint8_t buffer = 0);
+		bool disableFilterMask(const uint8_t buffer = 0);
+		bool setFilter(const uint8_t FilterNumber, const uint32_t &ID, const bool Extended);
+		bool setMask(const uint8_t MaskNumber, const uint32_t &ID);
 
 		// Message-Handling
 		// Transmission
 
 		uint8_t check4FreeTransmitBuffer();
-		bool fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extended, bool RTR, uint8_t DLC, uint8_t Data[8]);
-		bool sendMessage(uint8_t BufferNumber, uint8_t Priority = 0);
+		bool fillTransmitBuffer(const uint8_t BufferNumber, uint32_t ID, const bool Extended, const bool RTR, const uint8_t DLC, const uint8_t Data[8]);
+		bool sendMessage(const uint8_t BufferNumber, const uint8_t Priority = 0);
 
 		// Reception
 
-		bool check4Rtr(uint32_t ID, bool Extended);
-		bool check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&DataBuffer)[8]);
-		uint32_t getIdFromReceiveBuffer(uint8_t BufferNumber);
-		uint8_t getDlcFromReceiveBuffer(uint8_t BufferNumber);
-		uint8_t getFrameFromReceiveBuffer(uint8_t BufferNumber);
-		uint8_t getRtrFromReceiveBuffer(uint8_t BufferNumber);
-		bool getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8]);
-		bool getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC), uint8_t (&DataBuffer)[8]);
+		bool check4Rtr(const uint32_t &ID, const bool &Extended);
+		bool check4Receive(const uint32_t &ID, const bool &Extended, const uint8_t &DLC, uint8_t (&DataBuffer)[8]);
+		uint32_t getIdFromReceiveBuffer(const uint8_t BufferNumber);
+		uint8_t getDlcFromReceiveBuffer(const uint8_t BufferNumber);
+		uint8_t getFrameFromReceiveBuffer(const uint8_t BufferNumber);
+		uint8_t getRtrFromReceiveBuffer(const uint8_t BufferNumber);
+		bool getDataFromReceiveBuffer(const uint8_t BufferNumber, const uint8_t DLC, uint8_t (&DataBuffer)[8]);
+		bool getAllFromReceiveBuffer(const uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC), uint8_t (&DataBuffer)[8]);
 
-		bool releaseReceiveBuffer(uint8_t BufferNumber);
+		bool releaseReceiveBuffer(const uint8_t BufferNumber);
 
 		// InterruptFlag-Handling
 
 		uint8_t check4InterruptFlags();
-		bool resetInterruptFlag(uint8_t Flag);
-		bool setInterruptFlag(uint8_t Flag);
+		bool resetInterruptFlag(const uint8_t Flag);
+		bool setInterruptFlag(const uint8_t Flag);
 
 		// get Settings
 
