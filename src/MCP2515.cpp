@@ -4684,7 +4684,7 @@ bool MCP2515::check4Receive(const uint32_t &ID, const bool &Extended, const uint
   }
 
   if ((Extended == true && ID > 0x1FFFFFFF) ||
-      (Extended != false && ID > 0x7FF) ||
+      (Extended == false && ID > 0x7FF) ||
       (DLC > 8))
   {
     this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE);
