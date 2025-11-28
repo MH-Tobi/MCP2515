@@ -44,7 +44,7 @@ uint8_t MCP2515::getFilterStandardIdentifierHigh(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterStandardIdentifierHigh(uint8_t FilterNumber, uint8_t StandardId_10_3)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -127,7 +127,7 @@ uint8_t MCP2515::getFilterStandardIdentifierLow(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterStandardIdentifierLow(uint8_t FilterNumber, uint8_t StandardId_2_0, bool ExtendedIdEn, uint8_t ExtendedId_17_16)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -192,7 +192,7 @@ uint8_t MCP2515::getFilterExtendedIdentifierHigh(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterExtendedIdentifierHigh(uint8_t FilterNumber, uint8_t ExtendedId_15_8)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -256,7 +256,7 @@ uint8_t MCP2515::getFilterExtendedIdentifierLow(uint8_t FilterNumber)
  */
 bool MCP2515::setFilterExtendedIdentifierLow(uint8_t FilterNumber, uint8_t ExtendedId_7_0)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -320,7 +320,7 @@ uint8_t MCP2515::getMaskStandardIdentifierHigh(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskStandardIdentifierHigh(uint8_t MaskNumber, uint8_t StandardId_10_3)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -392,7 +392,7 @@ uint8_t MCP2515::getMaskStandardIdentifierLow(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskStandardIdentifierLow(uint8_t MaskNumber, uint8_t StandardId_2_0, uint8_t ExtendedId_17_16)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -457,7 +457,7 @@ uint8_t MCP2515::getMaskExtendedIdentifierHigh(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskExtendedIdentifierHigh(uint8_t MaskNumber, uint8_t ExtendedId_15_8)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -521,7 +521,7 @@ uint8_t MCP2515::getMaskExtendedIdentifierLow(uint8_t MaskNumber)
  */
 bool MCP2515::setMaskExtendedIdentifierLow(uint8_t MaskNumber, uint8_t ExtendedId_7_0)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -784,7 +784,7 @@ uint8_t MCP2515::getTXnRTSPinControl()
  */
 bool MCP2515::setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -837,7 +837,7 @@ bool MCP2515::setTXnRTSPinControl(bool B2RTSM, bool B1RTSM, bool B0RTSM)
  */
 bool MCP2515::modifyTXnRTSPinControl(uint8_t Mask, uint8_t Value)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -1191,7 +1191,7 @@ uint8_t MCP2515::getConfigurationRegister3()
  */
 bool MCP2515::setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -1254,7 +1254,7 @@ bool MCP2515::setConfigurationRegister3(bool SOF, bool WAKFIL, uint8_t PHSEG2)
  */
 bool MCP2515::modifyConfigurationRegister3(uint8_t Mask, uint8_t Value)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -1341,7 +1341,7 @@ uint8_t MCP2515::getConfigurationRegister2()
  */
 bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, uint8_t PRSEG)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -1403,7 +1403,7 @@ bool MCP2515::setConfigurationRegister2(bool BTLMODE, bool SAM, uint8_t PHSEG1, 
  */
 bool MCP2515::modifyConfigurationRegister2(uint8_t Mask, uint8_t Value)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -1474,7 +1474,7 @@ uint8_t MCP2515::getConfigurationRegister1()
  */
 bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -1530,7 +1530,7 @@ bool MCP2515::setConfigurationRegister1(uint8_t SJW, uint8_t BRP)
  */
 bool MCP2515::modifyConfigurationRegister1(uint8_t Mask, uint8_t Value)
 {
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     this->m_lastMcpError = ERROR_MCP2515_FALSE_OPERATION_MODE;
     return false;
@@ -3180,13 +3180,13 @@ bool MCP2515::resetInstruction()
   // Check if Configuration-Mode is set
   if (m_reCheckEnabled)
   {
-    if (((getCanStatus() & CANSTAT_BIT_OPMOD) >> 5) != MCP2515_OP_CONFIGURATION) {
+    if (((getCanStatus() & CANSTAT_BIT_OPMOD) >> 5) != static_cast<uint8_t>(MCP2515OperationMode::CONFIGURATION)) {
       this->m_lastMcpError = ERROR_SPI_CONFIGURATION_MODE_NOT_SET;
       return false;
     }
   }
 
-  this->m_operationMode = MCP2515_OP_CONFIGURATION;
+  this->m_operationMode = MCP2515OperationMode::CONFIGURATION;
   return true;
 }
 
@@ -3451,7 +3451,7 @@ uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
  */
 bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequency)
 {
-  uint8_t OperationMode = m_operationMode;
+  MCP2515OperationMode OperationMode = m_operationMode;
 
   if (targetBaudRate != 5E3 && targetBaudRate != 10E3 && targetBaudRate != 20E3 &&
       targetBaudRate != 40E3 && targetBaudRate != 50E3 && targetBaudRate != 80E3 &&
@@ -3541,7 +3541,7 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
     return false;
   }
 
-  if (OperationMode != MCP2515_OP_CONFIGURATION)
+  if (OperationMode != MCP2515OperationMode::CONFIGURATION)
   {
     if (!setConfigurationMode())
     {
@@ -3574,19 +3574,19 @@ bool MCP2515::changeBitTiming(uint32_t targetBaudRate, uint32_t targetClockFrequ
   {
     switch (OperationMode)
     {
-    case MCP2515_OP_LISTEN:
+    case MCP2515OperationMode::LISTEN:
       return setListenOnlyMode();
       break;
-    case MCP2515_OP_LOOPBACK:
+    case MCP2515OperationMode::LOOPBACK:
       return setLoopbackMode();
       break;
-    case MCP2515_OP_NORMAL:
+    case MCP2515OperationMode::NORMAL:
       return setNormalMode();
       break;
-    case MCP2515_OP_SLEEP:
+    case MCP2515OperationMode::SLEEP:
       return setSleepMode();
       break;
-    case MCP2515_OP_CONFIGURATION:
+    case MCP2515OperationMode::CONFIGURATION:
       return setConfigurationMode();
       break;
     default:
@@ -3614,7 +3614,7 @@ MCP2515::MCP2515() :
   m_dataOrder(MCP2515_SPI_DATA_ORDER),
   m_spiFrequency(MCP2515_MAX_SPI_SPEED),
   m_clockFrequency(MCP2515_DEFAULT_CLOCK_FREQUENCY),
-  m_operationMode(0xFF),
+  m_operationMode(MCP2515OperationMode::NORMAL),
   m_baudRate(MCP2515_DEFAULT_BAUDRATE),
   m_isInitialized(false),
   m_lastMcpError(EMPTY_VALUE_16_BIT),
@@ -3814,7 +3814,7 @@ bool MCP2515::setConfigurationMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_CONFIGURATION << 5)) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::CONFIGURATION) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3826,7 +3826,7 @@ bool MCP2515::setConfigurationMode()
     return false;
   }
 
-  this->m_operationMode = MCP2515_OP_CONFIGURATION;
+  this->m_operationMode = MCP2515OperationMode::CONFIGURATION;
   return true;
 }
 
@@ -3847,7 +3847,7 @@ bool MCP2515::setNormalMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_NORMAL << 5)) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::NORMAL) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3859,7 +3859,7 @@ bool MCP2515::setNormalMode()
     return false;
   }
 
-  this->m_operationMode = MCP2515_OP_NORMAL;
+  this->m_operationMode = MCP2515OperationMode::NORMAL;
   return true;
 }
 
@@ -3880,7 +3880,7 @@ bool MCP2515::setSleepMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_SLEEP << 5)) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::SLEEP) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3892,7 +3892,7 @@ bool MCP2515::setSleepMode()
     return false;
   }
 
-  this->m_operationMode = MCP2515_OP_SLEEP;
+  this->m_operationMode = MCP2515OperationMode::SLEEP;
   return true;
 }
 
@@ -3913,7 +3913,7 @@ bool MCP2515::setListenOnlyMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_LISTEN << 5)) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LISTEN) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3925,7 +3925,7 @@ bool MCP2515::setListenOnlyMode()
     return false;
   }
 
-  this->m_operationMode = MCP2515_OP_LISTEN;
+  this->m_operationMode = MCP2515OperationMode::LISTEN;
   return true;
 }
 
@@ -3946,7 +3946,7 @@ bool MCP2515::setLoopbackMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (MCP2515_OP_LOOPBACK << 5)) && counter > 0)
+  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LOOPBACK) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3958,7 +3958,7 @@ bool MCP2515::setLoopbackMode()
     return false;
   }
 
-  this->m_operationMode = MCP2515_OP_LOOPBACK;
+  this->m_operationMode = MCP2515OperationMode::LOOPBACK;
   return true;
 }
 
@@ -4243,7 +4243,7 @@ bool MCP2515::setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended)
 {
   this->m_lastMcpError = EMPTY_VALUE_16_BIT;
 
-  uint8_t OperationMode = m_operationMode;
+  MCP2515OperationMode OperationMode = m_operationMode;
   uint8_t StandardID_High = 0x00;
   uint8_t StandardID_Low = 0x00;
   uint8_t Extended_Value = 0x00;
@@ -4263,7 +4263,7 @@ bool MCP2515::setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended)
     return false;
   }
 
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     if (!setConfigurationMode())
     {
@@ -4307,19 +4307,19 @@ bool MCP2515::setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended)
   {
     switch (OperationMode)
     {
-    case MCP2515_OP_LISTEN:
+    case MCP2515OperationMode::LISTEN:
       return setListenOnlyMode();
       break;
-    case MCP2515_OP_LOOPBACK:
+    case MCP2515OperationMode::LOOPBACK:
       return setLoopbackMode();
       break;
-    case MCP2515_OP_NORMAL:
+    case MCP2515OperationMode::NORMAL:
       return setNormalMode();
       break;
-    case MCP2515_OP_SLEEP:
+    case MCP2515OperationMode::SLEEP:
       return setSleepMode();
       break;
-    case MCP2515_OP_CONFIGURATION:
+    case MCP2515OperationMode::CONFIGURATION:
       return setConfigurationMode();
       break;
     default:
@@ -4342,8 +4342,7 @@ bool MCP2515::setMask(uint8_t MaskNumber, uint32_t ID)
 {
   this->m_lastMcpError = EMPTY_VALUE_16_BIT;
 
-  uint8_t OperationMode = m_operationMode;
-
+  MCP2515OperationMode OperationMode = m_operationMode;
   uint8_t StandardID_High = 0x00;
   uint8_t StandardID_Low = 0x00;
   uint8_t ExtendedID_inStandardID = 0x00;
@@ -4362,7 +4361,7 @@ bool MCP2515::setMask(uint8_t MaskNumber, uint32_t ID)
     return false;
   }
 
-  if (m_operationMode != MCP2515_OP_CONFIGURATION)
+  if (m_operationMode != MCP2515OperationMode::CONFIGURATION)
   {
     if (!setConfigurationMode())
     {
@@ -4404,19 +4403,19 @@ bool MCP2515::setMask(uint8_t MaskNumber, uint32_t ID)
   {
     switch (OperationMode)
     {
-    case MCP2515_OP_LISTEN:
+    case MCP2515OperationMode::LISTEN:
       return setListenOnlyMode();
       break;
-    case MCP2515_OP_LOOPBACK:
+    case MCP2515OperationMode::LOOPBACK:
       return setLoopbackMode();
       break;
-    case MCP2515_OP_NORMAL:
+    case MCP2515OperationMode::NORMAL:
       return setNormalMode();
       break;
-    case MCP2515_OP_SLEEP:
+    case MCP2515OperationMode::SLEEP:
       return setSleepMode();
       break;
-    case MCP2515_OP_CONFIGURATION:
+    case MCP2515OperationMode::CONFIGURATION:
       return setConfigurationMode();
       break;
     default:
@@ -5401,7 +5400,7 @@ uint32_t MCP2515::getClockFrequency()
  *
  * 4 = Configuration-Mode
  */
-uint8_t MCP2515::getOperationMode()
+MCP2515OperationMode MCP2515::getOperationMode()
 {
   return m_operationMode;
 }

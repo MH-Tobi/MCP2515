@@ -70,13 +70,13 @@ enum class MCP2515SpiInstruction: uint8_t {
 /**
  * MCP2515 Operation-Modes
  */
-
-#define MCP2515_OP_NORMAL			0x00
-#define MCP2515_OP_SLEEP			0x01
-#define MCP2515_OP_LOOPBACK			0x02
-#define MCP2515_OP_LISTEN			0x03
-#define MCP2515_OP_CONFIGURATION	0x04
-
+enum class MCP2515OperationMode: uint8_t {
+	NORMAL			= 0x00,
+	SLEEP			= 0x01,
+	LOOPBACK		= 0x02,
+	LISTEN			= 0x03,
+	CONFIGURATION	= 0x04,
+};
 
 /**
  * MCP2515 other Constants
@@ -100,7 +100,7 @@ class MCP2515
 		uint8_t m_dataOrder;
 		uint32_t m_spiFrequency;
 		uint32_t m_clockFrequency;
-		uint8_t m_operationMode;
+		MCP2515OperationMode m_operationMode;
 		uint32_t m_baudRate;
 		bool m_isInitialized;
 		uint16_t m_lastMcpError;
@@ -315,7 +315,7 @@ class MCP2515
 		uint8_t getDataOrder();
 		uint32_t getFrequency();
 		uint32_t getClockFrequency();
-		uint8_t getOperationMode();
+		MCP2515OperationMode getOperationMode();
 		uint32_t getBaudRate();
 		bool getIsInitialized();
 		bool getReCheckEnabled();
