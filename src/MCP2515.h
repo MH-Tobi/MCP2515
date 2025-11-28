@@ -92,19 +92,19 @@ struct Filter
 class MCP2515
 {
 	private:
-		SPISettings _spiSettings;
-		uint8_t _csPin;
-		uint8_t _spiMode;
-		uint8_t _dataOrder;
-		uint32_t _spiFrequency;
-		uint32_t _clockFrequency;
-		uint8_t _operationMode;
-		uint32_t _baudRate;
-		bool _isInitialized;
-		uint16_t _lastMcpError;
-		bool _reCheckEnabled;
-		Filter _filterSettings[6];
-		uint32_t _maskSettings[2];
+		SPISettings m_spiSettings;
+		uint8_t m_csPin;
+		uint8_t m_spiMode;
+		uint8_t m_dataOrder;
+		uint32_t m_spiFrequency;
+		uint32_t m_clockFrequency;
+		uint8_t m_operationMode;
+		uint32_t m_baudRate;
+		bool m_isInitialized;
+		uint16_t m_lastMcpError;
+		bool m_reCheckEnabled;
+		Filter m_filterSettings[6];
+		uint32_t m_maskSettings[2];
 
 
 
