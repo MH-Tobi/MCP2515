@@ -14,7 +14,6 @@
 
 #include <Arduino.h>
 #include <SPI.h>
-//#include <type_traits>
 #include "MCP2515Register.h"
 #include "MCP2515Error.h"
 
