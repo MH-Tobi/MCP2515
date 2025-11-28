@@ -3171,7 +3171,7 @@ bool MCP2515::resetInstruction()
 {
   SPI.beginTransaction(m_spiSettings);
   digitalWrite(m_csPin, LOW);
-  SPI.transfer(MCP2515_SPI_INSTRUCTION_RESET);
+  SPI.transfer(static_cast<uint8_t>(MCP2515SpiInstruction::RESET));
   digitalWrite(m_csPin, HIGH);
   SPI.endTransaction();
 
@@ -3201,7 +3201,7 @@ bool MCP2515::writeInstruction(uint8_t Address, uint8_t Value)
 {
   SPI.beginTransaction(m_spiSettings);
   digitalWrite(m_csPin, LOW);
-  SPI.transfer(MCP2515_SPI_INSTRUCTION_WRITE);
+  SPI.transfer(static_cast<uint8_t>(MCP2515SpiInstruction::WRITE));
   SPI.transfer(Address);
   SPI.transfer(Value);
   digitalWrite(m_csPin, HIGH);
@@ -3232,7 +3232,7 @@ bool MCP2515::bitModifyInstruction(uint8_t Address, uint8_t Mask, uint8_t Value)
   {
     SPI.beginTransaction(m_spiSettings);
     digitalWrite(m_csPin, LOW);
-    SPI.transfer(MCP2515_SPI_INSTRUCTION_BIT_MODIFY);
+    SPI.transfer(static_cast<uint8_t>(MCP2515SpiInstruction::BIT_MODIFY));
     SPI.transfer(Address);
     SPI.transfer(Mask);
     SPI.transfer(Value);
@@ -3271,7 +3271,7 @@ bool MCP2515::bitModifyInstruction(uint8_t Address, uint8_t Mask, uint8_t Value)
  */
 bool MCP2515::loadTxBufferInstruction(uint8_t Value, bool a, bool b, bool c)
 {
-  uint8_t Instruction = MCP2515_SPI_INSTRUCTION_LOAD_TX_BUFFER | a << 2 | b << 1 | c;
+  uint8_t Instruction = static_cast<uint8_t>(MCP2515SpiInstruction::LOAD_TX_BUFFER) | a << 2 | b << 1 | c;
 
   SPI.beginTransaction(m_spiSettings);
   digitalWrite(m_csPin, LOW);
@@ -3295,7 +3295,7 @@ bool MCP2515::rtsInstruction(bool TXBuffer_0, bool TXBuffer_1, bool TXBuffer_2)
 {
   if (TXBuffer_0 || TXBuffer_1 || TXBuffer_2)
   {
-    uint8_t Instruction = MCP2515_SPI_INSTRUCTION_RTS | TXBuffer_2 << 2 | TXBuffer_1 << 1 | TXBuffer_0;
+    uint8_t Instruction = static_cast<uint8_t>(MCP2515SpiInstruction::RTS) | TXBuffer_2 << 2 | TXBuffer_1 << 1 | TXBuffer_0;
     SPI.beginTransaction(m_spiSettings);
     digitalWrite(m_csPin, LOW);
     SPI.transfer(Instruction);
@@ -3340,7 +3340,7 @@ uint8_t MCP2515::rxStatusInstruction()
   uint8_t value;
   SPI.beginTransaction(m_spiSettings);
   digitalWrite(m_csPin, LOW);
-  SPI.transfer(MCP2515_SPI_INSTRUCTION_RX_STATUS);
+  SPI.transfer(static_cast<uint8_t>(MCP2515SpiInstruction::RX_STATUS));
   value = SPI.transfer(0x00);
   digitalWrite(m_csPin, HIGH);
   SPI.endTransaction();
@@ -3362,7 +3362,7 @@ uint8_t MCP2515::readInstruction(uint8_t Address)
 
   SPI.beginTransaction(m_spiSettings);
   digitalWrite(m_csPin, LOW);
-  SPI.transfer(MCP2515_SPI_INSTRUCTION_READ);
+  SPI.transfer(static_cast<uint8_t>(MCP2515SpiInstruction::READ));
   SPI.transfer(Address);
   value = SPI.transfer(0x00);
   digitalWrite(m_csPin, HIGH);
@@ -3399,7 +3399,7 @@ uint8_t MCP2515::readStatusInstruction()
 
   SPI.beginTransaction(m_spiSettings);
   digitalWrite(m_csPin, LOW);
-  SPI.transfer(MCP2515_SPI_INSTRUCTION_READ_STATUS);
+  SPI.transfer(static_cast<uint8_t>(MCP2515SpiInstruction::READ_STATUS));
   value = SPI.transfer(0x00);
   digitalWrite(m_csPin, HIGH);
   SPI.endTransaction();
@@ -3431,7 +3431,7 @@ uint8_t MCP2515::readStatusInstruction()
 uint8_t MCP2515::readRxBufferInstruction(bool n, bool m)
 {
   uint8_t value;
-  uint8_t Instruction = MCP2515_SPI_INSTRUCTION_READ_RX_BUFFER | n << 2 | m << 1;
+  uint8_t Instruction = static_cast<uint8_t>(MCP2515SpiInstruction::READ_RX_BUFFER) | n << 2 | m << 1;
 
   SPI.beginTransaction(m_spiSettings);
   digitalWrite(m_csPin, LOW);

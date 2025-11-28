@@ -14,6 +14,7 @@
 
 #include <Arduino.h>
 #include <SPI.h>
+//#include <type_traits>
 #include "MCP2515Register.h"
 #include "MCP2515Error.h"
 
@@ -54,16 +55,17 @@
 /**
  * SPI-Instruction-Formats
  */
-
-#define MCP2515_SPI_INSTRUCTION_RESET				0xC0
-#define MCP2515_SPI_INSTRUCTION_READ				0x03
-#define MCP2515_SPI_INSTRUCTION_READ_RX_BUFFER		0x90
-#define MCP2515_SPI_INSTRUCTION_WRITE				0x02
-#define MCP2515_SPI_INSTRUCTION_LOAD_TX_BUFFER		0x40
-#define MCP2515_SPI_INSTRUCTION_RTS					0x80
-#define MCP2515_SPI_INSTRUCTION_READ_STATUS			0xA0
-#define MCP2515_SPI_INSTRUCTION_RX_STATUS			0xB0
-#define MCP2515_SPI_INSTRUCTION_BIT_MODIFY			0x05
+enum class MCP2515SpiInstruction: uint8_t {
+	RESET			= 0xC0,
+	READ			= 0x03,
+	READ_RX_BUFFER	= 0x90,
+	WRITE			= 0x02,
+	LOAD_TX_BUFFER	= 0x40,
+	RTS				= 0x80,
+	READ_STATUS		= 0xA0,
+	RX_STATUS		= 0xB0,
+	BIT_MODIFY		= 0x05,
+};
 
 /**
  * MCP2515 Operation-Modes
