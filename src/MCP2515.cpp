@@ -3710,7 +3710,7 @@ bool MCP2515::setSpiMode(uint8_t SpiMode)
   }
 
   this->_spiMode = SpiMode;
-  SPISettings _spiSettings(_spiFrequency, _dataOrder, SpiMode);
+  this->_spiSettings = SPISettings(_spiFrequency, _dataOrder, SpiMode);
 
   return true;
 }
@@ -3738,7 +3738,7 @@ bool MCP2515::setDataOrder(uint8_t DataOrder)
   }
 
   this->_dataOrder = DataOrder;
-  SPISettings _spiSettings(_spiFrequency, DataOrder, _spiMode);
+  this->_spiSettings = SPISettings(_spiFrequency, DataOrder, _spiMode);
 
   return true;
 }
@@ -3767,7 +3767,7 @@ bool MCP2515::setSpiFrequency(uint32_t Frequency)
   }
 
   this->_spiFrequency = Frequency;
-  SPISettings _spiSettings(Frequency, _dataOrder, _spiMode);
+  this->_spiSettings = SPISettings(Frequency, _dataOrder, _spiMode);
 
   return true;
 }
@@ -4289,10 +4289,10 @@ bool MCP2515::setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended)
   }
 
   uint8_t ErrorCount = 0;
-  ErrorCount = ErrorCount + (setFilterStandardIdentifierHigh(FilterNumber, StandardID_High)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setFilterStandardIdentifierLow(FilterNumber, StandardID_Low, Extended_Value, ExtendedID_inStandardID)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setFilterExtendedIdentifierHigh(FilterNumber, ExtendedID_High)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setFilterExtendedIdentifierLow(FilterNumber, ExtendedID_Low)) ? 0 : 1;
+  ErrorCount = ErrorCount + ((setFilterStandardIdentifierHigh(FilterNumber, StandardID_High)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setFilterStandardIdentifierLow(FilterNumber, StandardID_Low, Extended_Value, ExtendedID_inStandardID)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setFilterExtendedIdentifierHigh(FilterNumber, ExtendedID_High)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setFilterExtendedIdentifierLow(FilterNumber, ExtendedID_Low)) ? 0 : 1);
 
   if (ErrorCount > 0)
   {
@@ -4387,10 +4387,10 @@ bool MCP2515::setMask(uint8_t MaskNumber, uint32_t ID)
   //Serial.println(ExtendedID_Low, HEX);
 
   uint8_t ErrorCount = 0;
-  ErrorCount = ErrorCount + (setMaskStandardIdentifierHigh(MaskNumber, StandardID_High)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setMaskStandardIdentifierLow(MaskNumber, StandardID_Low, ExtendedID_inStandardID)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setMaskExtendedIdentifierHigh(MaskNumber, ExtendedID_High)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setMaskExtendedIdentifierLow(MaskNumber, ExtendedID_Low)) ? 0 : 1;
+  ErrorCount = ErrorCount + ((setMaskStandardIdentifierHigh(MaskNumber, StandardID_High)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setMaskStandardIdentifierLow(MaskNumber, StandardID_Low, ExtendedID_inStandardID)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setMaskExtendedIdentifierHigh(MaskNumber, ExtendedID_High)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setMaskExtendedIdentifierLow(MaskNumber, ExtendedID_Low)) ? 0 : 1);
 
   if (ErrorCount > 0)
   {
@@ -4458,7 +4458,6 @@ uint8_t MCP2515::check4FreeTransmitBuffer()
     if ((Value & (0x08 << (2 * i))) != 0 )
     {
       return i;
-      break;
     }
   }
 
@@ -4540,10 +4539,10 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 
   uint8_t ErrorCount = 0;
 
-  ErrorCount = ErrorCount + (setTransmitBufferStandardIdentifierHigh(BufferNumber, StandardID_High)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setTransmitBufferStandardIdentifierLow(BufferNumber, StandardID_Low, Extended_Value, ExtendedID_inStandardID)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setTransmitBufferExtendedIdentifierHigh(BufferNumber, ExtendedID_High)) ? 0 : 1;
-  ErrorCount = ErrorCount + (setTransmitBufferExtendedIdentifierLow(BufferNumber, ExtendedID_Low)) ? 0 : 1;
+  ErrorCount = ErrorCount + ((setTransmitBufferStandardIdentifierHigh(BufferNumber, StandardID_High)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setTransmitBufferStandardIdentifierLow(BufferNumber, StandardID_Low, Extended_Value, ExtendedID_inStandardID)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setTransmitBufferExtendedIdentifierHigh(BufferNumber, ExtendedID_High)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setTransmitBufferExtendedIdentifierLow(BufferNumber, ExtendedID_Low)) ? 0 : 1);
 
   if (ErrorCount > 0)
   {
@@ -4552,12 +4551,12 @@ bool MCP2515::fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
   }
 
   if (RTR) {
-    ErrorCount = ErrorCount + (setTransmitBufferDataLengthCode(BufferNumber, RTR, DLC)) ? 0 : 1;
+    ErrorCount = ErrorCount + ((setTransmitBufferDataLengthCode(BufferNumber, RTR, DLC)) ? 0 : 1);
   } else {
-    ErrorCount = ErrorCount + (setTransmitBufferDataLengthCode(BufferNumber, RTR, DLC)) ? 0 : 1;
+    ErrorCount = ErrorCount + ((setTransmitBufferDataLengthCode(BufferNumber, RTR, DLC)) ? 0 : 1);
 
     for (int i = 0; i < DLC; i++) {
-      ErrorCount = ErrorCount + (setTransmitBufferDataByte(BufferNumber, i, Data[i])) ? 0 : 1;
+      ErrorCount = ErrorCount + ((setTransmitBufferDataByte(BufferNumber, i, Data[i])) ? 0 : 1);
     }
   }
 
