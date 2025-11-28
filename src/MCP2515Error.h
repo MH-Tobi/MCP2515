@@ -62,17 +62,8 @@ enum class MCP2515Error: uint16_t {
 
     NO_ERROR                                = 0x0000,
 };
-// Secondary Errors
 
-
-//#define ERROR_MCP2515_MESSAGE_SENDING_ABORTED           0x0060      // Occurs when the send operation was aborted.
-//#define ERROR_MCP2515_ERROR_DURING_SENDING              0x0001      // Appended to "ERROR_MCP2515_MESSAGE_SENDING_ABORTED" if the send operation was aborted due to a method error.
-//
-//#define ERROR_MCP2515_NOT_IMPLEMENTED                   0xFFFF      // Occurs when Method is not implemented yet.
-
-#define EMPTY_VALUE_8_BIT                               0x00
-#define EMPTY_VALUE_16_BIT                              0x0000
-#define EMPTY_VALUE_32_BIT                              0x00000000
-#define EMPTY_VALUE_64_BIT                              0x0000000000000000
+#define EMPTY_VALUE_8_BIT                   0x00
+#define EMPTY_VALUE_32_BIT                  0x00000000
 
 #endif
