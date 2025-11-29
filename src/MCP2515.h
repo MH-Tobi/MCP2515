@@ -237,6 +237,8 @@ class MCP2515
 
 		bool resetOperationMode(const MCP2515OperationMode OperationMode);
 
+		void prepareIDForRegister(uint8_t (&ForRegister)[6], const uint32_t &ID, const bool Extended);
+
 	public:
 		// Constructors
 

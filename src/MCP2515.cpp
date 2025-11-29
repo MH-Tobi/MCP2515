@@ -3580,6 +3580,25 @@ bool MCP2515::resetOperationMode(const MCP2515OperationMode  OperationMode)
 }
 
 
+void MCP2515::prepareIDForRegister(uint8_t (&ForRegister)[6], const uint32_t &ID, const bool Extended)
+{
+  if (Extended) {
+    ForRegister[0] = (ID >> 21);            // for StandardID_High
+    ForRegister[1] = ((ID >> 18) & 0x07);   // for StandardID_Low
+    ForRegister[2] = 0x01;                  // for Extended_Value
+    ForRegister[3] = ((ID >> 16) & 0x03);   // for ExtendedID_inStandardID
+    ForRegister[4] = ((ID >> 8) & 0xFF);    // for ExtendedID_High
+    ForRegister[5] = (ID & 0xFF);           // for ExtendedID_Low
+  } else {
+    ForRegister[0] = (ID >> 3);             // for StandardID_High
+    ForRegister[1] = (ID & 0x07);           // for StandardID_Low
+    ForRegister[2] = 0x00;                  // for Extended_Value
+    ForRegister[3] = 0x00;                  // for ExtendedID_inStandardID
+    ForRegister[4] = 0x00;                  // for ExtendedID_High
+    ForRegister[5] = 0x00;                  // for ExtendedID_Low
+  }
+}
+
 /***********************************************************************************************************************
  * 									Public Methods
  **********************************************************************************************************************/
@@ -4219,13 +4238,10 @@ bool MCP2515::setFilter(const uint8_t FilterNumber, const uint32_t &ID, const bo
   this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::NO_ERROR);
 
   const MCP2515OperationMode  OperationMode = m_operationMode;
-  uint8_t StandardID_High = 0x00;
-  uint8_t StandardID_Low = 0x00;
-  uint8_t Extended_Value = 0x00;
-  uint8_t ExtendedID_inStandardID = 0x00;
-  uint8_t ExtendedID_High = 0x00;
-  uint8_t ExtendedID_Low = 0x00;
+  uint8_t ForRegister[6] = {0x00};
   uint8_t ErrorCount = 0;
+  uint16_t occuredError = static_cast<uint16_t>(MCP2515Error::NO_ERROR);
+  bool Result = true;
 
   if (!m_isInitialized)
   {
@@ -4248,42 +4264,35 @@ bool MCP2515::setFilter(const uint8_t FilterNumber, const uint32_t &ID, const bo
     }
   }
 
-  if (Extended) {
-    StandardID_High = (ID >> 21);
-    StandardID_Low = ((ID >> 18) & 0x07);
-    Extended_Value = 0x01;
-    ExtendedID_inStandardID = ((ID >> 16) & 0x03);
-    ExtendedID_High = ((ID >> 8) & 0xFF);
-    ExtendedID_Low = (ID & 0xFF);
-  } else {
-    StandardID_High = (ID >> 3);
-    StandardID_Low = (ID & 0x07);
-    Extended_Value = 0x00;
-    ExtendedID_inStandardID = 0x00;
-    ExtendedID_High = 0x00;
-    ExtendedID_Low = 0x00;
-  }
+  prepareIDForRegister(ForRegister, ID, Extended);
 
-  ErrorCount = ErrorCount + ((setFilterStandardIdentifierHigh(FilterNumber, StandardID_High)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setFilterStandardIdentifierLow(FilterNumber, StandardID_Low, Extended_Value, ExtendedID_inStandardID)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setFilterExtendedIdentifierHigh(FilterNumber, ExtendedID_High)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setFilterExtendedIdentifierLow(FilterNumber, ExtendedID_Low)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setFilterStandardIdentifierHigh(FilterNumber, ForRegister[0])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setFilterStandardIdentifierLow(FilterNumber, ForRegister[1], ForRegister[2], ForRegister[3])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setFilterExtendedIdentifierHigh(FilterNumber, ForRegister[4])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setFilterExtendedIdentifierLow(FilterNumber, ForRegister[5])) ? 0 : 1);
 
   if (ErrorCount > 0)
   {
-    this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_FILTER_ID_FILLING);
-    return false;
+    occuredError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_FILTER_ID_FILLING);
+    Result = false;
+  }else{
+    m_filterSettings[FilterNumber].Extended = Extended;
+    m_filterSettings[FilterNumber].ID = ID;
   }
-
-  m_filterSettings[FilterNumber].Extended = Extended;
-  m_filterSettings[FilterNumber].ID = ID;
 
   if (OperationMode != m_operationMode)
   {
-    return resetOperationMode(OperationMode);
+    if (!resetOperationMode(OperationMode)){
+      Result = false;
+    }
   }
 
-  return true;
+  if((this->m_lastMcpError == static_cast<uint16_t>(MCP2515Error::NO_ERROR)) && (occuredError != static_cast<uint16_t>(MCP2515Error::NO_ERROR)))
+  {
+    this->m_lastMcpError = occuredError;
+  }
+
+  return Result;
 }
 
 /**
@@ -4297,12 +4306,10 @@ bool MCP2515::setMask(const uint8_t MaskNumber, const uint32_t &ID)
   this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::NO_ERROR);
 
   const MCP2515OperationMode  OperationMode = m_operationMode;
-  uint8_t StandardID_High = 0x00;
-  uint8_t StandardID_Low = 0x00;
-  uint8_t ExtendedID_inStandardID = 0x00;
-  uint8_t ExtendedID_High = 0x00;
-  uint8_t ExtendedID_Low = 0x00;
+  uint8_t ForRegister[6] = {0x00};
   uint8_t ErrorCount = 0;
+  uint16_t occuredError = static_cast<uint16_t>(MCP2515Error::NO_ERROR);
+  bool Result = true;
 
   if (!m_isInitialized)
   {
@@ -4325,31 +4332,34 @@ bool MCP2515::setMask(const uint8_t MaskNumber, const uint32_t &ID)
     }
   }
 
-  StandardID_High = (ID >> 21);
-  StandardID_Low = ((ID >> 18) & 0x07);
-  ExtendedID_inStandardID = ((ID >> 16) & 0x03);
-  ExtendedID_High = ((ID >> 8) & 0xFF);
-  ExtendedID_Low = (ID & 0xFF);
+  prepareIDForRegister(ForRegister, ID, true);
 
-  ErrorCount = ErrorCount + ((setMaskStandardIdentifierHigh(MaskNumber, StandardID_High)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setMaskStandardIdentifierLow(MaskNumber, StandardID_Low, ExtendedID_inStandardID)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setMaskExtendedIdentifierHigh(MaskNumber, ExtendedID_High)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setMaskExtendedIdentifierLow(MaskNumber, ExtendedID_Low)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setMaskStandardIdentifierHigh(MaskNumber, ForRegister[0])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setMaskStandardIdentifierLow(MaskNumber, ForRegister[1], ForRegister[3])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setMaskExtendedIdentifierHigh(MaskNumber, ForRegister[4])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setMaskExtendedIdentifierLow(MaskNumber, ForRegister[5])) ? 0 : 1);
 
   if (ErrorCount > 0)
   {
-    this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_MASK_ID_FILLING);
-    return false;
+    occuredError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_MASK_ID_FILLING);
+    Result = false;
+  }else{
+    m_maskSettings[MaskNumber] = ID;
   }
-
-  m_maskSettings[MaskNumber] = ID;
 
   if (OperationMode != m_operationMode)
   {
-    return resetOperationMode(OperationMode);
+    if (!resetOperationMode(OperationMode)){
+      Result = false;
+    }
   }
 
-  return true;
+  if((this->m_lastMcpError == static_cast<uint16_t>(MCP2515Error::NO_ERROR)) && (occuredError != static_cast<uint16_t>(MCP2515Error::NO_ERROR)))
+  {
+    this->m_lastMcpError = occuredError;
+  }
+
+  return Result;
 }
 
 /**
@@ -4402,12 +4412,7 @@ bool MCP2515::fillTransmitBuffer(const uint8_t BufferNumber, const uint32_t ID, 
 {
   this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::NO_ERROR);
 
-  uint8_t StandardID_High = 0x00;
-  uint8_t StandardID_Low = 0x00;
-  uint8_t Extended_Value = 0x00;
-  uint8_t ExtendedID_inStandardID = 0x00;
-  uint8_t ExtendedID_High = 0x00;
-  uint8_t ExtendedID_Low = 0x00;
+  uint8_t ForRegister[6] = {0x00};
   uint8_t ErrorCount = 0;
 
   if (!m_isInitialized)
@@ -4437,26 +4442,12 @@ bool MCP2515::fillTransmitBuffer(const uint8_t BufferNumber, const uint32_t ID, 
     return false;
   }
 
-  if (Extended) {
-    StandardID_High = (ID >> 21);
-    StandardID_Low = ((ID >> 18) & 0x07);
-    Extended_Value = 0x01;
-    ExtendedID_inStandardID = ((ID >> 16) & 0x03);
-    ExtendedID_High = ((ID >> 8) & 0xFF);
-    ExtendedID_Low = (ID & 0xFF);
-  } else {
-    StandardID_High = (ID >> 3);
-    StandardID_Low = (ID & 0x07);
-    Extended_Value = 0x00;
-    ExtendedID_inStandardID = 0x00;
-    ExtendedID_High = 0x00;
-    ExtendedID_Low = 0x00;
-  }
+  prepareIDForRegister(ForRegister, ID, Extended);
 
-  ErrorCount = ErrorCount + ((setTransmitBufferStandardIdentifierHigh(BufferNumber, StandardID_High)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setTransmitBufferStandardIdentifierLow(BufferNumber, StandardID_Low, Extended_Value, ExtendedID_inStandardID)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setTransmitBufferExtendedIdentifierHigh(BufferNumber, ExtendedID_High)) ? 0 : 1);
-  ErrorCount = ErrorCount + ((setTransmitBufferExtendedIdentifierLow(BufferNumber, ExtendedID_Low)) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setTransmitBufferStandardIdentifierHigh(BufferNumber, ForRegister[0])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setTransmitBufferStandardIdentifierLow(BufferNumber, ForRegister[1], ForRegister[2], ForRegister[3])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setTransmitBufferExtendedIdentifierHigh(BufferNumber, ForRegister[4])) ? 0 : 1);
+  ErrorCount = ErrorCount + ((setTransmitBufferExtendedIdentifierLow(BufferNumber, ForRegister[5])) ? 0 : 1);
 
   if (ErrorCount > 0)
   {
