@@ -8,7 +8,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode.
  * @param n Filternumber 0 - 5
  */
-#define REG_RXFnSIDH(n)		(0x00 + (n * 0x04))
+#define REG_RXFnSIDH(n)		    ((n < 3 ) ? (0x00 + (n * 0x04)) : (0x10 + ((n-3) * 0x04)))
 
 /**
  * @brief Standard Identifier Filter bits (R/W-x)
@@ -24,7 +24,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode.
  * @param n Filternumber 0 - 5
  */
-#define REG_RXFnSIDL(n)		(0x01 + (n * 0x04))
+#define REG_RXFnSIDL(n)		    ((n < 3 ) ? (0x01 + (n * 0x04)) : (0x11 + ((n-3) * 0x04)))
 
 /**
  * @brief Extended Identifier Filter bits (R/W-x)
@@ -56,7 +56,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode.
  * @param n Filternumber 0 - 5
  */
-#define REG_RXFnEID8(n)		(0x02 + (n * 0x04))
+#define REG_RXFnEID8(n)		    ((n < 3 ) ? (0x02 + (n * 0x04)) : (0x12 + ((n-3) * 0x04)))
 
 /**
  * @brief Extended Identifier bits (R/W-x)
@@ -74,7 +74,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode.
  * @param n Filternumber 0 - 5
  */
-#define REG_RXFnEID0(n)		(0x03 + (n * 0x04))		// and Register 0x07, 0x0B, 0x13, 0x17, 0x1B => n = 0..5
+#define REG_RXFnEID0(n)		    ((n < 3 ) ? (0x03 + (n * 0x04)) : (0x13 + ((n-3) * 0x04)))		// and Register 0x07, 0x0B, 0x13, 0x17, 0x1B => n = 0..5
 
 /**
  * @brief Extended Identifier bits (R/W-x)
@@ -90,7 +90,7 @@
 /**
  * @brief RXnBF PIN CONTROL AND STATUS REGISTER (ADDRESS= 0Ch)
  */
-#define REG_BFPCTRL 		0x0C
+#define REG_BFPCTRL 		    0x0C
 
 /**
  * @brief RXnBF Pin Operation mode bit (R/W-0)
@@ -125,7 +125,7 @@
 /**
  * @brief TXnRTS PIN CONTROL AND STATUS REGISTER (ADDRESS= 0Dh)
  */
-#define REG_TXRTSCTRL 		0x0D
+#define REG_TXRTSCTRL 		    0x0D
 
 /**
  * @brief TXnRTS Pin mode bit (R/W-0)
@@ -152,7 +152,7 @@
 /**
  * @brief CAN STATUS REGISTER (ADDRESS= XEh)
  */
-#define REG_CANSTAT 		0x0E
+#define REG_CANSTAT 		    0x0E
 
 /**
  * @brief Interrupt Flag Code bits (R-0)
@@ -195,7 +195,7 @@
 /**
  * @brief CAN CONTROL REGISTER (ADDRESS = XFh)
  */
-#define REG_CANCTRL 		0x0F
+#define REG_CANCTRL 		    0x0F
 
 /**
  * @brief CLKOUT Pin Prescaler bits (R/W-1)
@@ -257,24 +257,24 @@
 /**
  * @brief TRANSMIT ERROR COUNTER REGISTER (ADDRESS = 1Ch)
  */
-#define REG_TEC 			0x1C
+#define REG_TEC 			    0x1C
 
 /**
  * @brief Transmit Error Count bits (R-0)
  */
-#define TEC_BIT_TEC			0xFF
+#define TEC_BIT_TEC			        0xFF
 
 
 
 /**
  * @brief RECEIVE ERROR COUNTER REGISTER (ADDRESS = 1Dh)
  */
-#define REG_REC 			0x1D
+#define REG_REC 			    0x1D
 
 /**
  * @brief Receive Error Count bits (R-0)
  */
-#define REC_BIT_REC			0xFF
+#define REC_BIT_REC			        0xFF
 
 
 
@@ -283,7 +283,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode.
  * @param n Masknumber 0 - 1
  */
-#define REG_RXMnSIDH(n) 	(0x20 + (n * 0x04))
+#define REG_RXMnSIDH(n) 	    (0x20 + (n * 0x04))
 
 /**
  * @brief Standard Identifier Filter bits (R/W-0)
@@ -299,7 +299,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode.
  * @param n Masknumber 0 - 1
  */
-#define REG_RXMnSIDL(n) 	(0x21 + (n * 0x04))
+#define REG_RXMnSIDL(n) 	    (0x21 + (n * 0x04))
 
 /**
  * @brief  Extended Identifier Mask bits (R/W-0)
@@ -322,7 +322,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode.
  * @param n Masknumber 0 - 1
  */
-#define REG_RXMnEID8(n) 	(0x22 + (n * 0x04))
+#define REG_RXMnEID8(n) 	    (0x22 + (n * 0x04))
 
 /**
  * @brief Extended Identifier bits (R/W-0)
@@ -340,7 +340,7 @@
  * @note The Mask and Filter registers read all ‘0’s when in any mode except Configuration mode
  * @param n Masknumber 0 - 1
  */
-#define REG_RXMnEID0(n) 	(0x23 + (n * 0x04))		// and Register 0x27 => n = 0..1
+#define REG_RXMnEID0(n) 	    (0x23 + (n * 0x04))		// and Register 0x27 => n = 0..1
 
 /**
  * @brief Extended Identifier bits (R/W-0)
@@ -356,7 +356,7 @@
 /**
  * @brief CONFIGURATION REGISTER 3 (ADDRESS= 28h)
  */
-#define REG_CNF3 			0x28
+#define REG_CNF3 			    0x28
 
 /**
  * @brief PS2 Length bits (R/W-0)
@@ -394,7 +394,7 @@
 /**
  * @brief CONFIGURATION REGISTER 2 (ADDRESS= 29h)
  */
-#define REG_CNF2 			0x29
+#define REG_CNF2 			    0x29
 
 /**
  * @brief Propagation Segment Length bits (R/W-0)
@@ -433,7 +433,7 @@
 /**
  * @brief CONFIGURATION REGISTER 1 (ADDRESS= 2Ah)
  */
-#define REG_CNF1 			0x2A
+#define REG_CNF1 			    0x2A
 
 /**
  * @brief Baud Rate Prescaler bits (R/W-0)
@@ -460,7 +460,7 @@
 /**
  * @brief CAN INTERRUPT ENABLE REGISTER (ADDRESS= 2Bh)
  */
-#define REG_CANINTE 		0x2B
+#define REG_CANINTE 		    0x2B
 
 /**
  * @brief Receive Buffer n Full Interrupt Enable bit (R/W-0)
@@ -514,7 +514,7 @@
 /**
  * @brief CAN INTERRUPT FLAG REGISTER (ADDRESS= 2Ch)
  */
-#define REG_CANINTF 		0x2C
+#define REG_CANINTF 		    0x2C
 
 /**
  * @brief Receive Buffer n Full Interrupt Flag bit (R/W-0)
@@ -568,7 +568,7 @@
 /**
  * @brief ERROR FLAG REGISTER (ADDRESS= 2Dh)
  */
-#define REG_EFLG 			0x2D
+#define REG_EFLG 			    0x2D
 
 /**
  * @brief Error Warning Flag bit (R-0)
@@ -577,7 +577,7 @@
  *
  * Resets when both REC and TEC are less than 96
  */
-#define EFLG_BIT_EWARN			0x01
+#define EFLG_BIT_EWARN			    0x01
 
 /**
  * @brief Receive Error Warning Flag bit (R-0)
@@ -586,7 +586,7 @@
  *
  * Resets when REC is less than 96
  */
-#define EFLG_BIT_RXWAR			0x02
+#define EFLG_BIT_RXWAR			    0x02
 
 /**
  * @brief Transmit Error Warning Flag bit (R-0)
@@ -595,7 +595,7 @@
  *
  * Resets when TEC is less than 96
  */
-#define EFLG_BIT_TXWAR			0x04
+#define EFLG_BIT_TXWAR			    0x04
 
 /**
  * @brief Receive Error-Passive Flag bit (R-0)
@@ -604,7 +604,7 @@
  *
  * Resets when REC is less than 128
  */
-#define EFLG_BIT_RXEP			0x08
+#define EFLG_BIT_RXEP			    0x08
 
 /**
  * @brief Transmit Error-Passive Flag bit (R-0)
@@ -613,7 +613,7 @@
  *
  * Resets when TEC is less than 128
  */
-#define EFLG_BIT_TXEP			0x10
+#define EFLG_BIT_TXEP			    0x10
 
 /**
  * @brief Bus-Off Error Flag bit (R-0)
@@ -622,7 +622,7 @@
  *
  * Resets after a successful bus recovery sequence
  */
-#define EFLG_BIT_TXBO			0x20
+#define EFLG_BIT_TXBO			    0x20
 
 /**
  * @brief Receive Buffer n Overflow Flag bit (R/W-0)
@@ -632,7 +632,7 @@
  * Must be reset by MCU
  * @param n Buffernumber 0 - 1
  */
-#define EFLG_BIT_RXnOVR(n)		(0x40 << n)
+#define EFLG_BIT_RXnOVR(n)		    (0x40 << n)
 
 
 
@@ -640,7 +640,7 @@
  * @brief TRANSMIT BUFFER n CONTROL REGISTER (ADDRESS= 30h, 40h, 50h)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnCTRL(n) 	(0x30 + (n * 0x10))
+#define REG_TXBnCTRL(n) 	    (0x30 + (n * 0x10))
 
 /**
  * @brief Transmit Buffer Priority bits (R/W-0)
@@ -697,7 +697,7 @@
  * @brief TRANSMIT BUFFER n STANDARD IDENTIFIER REGISTER HIGH (ADDRESS= 31h, 41h, 51h)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnSIDH(n) 	(0x31 + (n * 0x10))
+#define REG_TXBnSIDH(n) 	    (0x31 + (n * 0x10))
 
 /**
  * @brief Standard Identifier bits (R/W-x)
@@ -710,7 +710,7 @@
  * @brief TRANSMIT BUFFER n STANDARD IDENTIFIER REGISTER LOW (ADDRESS= 32h, 42h, 52h)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnSIDL(n) 	(0x32 + (n * 0x10))
+#define REG_TXBnSIDL(n) 	    (0x32 + (n * 0x10))
 
 /**
  * @brief Extended Identifier bits (R/W-x)
@@ -737,7 +737,7 @@
  * @brief TRANSMIT BUFFER n EXTENDED IDENTIFIER 8 REGISTER HIGH (ADDRESS= 33h, 43h, 53h)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnEID8(n) 	(0x33 + (n * 0x10))
+#define REG_TXBnEID8(n) 	    (0x33 + (n * 0x10))
 
 /**
  * @brief Extended Identifier bits (R/W-x)
@@ -750,7 +750,7 @@
  * @brief TRANSMIT BUFFER n EXTENDED IDENTIFIER 0 REGISTER LOW (ADDRESS= 34h, 44h, 54h)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnEID0(n) 	(0x34 + (n * 0x10))
+#define REG_TXBnEID0(n) 	    (0x34 + (n * 0x10))
 
 /**
  * @brief Extended Identifier bits (R/W-x)
@@ -763,7 +763,7 @@
  * @brief TRANSMIT BUFFER n DATA LENGTH CODE REGISTER (ADDRESS= 35h, 45h, 55h)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnDLC(n) 		(0x35 + (n * 0x10))
+#define REG_TXBnDLC(n) 		    (0x35 + (n * 0x10))
 
 /**
  * @brief Data Length Code bits (R/W-x)
@@ -785,52 +785,52 @@
 
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 0 REGISTER (ADDRESS= 0x46, 0x56)
+ * @brief TRANSMIT BUFFER n DATA BYTE 0 REGISTER (ADDRESS= 0x36, 0x46, 0x56)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD0(n) 		(0x36 + (n * 0x10))
+#define REG_TXBnD0(n) 		    (0x36 + (n * 0x10))
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 1 REGISTER (ADDRESS= 0x47, 0x57)
+ * @brief TRANSMIT BUFFER n DATA BYTE 1 REGISTER (ADDRESS= 0x37, 0x47, 0x57)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD1(n) 		(0x37 + (n * 0x10))
+#define REG_TXBnD1(n) 		    (0x37 + (n * 0x10))
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 2 REGISTER (ADDRESS= 0x48, 0x58)
+ * @brief TRANSMIT BUFFER n DATA BYTE 2 REGISTER (ADDRESS= 0x38, 0x48, 0x58)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD2(n) 		(0x38 + (n * 0x10))
+#define REG_TXBnD2(n) 		    (0x38 + (n * 0x10))
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 3 REGISTER (ADDRESS= 0x49, 0x59)
+ * @brief TRANSMIT BUFFER n DATA BYTE 3 REGISTER (ADDRESS= 0x39, 0x49, 0x59)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD3(n) 		(0x39 + (n * 0x10))
+#define REG_TXBnD3(n) 		    (0x39 + (n * 0x10))
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 4 REGISTER (ADDRESS= 0x4A, 0x5A)
+ * @brief TRANSMIT BUFFER n DATA BYTE 4 REGISTER (ADDRESS= 0x3A, 0x4A, 0x5A)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD4(n) 		(0x3A + (n * 0x10))
+#define REG_TXBnD4(n) 		    (0x3A + (n * 0x10))
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 5 REGISTER (ADDRESS= 0x4B, 0x5B)
+ * @brief TRANSMIT BUFFER n DATA BYTE 5 REGISTER (ADDRESS= 0x3B, 0x4B, 0x5B)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD5(n) 		(0x3B + (n * 0x10))
+#define REG_TXBnD5(n) 		    (0x3B + (n * 0x10))
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 6 REGISTER (ADDRESS= 0x4C, 0x5C)
+ * @brief TRANSMIT BUFFER n DATA BYTE 6 REGISTER (ADDRESS= 0x3C, 0x4C, 0x5C)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD6(n) 		(0x3C + (n * 0x10))
+#define REG_TXBnD6(n) 		    (0x3C + (n * 0x10))
 
 /**
- * @brief TRANSMIT BUFFER n DATA BYTE 7 REGISTER (ADDRESS= 0x4D, 0x5D)
+ * @brief TRANSMIT BUFFER n DATA BYTE 7 REGISTER (ADDRESS= 0x3D, 0x4D, 0x5D)
  * @param n Buffernumber 0 - 2
  */
-#define REG_TXBnD7(n) 		(0x3D + (n * 0x10))
+#define REG_TXBnD7(n) 		    (0x3D + (n * 0x10))
 
 /**
  * @brief Transmit Buffer n Data Field Byte m bits (R/W-x)
@@ -843,7 +843,7 @@
  * @brief RECEIVE BUFFER n CONTROL REGISTER (ADDRESS= 0x60, 0x70)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnCTRL(n)		(0x60 + (n * 0x10))
+#define REG_RXBnCTRL(n)		    (0x60 + (n * 0x10))
 
 /**
  * @brief Filter Hit bit (indicates which acceptance filter enabled reception of message) (R-0)
@@ -886,7 +886,7 @@
  *
  * 0 = Rollover is disabled
  */
-#define RXBnCTRL_BIT_BUFFER0_BUKT    0x04
+#define RXBnCTRL_BIT_BUFFER0_BUKT   0x04
 
 /**
  * @brief Received Remote Transfer Request bit (R-0)
@@ -895,7 +895,7 @@
  *
  * 0 = No Remote Transfer Request received
  */
-#define RXBnCTRL_BIT_RXRTR    0x08
+#define RXBnCTRL_BIT_RXRTR          0x08
 
 /**
  * @brief Receive Buffer Operating mode bits (R/W-0)
@@ -910,7 +910,7 @@
  *
  * Extended ID Filter registers, RXFnEID8:RXFnEID0, are applied to the first two bytes of data in the messages with standard IDs
  */
-#define RXBnCTRL_BIT_RXM    0x60
+#define RXBnCTRL_BIT_RXM            0x60
 
 
 
@@ -918,14 +918,14 @@
  * @brief RECEIVE BUFFER n STANDARD IDENTIFIER REGISTER HIGH (ADDRESS= 61h, 71h)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnSIDH(n) 	(0x61 + (n * 0x10))
+#define REG_RXBnSIDH(n) 	    (0x61 + (n * 0x10))
 
 /**
  * @brief Standard Identifier bits (R-x)
  *
  * These bits contain the eight Most Significant bits of the Standard Identifier for the received message.
  */
-#define RXBnSIDH_BIT_SID    0xFF
+#define RXBnSIDH_BIT_SID            0xFF
 
 
 
@@ -933,14 +933,14 @@
  * @brief RECEIVE BUFFER n STANDARD IDENTIFIER REGISTER LOW (ADDRESS= 62h, 72h)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnSIDL(n) 	(0x62 + (n * 0x10))
+#define REG_RXBnSIDL(n) 	    (0x62 + (n * 0x10))
 
 /**
  * @brief Standard Identifier bits (R-x)
  *
- * These bits contain the eight Most Significant bits of the Standard Identifier for the received message.
+ * These bits contain the two Most Significant bits of the Extended Identifier for the received message
  */
-#define RXBnSIDL_BIT_EID    0x03
+#define RXBnSIDL_BIT_EID            0x03
 
 /**
  * @brief Extended Identifier Flag bit (R-x)
@@ -951,7 +951,7 @@
  *
  * 0 = Received message was a standard frame
  */
-#define RXBnSIDL_BIT_IDE    0x08
+#define RXBnSIDL_BIT_IDE            0x08
 
 /**
  * @brief Extended Identifier Flag bit (R-x)
@@ -962,14 +962,14 @@
  *
  * 0 = Standard data frame received
  */
-#define RXBnSIDL_BIT_SRR    0x10
+#define RXBnSIDL_BIT_SRR            0x10
 
 /**
  * @brief Standard Identifier bits (R-x)
  *
  * These bits contain the three Least Significant bits of the Standard Identifier for the received message.
  */
-#define RXBnSIDL_BIT_SID    0xE0
+#define RXBnSIDL_BIT_SID            0xE0
 
 
 
@@ -977,14 +977,14 @@
  * @brief RECEIVE BUFFER n EXTENDED IDENTIFIER REGISTER HIGH (ADDRESS= 63h, 73h)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnEID8(n) 	(0x63 + (n * 0x10))
+#define REG_RXBnEID8(n) 	    (0x63 + (n * 0x10))
 
 /**
  * @brief Extended Identifier bits (R-x)
  *
  * These bits hold bits 15 through 8 of the Extended Identifier for the received message
  */
-#define RXBnEID8_BIT_EID    0xFF
+#define RXBnEID8_BIT_EID            0xFF
 
 
 
@@ -992,14 +992,14 @@
  * @brief RECEIVE BUFFER n EXTENDED IDENTIFIER REGISTER HIGH (ADDRESS= 64h, 74h)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnEID0(n) 	(0x64 + (n * 0x10))
+#define REG_RXBnEID0(n) 	    (0x64 + (n * 0x10))
 
 /**
  * @brief Extended Identifier bits (R-x)
  *
  * These bits hold the Least Significant eight bits of the Extended Identifier for the received message.
  */
-#define RXBnEID0_BIT_EID    0xFF
+#define RXBnEID0_BIT_EID            0xFF
 
 
 
@@ -1007,14 +1007,14 @@
  * @brief RECEIVE BUFFER n DATA LENGTH CODE REGISTER (ADDRESS= 65h, 75h)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnDLC(n) 		(0x65 + (n * 0x10))
+#define REG_RXBnDLC(n) 		    (0x65 + (n * 0x10))
 
 /**
  * @brief Data Length Code bits (R-x)
  *
  * Indicates the number of data bytes that were received.
  */
-#define RXBnDLC_BIT_DLC    0x0F
+#define RXBnDLC_BIT_DLC             0x0F
 
 /**
  * @brief Extended Frame Remote Transmission Request bit (valid only when IDE (RXBnSIDL[3]) = 1) (R-x)
@@ -1023,7 +1023,7 @@
  *
  * 0 = Extended data frame received
  */
-#define RXBnDLC_BIT_RTR    0x40
+#define RXBnDLC_BIT_RTR             0x40
 
 
 
@@ -1031,56 +1031,56 @@
  * @brief RECEIVE BUFFER n DATA BYTE 0 REGISTER (ADDRESS= 0x66, 0x76)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD0(n) 		(0x66 + (n * 0x10))		// and Register 0x76 => n = 0..1
+#define REG_RXBnD0(n) 		    (0x66 + (n * 0x10))		// and Register 0x76 => n = 0..1
 
 /**
  * @brief RECEIVE BUFFER n DATA BYTE 1 REGISTER (ADDRESS= 0x67, 0x77)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD1(n) 		(0x67 + (n * 0x10))		// and Register 0x77 => n = 0..1
+#define REG_RXBnD1(n) 		    (0x67 + (n * 0x10))		// and Register 0x77 => n = 0..1
 
 /**
  * @brief RECEIVE BUFFER n DATA BYTE 2 REGISTER (ADDRESS= 0x68, 0x78)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD2(n) 		(0x68 + (n * 0x10))		// and Register 0x78 => n = 0..1
+#define REG_RXBnD2(n) 		    (0x68 + (n * 0x10))		// and Register 0x78 => n = 0..1
 
 /**
  * @brief RECEIVE BUFFER n DATA BYTE 3 REGISTER (ADDRESS= 0x69, 0x79)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD3(n) 		(0x69 + (n * 0x10))		// and Register 0x79 => n = 0..1
+#define REG_RXBnD3(n) 		    (0x69 + (n * 0x10))		// and Register 0x79 => n = 0..1
 
 /**
  * @brief RECEIVE BUFFER n DATA BYTE 4 REGISTER (ADDRESS= 0x6A, 0x7A)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD4(n) 		(0x6A + (n * 0x10))		// and Register 0x7A => n = 0..1
+#define REG_RXBnD4(n) 		    (0x6A + (n * 0x10))		// and Register 0x7A => n = 0..1
 
 /**
  * @brief RECEIVE BUFFER n DATA BYTE 5 REGISTER (ADDRESS= 0x6B, 0x7B)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD5(n) 		(0x6B + (n * 0x10))		// and Register 0x7B => n = 0..1
+#define REG_RXBnD5(n) 		    (0x6B + (n * 0x10))		// and Register 0x7B => n = 0..1
 
 /**
  * @brief RECEIVE BUFFER n DATA BYTE 6 REGISTER (ADDRESS= 0x6C, 0x7C)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD6(n) 		(0x6C + (n * 0x10))		// and Register 0x7C => n = 0..1
+#define REG_RXBnD6(n) 		    (0x6C + (n * 0x10))		// and Register 0x7C => n = 0..1
 
 /**
  * @brief RECEIVE BUFFER n DATA BYTE 7 REGISTER (ADDRESS= 0x6D, 0x7D)
  * @param n Buffernumber 0 - 1
  */
-#define REG_RXBnD7(n) 		(0x6D + (n * 0x10))		// and Register 0x7D => n = 0..1
+#define REG_RXBnD7(n) 		    (0x6D + (n * 0x10))		// and Register 0x7D => n = 0..1
 
 /**
  * @brief Receive Buffer n Data Field Bytes m bits (R-x)
  *
  * Eight bytes containing the data bytes for the received message.
  */
-#define RXBnDm_BIT_RBnD		    0xFF
+#define RXBnDm_BIT_RBnD		        0xFF
 
 
 #endif

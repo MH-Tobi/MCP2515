@@ -69,7 +69,7 @@ void setup() {
   //TestCaseNumber++;
   //Errors = Errors + testSetSleepMode(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
-  //Errors = Errors + testSetReCheckEnabler(TestCaseNumber, MCP2515Module, defaultSettings);
+  //Errors = Errors + testSetReCheckEnabler(TestCaseNumber, MCP2515Module, defaultSettings);    // Mega
   //TestCaseNumber++;
   //Errors = Errors + testChangeBaudRate(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
@@ -81,7 +81,7 @@ void setup() {
   //TestCaseNumber++;
   //Errors = Errors + testCheck4FreeTransmitBuffer(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
-  //Errors = Errors + testFillTransmitBuffer(TestCaseNumber, MCP2515Module, defaultSettings);
+  //Errors = Errors + testFillTransmitBuffer(TestCaseNumber, MCP2515Module, defaultSettings);     // Mega
   //TestCaseNumber++;
   //Errors = Errors + testSendMessage(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
@@ -95,7 +95,7 @@ void setup() {
   //TestCaseNumber++;
   //Errors = Errors + testGetFrameFromReceiveBuffer(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
-  //Errors = Errors + testGetRtrFromReceiveBuffer(TestCaseNumber, MCP2515Module, defaultSettings);
+  //Errors = Errors + testGetRtrFromReceiveBuffer(TestCaseNumber, MCP2515Module, defaultSettings);    // Mega
   //TestCaseNumber++;
   //Errors = Errors + testGetDataFromReceiveBuffer(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
@@ -107,13 +107,13 @@ void setup() {
   //TestCaseNumber++;
   //Errors = Errors + testResetInterruptFlag(TestCaseNumber, MCP2515Module, defaultSettings);
   //TestCaseNumber++;
-  //Errors = Errors + testSetInterruptFlag(TestCaseNumber, MCP2515Module, defaultSettings);
-  //TestCaseNumber++;
-  //Errors = Errors + testSetFilter(TestCaseNumber, MCP2515Module, defaultSettings);
-  //TestCaseNumber++;
-  //Errors = Errors + testSetMask(TestCaseNumber, MCP2515Module, defaultSettings);
-  //TestCaseNumber++;
-  //Errors = Errors + testFilterAndMask(TestCaseNumber, MCP2515Module, defaultSettings);
+  //Errors = Errors + testSetInterruptFlag(TestCaseNumber, MCP2515Module, defaultSettings);   // Mega
+  TestCaseNumber++;
+  Errors = Errors + testSetFilter(TestCaseNumber, MCP2515Module, defaultSettings);
+  TestCaseNumber++;
+  Errors = Errors + testSetMask(TestCaseNumber, MCP2515Module, defaultSettings);
+  TestCaseNumber++;
+  Errors = Errors + testFilterAndMask(TestCaseNumber, MCP2515Module, defaultSettings);
 
 
   Serial.println();
