@@ -62,7 +62,7 @@ bool _initialize_Module(MCP2515 &Module, uint8_t CS_Pin, uint32_t SPIFrequency, 
     }
 }
 
-uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -83,7 +83,7 @@ uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
     InitReturn = _initialize_Module(Module, 0, defaultSPIFrequency, defaultClockFrequency, defaultBaudrate);
 
     if (!InitReturn){
-        if (Module.getLastMCPError() != ERROR_MCP2515_INIT_CS_PIN_NOT_DEFINED){
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::MAIN_INIT_CS_PIN_NOT_DEFINED)){
             Serial.println("\t- Failed. False Error during Initialising with not setted CS-Pin");
             Serial.print("\t- Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -106,7 +106,7 @@ uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
     InitReturn = _initialize_Module(Module, (CS_Pin + 1), defaultSPIFrequency, defaultClockFrequency, defaultBaudrate);
 
     if (!InitReturn){
-        if ((Module.getLastMCPError() & ERROR_MCP2515_INIT_RESET_FAILED) != ERROR_MCP2515_INIT_RESET_FAILED){
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_INIT_RESET_FAILED)) != static_cast<uint16_t>(MCP2515Error::SECONDARY_INIT_RESET_FAILED)){
         Serial.println("\t- Failed. False Error during Initialising with false CS-Pin");
         Serial.print("\t- Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -138,7 +138,7 @@ uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
         InitReturn = _initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, possibleBaudRates[i]);
 
         if (!InitReturn){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) != ERROR_MCP2515_CNF_NOT_FOUND){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) != static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)){
                 Serial.print("\t- Failed with Error 0x");
                 Serial.print(Module.getLastMCPError(), HEX);
                 Serial.println(".");
@@ -181,7 +181,7 @@ uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
         InitReturn = _initialize_Module(Module, CS_Pin, defaultSPIFrequency, defaultClockFrequency, undefinedBaudrates[i]);
 
         if (!InitReturn){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_INIT_CHANGE_BITTIMING) != ERROR_MCP2515_INIT_CHANGE_BITTIMING){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_INIT_CHANGE_BITTIMING)) != static_cast<uint16_t>(MCP2515Error::SECONDARY_INIT_CHANGE_BITTIMING)){
                 Serial.print("\t- Failed. False Error during Initialising with undefined Baudrate ");
                 Serial.print(undefinedBaudrates[i]/1000, DEC);
                 Serial.println("kB");
@@ -215,7 +215,7 @@ uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
     return Errors;
 };
 
-uint8_t testSetSpiPins(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetSpiPins(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -283,7 +283,7 @@ uint8_t testSetSpiPins(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettin
     return Errors;
 };
 
-uint8_t testSetSpiMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetSpiMode(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -406,7 +406,7 @@ uint8_t testSetSpiMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettin
 };
 
 
-uint8_t testSetDataOrder(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetDataOrder(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -504,7 +504,7 @@ uint8_t testSetDataOrder(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
 };
 
 
-uint8_t testSetSpiFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetSpiFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
 
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
@@ -634,7 +634,7 @@ uint8_t testSetSpiFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
     return Errors;
 };
 
-uint8_t testSetClockFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetClockFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
 
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
@@ -770,7 +770,7 @@ uint8_t testSetClockFrequency(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     return Errors;
 };
 
-uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -801,7 +801,7 @@ uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t def
         delay(500);
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Setting ConfigurationMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -850,7 +850,7 @@ uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t def
         Errors++;
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_OPERATION_MODE_NOT_SET) != ERROR_MCP2515_OPERATION_MODE_NOT_SET)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET)) != static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))
         {
             Serial.print("\t- Failed. Setting ConfigurationMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -877,7 +877,7 @@ uint8_t testSetConfigurationMode(uint8_t Teststep, MCP2515 &Module, uint32_t def
     return Errors;
 }
 
-uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -907,7 +907,7 @@ uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
         Errors++;
         delay(500);
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Setting NormalMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -961,7 +961,7 @@ uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
         Serial.println("\t- Failed. Setting NormalMode successfull with wrong CS-Pin Configuration");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_OPERATION_MODE_NOT_SET) != ERROR_MCP2515_OPERATION_MODE_NOT_SET)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET)) != static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))
         {
             Serial.print("\t- Failed. Setting NormalMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -988,7 +988,7 @@ uint8_t testSetNormalMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     return Errors;
 }
 
-uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -1019,7 +1019,7 @@ uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
         delay(500);
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Setting ListenOnlyMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1068,7 +1068,7 @@ uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
         Errors++;
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_OPERATION_MODE_NOT_SET) != ERROR_MCP2515_OPERATION_MODE_NOT_SET)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET)) != static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))
         {
             Serial.print("\t- Failed. Setting ListenOnlyMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1095,7 +1095,7 @@ uint8_t testSetListenOnlyMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
     return Errors;
 }
 
-uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -1126,7 +1126,7 @@ uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
         delay(500);
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Setting LoopbackMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1175,7 +1175,7 @@ uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
         Errors++;
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_OPERATION_MODE_NOT_SET) != ERROR_MCP2515_OPERATION_MODE_NOT_SET)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET)) != static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))
         {
             Serial.print("\t- Failed. Setting LoopbackMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1202,7 +1202,7 @@ uint8_t testSetLoopbackMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultS
     return Errors;
 }
 
-uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -1235,7 +1235,7 @@ uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
         delay(1000);
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Setting SleepMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1292,7 +1292,7 @@ uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
         delay(1000);
         Module.setNormalMode();
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_OPERATION_MODE_NOT_SET) != ERROR_MCP2515_OPERATION_MODE_NOT_SET)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET)) != static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))
         {
             Serial.print("\t- Failed. Setting SleepMode failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1319,7 +1319,7 @@ uint8_t testSetSleepMode(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSett
     return Errors;
 }
 
-uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -1348,7 +1348,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
         Serial.println("\t- Failed. Setting ReCheckEnabler successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Setting ReCheckEnabler failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1397,6 +1397,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
 
     delay(500);
 
+    Serial.print(Teststep, DEC);
     Serial.println(".3.2: Set ReCheckEnabler false");
 
     if (!Module.setReCheckEnabler(false))
@@ -1426,7 +1427,7 @@ uint8_t testSetReCheckEnabler(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
 }
 
 
-uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -1496,8 +1497,8 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
 
     if (!Module.changeBaudRate(possibleBaudRates[possibleBaudrateCounter]))
     {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) == ERROR_MCP2515_CNF_NOT_FOUND){
-            while ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) == ERROR_MCP2515_CNF_NOT_FOUND)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) == static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)){
+            while ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) == static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND))
             {
                 Serial.print("\t- Change BaudRate not successfull because Baudrate ");
                 Serial.print(possibleBaudRates[possibleBaudrateCounter]/1000, DEC);
@@ -1544,7 +1545,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
         Serial.println("kB");
 
         if (!Module.changeBaudRate(possibleBaudRates[i])){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) != ERROR_MCP2515_CNF_NOT_FOUND){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) != static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)){
                 Serial.print("\t- Failed with Error 0x");
                 Serial.print(Module.getLastMCPError(), HEX);
                 Serial.println(".");
@@ -1583,7 +1584,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
         Serial.println("kB");
 
         if (!Module.changeBaudRate(undefinedBaudrates[i])){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_BAUDRATE_NOT_VALID) != ERROR_MCP2515_BAUDRATE_NOT_VALID){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_BAUDRATE_NOT_VALID)) != static_cast<uint16_t>(MCP2515Error::MAIN_BAUDRATE_NOT_VALID)){
                 Serial.print("\t- Failed. False Error during changeBaudRate with undefined Baudrate ");
                 Serial.print(undefinedBaudrates[i]/1000, DEC);
                 Serial.println("kB");
@@ -1624,7 +1625,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
         Serial.println("kB");
 
         if (!Module.changeBaudRate(possibleBaudRates[i])){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) != ERROR_MCP2515_CNF_NOT_FOUND){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) != static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)){
                 Serial.print("\t- Failed with Error 0x");
                 Serial.print(Module.getLastMCPError(), HEX);
                 Serial.println(".");
@@ -1637,7 +1638,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Serial.println("MHz not defined. No Error!");
             }
         } else {
-            if (Module.getOperationMode() != MCP2515_OP_LISTEN)
+            if (Module.getOperationMode() != MCP2515OperationMode::LISTEN)
             {
                 Serial.println("\t- failed. ChangeBaudrate didn't finish in ListenOnly-Mode.");
                 Errors++;
@@ -1673,7 +1674,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
         Serial.println("kB");
 
         if (!Module.changeBaudRate(possibleBaudRates[i])){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) != ERROR_MCP2515_CNF_NOT_FOUND){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) != static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)){
                 Serial.print("\t- Failed with Error 0x");
                 Serial.print(Module.getLastMCPError(), HEX);
                 Serial.println(".");
@@ -1686,7 +1687,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Serial.println("MHz not defined. No Error!");
             }
         } else {
-            if (Module.getOperationMode() != MCP2515_OP_LOOPBACK)
+            if (Module.getOperationMode() != MCP2515OperationMode::LOOPBACK)
             {
                 Serial.println("\t- failed. ChangeBaudrate didn't finish in Loopback-Mode.");
                 Errors++;
@@ -1722,7 +1723,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
         Serial.println("kB");
 
         if (!Module.changeBaudRate(possibleBaudRates[i])){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) != ERROR_MCP2515_CNF_NOT_FOUND){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) != static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)){
                 Serial.print("\t- Failed with Error 0x");
                 Serial.print(Module.getLastMCPError(), HEX);
                 Serial.println(".");
@@ -1735,7 +1736,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Serial.println("MHz not defined. No Error!");
             }
         } else {
-            if (Module.getOperationMode() != MCP2515_OP_CONFIGURATION)
+            if (Module.getOperationMode() != MCP2515OperationMode::CONFIGURATION)
             {
                 Serial.println("\t- failed. ChangeBaudrate didn't finish in Configuration-Mode.");
                 Errors++;
@@ -1771,7 +1772,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
         Serial.println("kB");
 
         if (!Module.changeBaudRate(possibleBaudRates[i])){
-            if ((Module.getLastMCPError() & ERROR_MCP2515_CNF_NOT_FOUND) != ERROR_MCP2515_CNF_NOT_FOUND){
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)) != static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND)){
                 Serial.print("\t- Failed with Error 0x");
                 Serial.print(Module.getLastMCPError(), HEX);
                 Serial.println(".");
@@ -1784,7 +1785,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
                 Serial.println("MHz not defined. No Error!");
             }
         } else {
-            if (Module.getOperationMode() != MCP2515_OP_NORMAL)
+            if (Module.getOperationMode() != MCP2515OperationMode::NORMAL)
             {
                 Serial.println("\t- failed. ChangeBaudrate didn't finish in Normal-Mode.");
                 Errors++;
@@ -1822,7 +1823,7 @@ uint8_t testChangeBaudRate(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSe
     return Errors;
 };
 
-uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -1854,7 +1855,7 @@ uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t d
         Module.changeInterruptSetting(false, 1);
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Change InterruptSetting failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -1934,7 +1935,7 @@ uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t d
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. Change InterruptSetting failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -2023,7 +2024,7 @@ uint8_t testChangeInterruptSetting(uint8_t Teststep, MCP2515 &Module, uint32_t d
 }
 
 
-uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -2053,7 +2054,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
         Module.disableFilterMask(0);
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Enable FilterMask failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -2133,7 +2134,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. Enable FilterMask failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -2160,7 +2161,7 @@ uint8_t testEnableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t default
     return Errors;
 }
 
-uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -2189,7 +2190,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
         Serial.println("\t- Failed. Disnable FilterMask successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Disable FilterMask failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -2266,7 +2267,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. Disable FilterMask failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -2294,7 +2295,7 @@ uint8_t testDisableFilterMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaul
 }
 
 
-uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -2323,7 +2324,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
         Serial.println("\t- Failed. Check for a free Transmit-Buffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Check for a free Transmit-Buffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -2419,7 +2420,7 @@ uint8_t testCheck4FreeTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
     return Errors;
 }
 
-uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -2455,7 +2456,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         Serial.println("\t- Failed. Fill Transmit-Buffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Fill Transmit-Buffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -2569,7 +2570,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -2654,7 +2655,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -2825,7 +2826,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -2859,7 +2860,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         Serial.println("\t- Failed. Fill Transmit-Buffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_TRANSMITBUFFER_NOT_FREE) != ERROR_MCP2515_TRANSMITBUFFER_NOT_FREE)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_TRANSMITBUFFER_NOT_FREE)) != static_cast<uint16_t>(MCP2515Error::MAIN_TRANSMITBUFFER_NOT_FREE))
         {
             Serial.print("\t\t- Failed. Fill Transmit-Buffer failed with wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -2883,7 +2884,7 @@ uint8_t testFillTransmitBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     return Errors;
 }
 
-uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -2921,7 +2922,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
         Serial.println("\t- Failed. Send Message successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. Send Message failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3046,7 +3047,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t\t- Failed. Send Message failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -3131,7 +3132,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t\t- Failed. Send Message failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -3198,7 +3199,7 @@ uint8_t testSendMessage(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetti
     return Errors;
 }
 
-uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -3234,11 +3235,11 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
     Module.check4Rtr(ID, Extended);
 
-    if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
+    if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
         Serial.println("\t- Failed. check4Rtr successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. check4Rtr failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3261,7 +3262,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
     Module.check4Rtr(ID, Extended);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. check4Rtr not successfull in initialized Mode with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -3287,9 +3288,9 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
         delay(500);
 
-        Module.check4Rtr(ID_defined, Extended);
+        Module.check4Rtr(ID_defined, true);
 
-        if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.print("\t- Failed. check4Rtr failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3319,15 +3320,15 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
         delay(500);
 
-        Module.check4Rtr(ID_undefined, Extended);
+        Module.check4Rtr(ID_undefined, true);
 
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.println("\t- Failed. check4Rtr successfull");
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. check4Rtr failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -3351,7 +3352,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
     Module.check4Rtr(ID, true);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. check4Rtr failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -3368,7 +3369,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
 
     Module.check4Rtr(ID, false);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. check4Rtr failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -3408,7 +3409,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     Serial.println("\t- Check for received RTR Message");
     if (!Module.check4Rtr(ID, false))
     {
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT) {
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)) {
             Serial.println("\t\t- Failed. No RTR Message Received");
             Errors++;
         } else {
@@ -3438,7 +3439,7 @@ uint8_t testCheck4Rtr(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     return Errors;
 }
 
-uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -3472,11 +3473,11 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
     Module.check4Receive(ID, Extended, DLC, Data_Receive);
 
-    if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
+    if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
         Serial.println("\t- Failed. check4Receive successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. check4Receive failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3499,7 +3500,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
     Module.check4Receive(ID, Extended, DLC, Data_Receive);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. check4Receive not successfull in initialized Mode with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -3527,7 +3528,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         Module.check4Receive(ID_defined, true, DLC, Data_Receive);
 
-        if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.print("\t- Failed. check4Receive failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3559,13 +3560,13 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         Module.check4Receive(ID_undefined, true, DLC, Data_Receive);
 
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.println("\t- Failed. check4Receive successfull");
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. check4Receive failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -3589,7 +3590,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
     Module.check4Receive(ID, true, DLC, Data_Receive);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. check4Receive failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -3606,7 +3607,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
     Module.check4Receive(ID, false, DLC, Data_Receive);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. check4Receive failed with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -3634,7 +3635,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         Module.check4Receive(ID, Extended, i, Data_Receive);
 
-        if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.print("\t- Failed. check4Receive failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3665,13 +3666,13 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         Module.check4Receive(ID, Extended, i, Data_Receive);
 
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.println("\t- Failed. check4Receive successfull");
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. check4Receive failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -3716,7 +3717,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     Serial.println("\t- Check for received Message");
     if (!Module.check4Receive(ID, Extended, DLC, Data_Receive))
     {
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT) {
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)) {
             Serial.println("\t\t- Failed. No Message Received");
             Errors++;
         } else {
@@ -3758,7 +3759,7 @@ uint8_t testCheck4Receive(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
     return Errors;
 }
 
-uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -3794,11 +3795,11 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
 
     Module.getIdFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
+    if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
         Serial.println("\t- Failed. getIdFromReceiveBuffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. getIdFromReceiveBuffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3821,7 +3822,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
 
     Module.getIdFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. getIdFromReceiveBuffer not successfull in initialized Mode with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -3848,7 +3849,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
 
         Module.getIdFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.print("\t- Failed. getIdFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -3879,13 +3880,13 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
 
         Module.getIdFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.println("\t- Failed. getIdFromReceiveBuffer successfull");
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. getIdFromReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -3969,7 +3970,7 @@ uint8_t testGetIdFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t d
     return Errors;
 }
 
-uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -4005,11 +4006,11 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
     Module.getDlcFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
+    if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
         Serial.println("\t- Failed. getDlcFromReceiveBuffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. getDlcFromReceiveBuffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -4032,7 +4033,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
     Module.getDlcFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. getDlcFromReceiveBuffer not successfull in initialized Mode with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -4059,7 +4060,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
         Module.getDlcFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.print("\t- Failed. getDlcFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -4090,13 +4091,13 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
         Module.getDlcFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.println("\t- Failed. getDlcFromReceiveBuffer successfull");
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. getDlcFromReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -4180,7 +4181,7 @@ uint8_t testGetDlcFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     return Errors;
 }
 
-uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -4216,11 +4217,11 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
 
     Module.getFrameFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
+    if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
         Serial.println("\t- Failed. getFrameFromReceiveBuffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. getFrameFromReceiveBuffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -4243,7 +4244,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
 
     Module.getFrameFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. getFrameFromReceiveBuffer not successfull in initialized Mode with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -4270,7 +4271,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
 
         Module.getFrameFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.print("\t- Failed. getFrameFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -4301,13 +4302,13 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
 
         Module.getFrameFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.println("\t- Failed. getFrameFromReceiveBuffer successfull");
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. getFrameFromReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -4391,7 +4392,7 @@ uint8_t testGetFrameFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_
     return Errors;
 }
 
-uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -4427,11 +4428,11 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
     Module.getRtrFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
+    if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
         Serial.println("\t- Failed. getRtrFromReceiveBuffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. getRtrFromReceiveBuffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -4454,7 +4455,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
     Module.getRtrFromReceiveBuffer(0);
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. getRtrFromReceiveBuffer not successfull in initialized Mode with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -4481,7 +4482,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
         Module.getRtrFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.print("\t- Failed. getRtrFromReceiveBuffer failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -4512,13 +4513,13 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
 
         Module.getRtrFromReceiveBuffer(i);
 
-        if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT)
+        if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR))
         {
             Serial.println("\t- Failed. getRtrFromReceiveBuffer successfull");
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. getRtrFromReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -4602,7 +4603,7 @@ uint8_t testGetRtrFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     return Errors;
 }
 
-uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -4638,7 +4639,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
         Serial.println("\t- Failed. getDataFromReceiveBuffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. getDataFromReceiveBuffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -4719,7 +4720,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. getDataFromReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -4783,7 +4784,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. getDataFromReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -4895,7 +4896,7 @@ uint8_t testGetDataFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t
     return Errors;
 }
 
-uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -4936,7 +4937,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
         Serial.println("\t- Failed. getAllFromReceiveBuffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. getAllFromReceiveBuffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -5017,7 +5018,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. getAllFromReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -5162,7 +5163,7 @@ uint8_t testGetAllFromReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t 
     return Errors;
 }
 
-uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5191,7 +5192,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
         Serial.println("\t- Failed. releaseReceiveBuffer successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. releaseReceiveBuffer failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -5272,7 +5273,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. releaseReceiveBuffer failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -5299,7 +5300,7 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t def
     return Errors;
 }
 
-uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5326,11 +5327,11 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
 
     Module.check4InterruptFlags();
 
-    if (Module.getLastMCPError() == EMPTY_VALUE_16_BIT){
+    if (Module.getLastMCPError() == static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
         Serial.println("\t- Failed. check4InterruptFlags successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. check4InterruptFlags failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -5353,7 +5354,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
 
     Module.check4InterruptFlags();
 
-    if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT)
+    if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
     {
         Serial.print("\t- Failed. check4InterruptFlags not successfull in initialized Mode with Error 0x");
         Serial.println(Module.getLastMCPError(), HEX);
@@ -5395,7 +5396,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
 
         uint8_t Flag = Module.check4InterruptFlags();
 
-        if (((Flag & (0x01 << i)) != (0x01 << i)) || (Module.getLastMCPError() != EMPTY_VALUE_16_BIT))
+        if (((Flag & (0x01 << i)) != (0x01 << i)) || (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR)))
         {
             Serial.print("\t- Failed. check4InterruptFlags failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -5424,7 +5425,7 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t def
     return Errors;
 }
 
-uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5453,7 +5454,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
         Serial.println("\t- Failed. resetInterruptFlag successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. resetInterruptFlag failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -5545,7 +5546,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. resetInterruptFlag failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), DEC);
@@ -5572,7 +5573,7 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defau
     return Errors;
 }
 
-uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5601,7 +5602,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
         Serial.println("\t- Failed. setInterruptFlag successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. setInterruptFlag failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -5693,7 +5694,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. setInterruptFlag failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), DEC);
@@ -5720,7 +5721,7 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t default
     return Errors;
 }
 
-uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5749,7 +5750,7 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
         Serial.println("\t- Failed. setFilter successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. setFilter failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -5785,7 +5786,7 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setFilter-Function with defined Filter-Buffers");
 
-    for (size_t i = 0; i < 6; i++)
+    for (uint8_t i = 0; i < 6; i++)
     {
         Serial.print(Teststep, DEC);
         Serial.print(".3.");
@@ -5830,7 +5831,7 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. setFilter failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -5900,7 +5901,7 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. setFilter failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -5970,7 +5971,7 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. setFilter failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -5997,7 +5998,7 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSetting
     return Errors;
 }
 
-uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -6026,7 +6027,7 @@ uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[
         Serial.println("\t- Failed. setMask successfull");
         Errors++;
     } else {
-        if ((Module.getLastMCPError() & ERROR_MCP2515_NOT_INITIALIZED) != ERROR_MCP2515_NOT_INITIALIZED)
+        if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED)) != static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
         {
             Serial.print("\t- Failed. setMask failed with the wrong Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
@@ -6107,7 +6108,7 @@ uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. setMask failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -6177,7 +6178,7 @@ uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[
             Errors++;
 
         } else {
-            if ((Module.getLastMCPError() & ERROR_MCP2515_VALUE_OUTA_RANGE) != ERROR_MCP2515_VALUE_OUTA_RANGE)
+            if ((Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE)) != static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
             {
                 Serial.print("\t- Failed. setMask failed with wrong Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
@@ -6204,7 +6205,7 @@ uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[
     return Errors;
 }
 
-uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSettings[]){
+uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -6348,7 +6349,7 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t defaultSet
 
         if (!Module.check4Receive(allowedMessages[i].ID, allowedMessages[i].Extended, allowedMessages[i].DLC, Data_Receive))
         {
-            if (Module.getLastMCPError() != EMPTY_VALUE_16_BIT){
+            if (Module.getLastMCPError() != static_cast<uint16_t>(MCP2515Error::NO_ERROR)){
                 Serial.print("\t- Failed. check4Receive failed with Error 0x");
                 Serial.println(Module.getLastMCPError(), HEX);
                 Errors++;
