@@ -5786,7 +5786,6 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSetti
     Serial.print(Teststep, DEC);
     Serial.println(".3: Test setFilter-Function with defined Filter-Buffers");
 
-    uint32_t ID = 1;
     for (uint8_t i = 0; i < 6; i++)
     {
         Serial.print(Teststep, DEC);
@@ -5795,9 +5794,9 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSetti
         Serial.print(": setFilter with Buffer ");
         Serial.println(i, DEC);
 
-        //delay(1000);
+        delay(500);
 
-        if (!Module.setFilter(i, ID, false))
+        if (!Module.setFilter(i, 1, false))
         {
             Serial.print("\t- Failed. setFilter failed with Error 0x");
             Serial.println(Module.getLastMCPError(), HEX);
