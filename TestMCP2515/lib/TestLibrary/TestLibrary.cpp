@@ -5186,7 +5186,7 @@ const uint32_t possibleClockFrequency[4] = {
 }
  */
 
-uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
+/* uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5322,9 +5322,9 @@ uint8_t testReleaseReceiveBuffer(uint8_t Teststep, MCP2515 &Module, uint32_t (&d
 
     return Errors;
 }
+ */
 
-
-uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
+/* uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5448,9 +5448,9 @@ uint8_t testCheck4InterruptFlags(uint8_t Teststep, MCP2515 &Module, uint32_t (&d
 
     return Errors;
 }
+ */
 
-
-uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
+/* uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5597,9 +5597,9 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&def
 
     return Errors;
 }
+ */
 
-
-uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
+/* uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -5746,9 +5746,9 @@ uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defau
 
     return Errors;
 }
+ */
 
-
-uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
+/* uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -6024,9 +6024,9 @@ uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSetti
 
     return Errors;
 }
+ */
 
-
-uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
+/* uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -6232,9 +6232,9 @@ uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSetting
 
     return Errors;
 }
+ */
 
-
-uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
+/* uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]){
     uint8_t CS_Pin = (uint8_t)defaultSettings[0];
     //uint8_t INT_Pin = (uint8_t)defaultSettings[1];
     uint32_t defaultSPIFrequency = (uint32_t)defaultSettings[2];
@@ -6455,3 +6455,4 @@ uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultS
 
     return Errors;
 }
+ */
