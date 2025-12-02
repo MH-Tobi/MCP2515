@@ -33,7 +33,7 @@
 
 # Other
 *.json
-*.ini
+*.ini !platformio.ini
 *clang-tidy
 .editorconfig
 .vscode
