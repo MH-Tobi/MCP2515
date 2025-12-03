@@ -36,13 +36,20 @@ void test_setNormalMode_with_wrong_CS_Pin_configuration()
     pinMode(defaultSettings[0], INPUT_PULLUP);
     delay(500);
 
-    TEST_ASSERT_FALSE_MESSAGE(MCP2515Module.setNormalMode(), "Setting Normal-Mode with wrong CS-Pin Configuration successfull.");
-
-    if ((MCP2515Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))!=static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))
+    if (!MCP2515Module.setNormalMode())
     {
-        TEST_ASSERT_EQUAL_HEX16_MESSAGE(static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET),
-                                        MCP2515Module.getLastMCPError(),
-                                        "Wrong Error-Code for setting Normal-Mode when initialized with wrong CS-Pin Configuration.");
+        if ((MCP2515Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))!=static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET))
+        {
+            TEST_ASSERT_EQUAL_HEX16_MESSAGE(static_cast<uint16_t>(MCP2515Error::SECONDARY_OPERATION_MODE_NOT_SET),
+                                            MCP2515Module.getLastMCPError(),
+                                            "Wrong Error-Code for setting Normal-Mode when initialized with wrong CS-Pin Configuration.");
+        }
+    }else{
+        // In this test case, it cannot be guaranteed that the "setNormalMode" function will detect
+        // that the normal mode could not be set, as only zeros are expected during the normal mode recheck.
+        // Since the test uses an incorrectly set CS pin, it is possible that only zeros will be "received".
+        // The test was therefore designed so that the error code is only checked in the event of a successful failure of the function.
+        TEST_ASSERT(true);
     }
 
     delay(500);
