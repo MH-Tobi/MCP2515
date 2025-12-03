@@ -1,4 +1,5 @@
 # MCP2515
+
 Library to control the MCP2515-CAN-Module.
 
 Tested with [TestMCP2515-Library](TestMCP2515) (see also [README.md](TestMCP2515/README.md)).
@@ -19,7 +20,7 @@ Tested with [TestMCP2515-Library](TestMCP2515) (see also [README.md](TestMCP2515
 MCP2515 MCP2515Module;
 ```
 
-3. Set the Chip-Select-Pin (actually required)
+3. Set the Chip-Select-Pin (currently required)
 
 ```c++
 MCP2515Module.setSpiPins(CS_Pin);
@@ -91,10 +92,17 @@ if ((Receive & 0x02) == 0x02)   // Message in RX-Buffer 1
 > For easier Message-Handling use the [CANMessage-Library](https://github.com/MH-Tobi/CANMessage).
 
 ## Examples
+
 See [examples](examples) folder.
 
 ## API
+
 See [API.md](API.md).
 
 ## BitTime-Calculation
+
 A BitTime-Calculator is provided [here](docs/BitTimeCalculator.xlsx).
+
+## Mask/Filter-Calculations
+
+A Mask/Filter-Calculator is provided [here](docs/MaskFilterCalculator.xlsm).
