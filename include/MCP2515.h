@@ -237,6 +237,7 @@ class MCP2515
 
 		bool resetOperationMode(const MCP2515OperationMode OperationMode);
 
+		bool getIDFromRegister(const uint8_t Buffer, uint32_t &ID, bool &Extended);
 		void prepareIDForRegister(uint8_t (&ForRegister)[6], const uint32_t &ID, const bool Extended);
 
 	public:
@@ -295,7 +296,7 @@ class MCP2515
 
 		bool check4Rtr(const uint32_t &ID, const bool &Extended);
 		bool check4Receive(const uint32_t &ID, const bool &Extended, const uint8_t &DLC, uint8_t (&DataBuffer)[8]);
-		uint32_t getIdFromReceiveBuffer(const uint8_t BufferNumber);
+		bool getIdFromReceiveBuffer(const uint8_t BufferNumber, uint32_t &ID);
 		uint8_t getDlcFromReceiveBuffer(const uint8_t BufferNumber);
 		uint8_t getFrameFromReceiveBuffer(const uint8_t BufferNumber);
 		uint8_t getRtrFromReceiveBuffer(const uint8_t BufferNumber);

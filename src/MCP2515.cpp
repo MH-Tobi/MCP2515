@@ -3579,6 +3579,40 @@ bool MCP2515::resetOperationMode(const MCP2515OperationMode  OperationMode)
   }
 }
 
+bool MCP2515::getIDFromRegister(const uint8_t Buffer, uint32_t &ID, bool &Extended)
+{
+  uint8_t StandardID_High = getReceiveBufferStandardIdentifierHigh(Buffer);
+  uint8_t StandardID_Low = getReceiveBufferStandardIdentifierLow(Buffer);
+
+  ID = ((StandardID_High << 3) & 0x07F8) |
+       ((StandardID_Low >> 5) & 0x07);
+
+  Extended = ((StandardID_Low & 0x08) == 0x08) ? true : false;
+
+  if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
+  {
+    this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_STANDARD_ID);
+    return false;
+  }
+
+  if (Extended)
+  {
+    uint8_t ExtendedID_High = getReceiveBufferExtendedIdentifierHigh(Buffer);
+    uint8_t ExtendedID_Low = getReceiveBufferExtendedIdentifierLow(Buffer);
+
+    ID = ((ID << 18) & 0x1FFC0000) |
+         ((StandardID_Low & RXBnSIDL_BIT_EID) << 16) |
+         ((ExtendedID_High << 8) & 0xFF00) |
+         ExtendedID_Low;
+
+    if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
+    {
+      this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_EXTENDED_ID);
+      return false;
+    }
+  }
+  return true;
+}
 
 void MCP2515::prepareIDForRegister(uint8_t (&ForRegister)[6], const uint32_t &ID, const bool Extended)
 {
@@ -4686,48 +4720,17 @@ bool MCP2515::check4Receive(const uint32_t &ID, const bool &Extended, const uint
   {
     if ((rxStatusInstruction() & (0x40 + i * 0x40)) != 0)
     {
-      if ((getReceiveBufferStandardIdentifierLow(i) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE)
+      uint32_t Message_ID;
+      bool Message_Extended;
+      if (!getIDFromRegister(i, Message_ID, Message_Extended))
       {
-        if (!Extended)
-        {
-            continue;
-        }
-      }else{
-        // Because getReceiveBufferStandardIdentifierLow() returns EMPTY_VALUE_8_BIT on Error,
-        // only to check here if Error occurs.
-        if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
-        {
-          this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_EXTENDED_FLAG);
-          return false;
-        }
-
-        if (Extended)
-        {
-            continue;
-        }
-      }
-
-      uint32_t Message_ID = ((getReceiveBufferStandardIdentifierHigh(i) << 3) & 0x07F8) |
-                            ((getReceiveBufferStandardIdentifierLow(i) >> 5) & 0x07);
-
-      if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
-      {
-        this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_STANDARD_ID);
+        // Error-Code is setted in getIdFromRegister
         return false;
       }
 
-      if (Extended)
+      if (Message_Extended != Extended)
       {
-        Message_ID = ((Message_ID << 18) & 0x1FFC0000) |
-                     ((((getReceiveBufferStandardIdentifierLow(i) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
-                     ((getReceiveBufferExtendedIdentifierHigh(i) << 8) & 0xFF00) |
-                     getReceiveBufferExtendedIdentifierLow(i);
-
-        if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
-        {
-          this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_EXTENDED_ID);
-          return false;
-        }
+        continue;
       }
 
       if (ID != Message_ID)
@@ -4773,11 +4776,10 @@ bool MCP2515::check4Receive(const uint32_t &ID, const bool &Extended, const uint
 /**
  * @brief Get the Message-ID from the given RX-Buffer
  * @param BufferNumber 0 - 1
- * @return uint32_t Message-ID
- *
- * On Error it will return EMPTY_VALUE_32_BIT (Check m_lastMcpError).
+ * @param ID Reference where to save the ID-Value
+ * @return true when success, false on any error (check m_lastMcpError).
  */
-uint32_t MCP2515::getIdFromReceiveBuffer(const uint8_t BufferNumber)
+bool MCP2515::getIdFromReceiveBuffer(const uint8_t BufferNumber, uint32_t &ID)
 {
   this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::NO_ERROR);
 
@@ -4790,39 +4792,17 @@ uint32_t MCP2515::getIdFromReceiveBuffer(const uint8_t BufferNumber)
   if (BufferNumber > 1)
   {
     this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE);
-    return EMPTY_VALUE_32_BIT;
+    return false;
   }
 
-  uint32_t Message_ID = ((getReceiveBufferStandardIdentifierHigh(BufferNumber) << 3) & 0x07F8) |
-                        ((getReceiveBufferStandardIdentifierLow(BufferNumber) >> 5) & 0x07);
-
-  if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
+  bool Message_Extended;
+  if (!getIDFromRegister(BufferNumber, ID, Message_Extended))
   {
-    this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_STANDARD_ID);
-    return EMPTY_VALUE_32_BIT;
+    // Error-Code is setted in getIdFromRegister
+    return false;
   }
 
-  if ((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE)
-  {
-    Message_ID = ((Message_ID << 18) & 0x1FFC0000) |
-                 ((((getReceiveBufferStandardIdentifierLow(BufferNumber) & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
-                 ((getReceiveBufferExtendedIdentifierHigh(BufferNumber) << 8) & 0xFF00) |
-                 getReceiveBufferExtendedIdentifierLow(BufferNumber);
-
-    if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
-    {
-      this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_EXTENDED_ID);
-      return EMPTY_VALUE_32_BIT;
-    }
-  }
-
-  if (m_lastMcpError != static_cast<uint16_t>(MCP2515Error::NO_ERROR))
-  {
-    this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_GET_EXTENDED_FLAG);
-    return EMPTY_VALUE_32_BIT;
-  }
-
-  return Message_ID;
+  return true;
 }
 
 /**
@@ -5000,10 +4980,13 @@ bool MCP2515::getAllFromReceiveBuffer(const uint8_t BufferNumber, uint32_t (&ID)
 
   // Collect Data from the given RX-Buffer
   const uint8_t Data_RX_Controller = (BufferNumber == 0) ? getReceiveBuffer0Control() : getReceiveBuffer1Control();
-  const uint8_t Data_Standard_High = getReceiveBufferStandardIdentifierHigh(BufferNumber);
-  const uint8_t Data_Standard_Low = getReceiveBufferStandardIdentifierLow(BufferNumber);
-  const uint8_t Data_Extended_High = getReceiveBufferExtendedIdentifierHigh(BufferNumber);
-  const uint8_t Data_Extended_Low = getReceiveBufferExtendedIdentifierLow(BufferNumber);
+
+  if (!getIDFromRegister(BufferNumber, ID, Frame))
+  {
+    // Error-Code is setted in getIdFromRegister
+    return false;
+  }
+
   const uint8_t Data_DLC = getReceiveBufferDataLengthCode(BufferNumber);
   uint8_t Data_Bytes[8];
 
@@ -5023,26 +5006,9 @@ bool MCP2515::getAllFromReceiveBuffer(const uint8_t BufferNumber, uint32_t (&ID)
     this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_RESET_FLAG);
   }
 
-  bool RTR_Message = ((Data_RX_Controller & RXBnCTRL_BIT_RXRTR) == RXBnCTRL_BIT_RXRTR) ? true : false;
-  bool Extended_Frame = ((Data_Standard_Low & RXBnSIDL_BIT_IDE) == RXBnSIDL_BIT_IDE) ? true : false;
+  RTR = ((Data_RX_Controller & RXBnCTRL_BIT_RXRTR) == RXBnCTRL_BIT_RXRTR) ? true : false;
 
-  uint32_t ID_Message = ((Data_Standard_High << 3) & 0x07F8) |
-                        ((Data_Standard_Low >> 5) & 0x07);
-
-  if (Extended_Frame)
-  {
-    ID_Message = ((ID_Message << 18) & 0x1FFC0000) |
-                 ((((Data_Standard_Low & RXBnSIDL_BIT_EID) << 8) << 8) & 0x30000) |
-                 ((Data_Extended_High << 8) & 0xFF00) |
-                 Data_Extended_Low;
-  }
-
-  // Fill given Variables
-  ID = ID_Message;
-  Frame = Extended_Frame;
-  RTR = RTR_Message;
-
-  if (RTR_Message)
+  if (RTR)
   {
     DLC = 0;
     for (size_t m = 0; m < 8; m++)
