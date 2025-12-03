@@ -3581,8 +3581,8 @@ bool MCP2515::resetOperationMode(const MCP2515OperationMode  OperationMode)
 
 bool MCP2515::getIDFromRegister(const uint8_t Buffer, uint32_t &ID, bool &Extended)
 {
-  uint8_t StandardID_High = getReceiveBufferStandardIdentifierHigh(Buffer);
-  uint8_t StandardID_Low = getReceiveBufferStandardIdentifierLow(Buffer);
+  uint32_t StandardID_High = getReceiveBufferStandardIdentifierHigh(Buffer);
+  uint32_t StandardID_Low = getReceiveBufferStandardIdentifierLow(Buffer);
 
   ID = ((StandardID_High << 3) & 0x07F8) |
        ((StandardID_Low >> 5) & 0x07);
@@ -3597,8 +3597,8 @@ bool MCP2515::getIDFromRegister(const uint8_t Buffer, uint32_t &ID, bool &Extend
 
   if (Extended)
   {
-    uint8_t ExtendedID_High = getReceiveBufferExtendedIdentifierHigh(Buffer);
-    uint8_t ExtendedID_Low = getReceiveBufferExtendedIdentifierLow(Buffer);
+    uint32_t ExtendedID_High = getReceiveBufferExtendedIdentifierHigh(Buffer);
+    uint32_t ExtendedID_Low = getReceiveBufferExtendedIdentifierLow(Buffer);
 
     ID = ((ID << 18) & 0x1FFC0000) |
          ((StandardID_Low & RXBnSIDL_BIT_EID) << 16) |
