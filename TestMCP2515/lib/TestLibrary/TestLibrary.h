@@ -14,7 +14,7 @@
 
 #include "MCP2515.h"
 
-bool _initialize_Module(MCP2515 &Module, uint8_t CS_Pin, uint32_t SPIFrequency, uint32_t ClockFrequency, uint32_t Baudrate);
+/* bool _initialize_Module(MCP2515 &Module, uint8_t CS_Pin, uint32_t SPIFrequency, uint32_t ClockFrequency, uint32_t Baudrate);
 
 uint8_t testInit(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]);
 uint8_t testSetSpiPins(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]);
@@ -49,6 +49,6 @@ uint8_t testResetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&def
 uint8_t testSetInterruptFlag(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]);
 uint8_t testSetFilter(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]);
 uint8_t testSetMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]);
-uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]);
+uint8_t testFilterAndMask(uint8_t Teststep, MCP2515 &Module, uint32_t (&defaultSettings)[5]); */
 
 #endif

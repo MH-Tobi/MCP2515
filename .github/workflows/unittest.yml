@@ -18,4 +18,4 @@ jobs:
     - name: Run tests on the embedded target
       env:
         PLATFORMIO_AUTH_TOKEN: ${{ secrets.PLATFORMIO_AUTH_TOKEN }}
-      run: platformio remote test -e megaatmega2560 -v
+      run: platformio remote test -e megaatmega2560 -vvv
