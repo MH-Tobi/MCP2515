@@ -7,12 +7,13 @@
 
 void test_getIdFromReceiveBuffer_when_not_initialized()
 {
+    uint32_t ID;
     MCP2515Module.deinit();
     delay(500);
 
     TEST_ASSERT_FALSE_MESSAGE(MCP2515Module.getIsInitialized(), "Module is initialized.");
 
-    MCP2515Module.getIdFromReceiveBuffer(0);
+    TEST_ASSERT_FALSE_MESSAGE(MCP2515Module.getIdFromReceiveBuffer(0, ID), "Get ID from ReceiveBuffer successfull.");
 
     if ((MCP2515Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))!=static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED))
     {
@@ -24,35 +25,31 @@ void test_getIdFromReceiveBuffer_when_not_initialized()
 
 void test_getIdFromReceiveBuffer_when_initialized()
 {
+    uint32_t ID;
     TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIsInitialized(), "Module is not initialized.");
 
-    MCP2515Module.getIdFromReceiveBuffer(0);
-
-    TEST_ASSERT_EQUAL_HEX16_MESSAGE(static_cast<uint16_t>(MCP2515Error::NO_ERROR),
-                                    MCP2515Module.getLastMCPError(),
-                                    "Error-Code occured for get ID from ReceiveBuffer when initialized.");
+    TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIdFromReceiveBuffer(0, ID), "Get ID from ReceiveBuffer not successfull.");
 }
 
 void test_getIdFromReceiveBuffer_from_defined_buffer()
 {
+    uint32_t ID;
     TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIsInitialized(), "Module is not initialized.");
 
     for (size_t i=0; i<2; i++)
     {
-        MCP2515Module.getIdFromReceiveBuffer(i);
-        TEST_ASSERT_EQUAL_HEX16_MESSAGE(static_cast<uint16_t>(MCP2515Error::NO_ERROR),
-                                        MCP2515Module.getLastMCPError(),
-                                        "Error-Code occured for get ID from defined ReceiveBuffer.");
+        TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIdFromReceiveBuffer(i, ID), "Get ID from ReceiveBuffer not successfull.");
     }
 }
 
 void test_getIdFromReceiveBuffer_from_undefined_buffer()
 {
+    uint32_t ID;
     TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIsInitialized(), "Module is not initialized.");
 
     for (size_t i=2; i<4; i++)
     {
-        MCP2515Module.getIdFromReceiveBuffer(i);
+        TEST_ASSERT_FALSE_MESSAGE(MCP2515Module.getIdFromReceiveBuffer(i, ID), "Get ID from ReceiveBuffer successfull.");
         if ((MCP2515Module.getLastMCPError() & static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))!=static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE))
         {
             TEST_ASSERT_EQUAL_HEX16_MESSAGE(static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_OUTA_RANGE),
@@ -64,6 +61,7 @@ void test_getIdFromReceiveBuffer_from_undefined_buffer()
 
 void test_getIdFromReceiveBuffer_from_received_message()
 {
+    uint32_t ID;
     TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIsInitialized(), "Module is not initialized.");
 
     TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.setLoopbackMode(), "Loopback Mode is not set.");
@@ -75,13 +73,11 @@ void test_getIdFromReceiveBuffer_from_received_message()
 
     if ((MCP2515Module.check4InterruptFlags() & 0x01) == 0x01)
     {
-        TEST_ASSERT_EQUAL_UINT32_MESSAGE(1,
-                                        MCP2515Module.getIdFromReceiveBuffer(0),
-                                        "Get wrong ID from ReceiveBuffer 0.");
+        TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIdFromReceiveBuffer(0, ID), "Get ID from ReceiveBuffer 0 not successfull.");
+        TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, ID, "Get wrong ID from ReceiveBuffer 0.");
     }else{
-        TEST_ASSERT_EQUAL_UINT32_MESSAGE(1,
-                                        MCP2515Module.getIdFromReceiveBuffer(1),
-                                        "Get wrong ID from ReceiveBuffer 1.");
+        TEST_ASSERT_TRUE_MESSAGE(MCP2515Module.getIdFromReceiveBuffer(1, ID), "Get ID from ReceiveBuffer 1 not successfull.");
+        TEST_ASSERT_EQUAL_UINT32_MESSAGE(1, ID, "Get wrong ID from ReceiveBuffer 1.");
     }
 }
 
