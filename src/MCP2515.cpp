@@ -5257,7 +5257,7 @@ uint32_t MCP2515::getClockFrequency()
 
 /**
  * @brief Get the Operation-Mode of the MCP2515
- * @return uint8_t
+ * @return MCP2515OperationMode
  *
  * 0 = Normal-Mode
  *
@@ -5271,7 +5271,37 @@ uint32_t MCP2515::getClockFrequency()
  */
 MCP2515OperationMode MCP2515::getOperationMode()
 {
-  return m_operationMode;
+  this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::NO_ERROR);
+
+  if (!m_isInitialized)
+  {
+    this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::MAIN_NOT_INITIALIZED);
+    return MCP2515OperationMode::NORMAL;
+  }
+
+  uint8_t OperationStatus = (getCanStatus() >> 5) & 0x07;
+
+  switch (OperationStatus)
+  {
+  case static_cast<uint8_t>(MCP2515OperationMode::NORMAL):
+    return MCP2515OperationMode::NORMAL;
+
+  case static_cast<uint8_t>(MCP2515OperationMode::SLEEP):
+    return MCP2515OperationMode::SLEEP;
+
+  case static_cast<uint8_t>(MCP2515OperationMode::LOOPBACK):
+    return MCP2515OperationMode::LOOPBACK;
+
+  case static_cast<uint8_t>(MCP2515OperationMode::LISTEN):
+    return MCP2515OperationMode::LISTEN;
+
+  case static_cast<uint8_t>(MCP2515OperationMode::CONFIGURATION):
+    return MCP2515OperationMode::CONFIGURATION;
+
+  default:
+    this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::MAIN_UNKNOWN_SWITCH);
+    return MCP2515OperationMode::NORMAL;
+  }
 }
 
 /**
