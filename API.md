@@ -13,7 +13,7 @@ MCP2515 MCP2515Module;
 ![Teststatus setSpiPins](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setSpiPins(uint8_t cs = 0);
+bool MCP2515Module.setSpiPins(const uint8_t cs = 0);
 ```
 - `cs` - ChipSelect-Pin
 - Returns on success `true`, on any failure `false`
@@ -25,7 +25,7 @@ MCP2515Module.setSpiPins(uint8_t cs = 0);
 ![Teststatus setSpiMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setSpiMode(uint8_t SpiMode = MCP2515_SPI_MODE);
+bool MCP2515Module.setSpiMode(const uint8_t SpiMode = MCP2515_SPI_MODE);
 ```
 - `SpiMode` - Allowed Values for the MCP2515 are SPI_MODE0 and SPI_MODE3.
     - Default is `SPI_MODE0`
@@ -37,9 +37,9 @@ MCP2515Module.setSpiMode(uint8_t SpiMode = MCP2515_SPI_MODE);
 ![Teststatus setDataOrder](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setDataOrder(uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
+bool MCP2515Module.setDataOrder(const uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
 ```
-- `DataOrder` - DataOrder Allowed Value for the MCP2515 is `MSBFIRST`.
+- `DataOrder` - Allowed Value for the MCP2515 is `MSBFIRST`.
 - Returns on success `true`, on any failure `false`
 
 
@@ -48,7 +48,7 @@ MCP2515Module.setDataOrder(uint8_t DataOrder = MCP2515_SPI_DATA_ORDER);
 ![Teststatus setSpiFrequency](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setSpiFrequency(uint32_t frequency = MCP2515_MAX_SPI_SPEED);
+bool MCP2515Module.setSpiFrequency(const uint32_t frequency = MCP2515_MAX_SPI_SPEED);
 ```
 - `frequency` - max. allowed Value for the MCP2515 is 10e6 Hz.
     - Default is 10e6
@@ -60,7 +60,7 @@ MCP2515Module.setSpiFrequency(uint32_t frequency = MCP2515_MAX_SPI_SPEED);
 ![Teststatus setClockFrequency](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setClockFrequency(uint32_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
+bool MCP2515Module.setClockFrequency(const uint32_t clockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 ```
 - `clockFrequency` - max. allowed Value for the MCP2515 is 40e6 Hz.
     - Default is 8e6
@@ -82,7 +82,7 @@ MCP2515Module.setClockFrequency(uint32_t clockFrequency = MCP2515_DEFAULT_CLOCK_
 - Set the OperationMode Normal
 
 ```c++
-MCP2515Module.init(uint32_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEnabled = true);
+bool MCP2515Module.init(const uint32_t BaudRate = MCP2515_DEFAULT_BAUDRATE, const bool reCheckEnabled = true);
 ```
 - `BaudRate` - Baudrate of the CAN-Communication
     - Default is `500e3`
@@ -95,8 +95,11 @@ MCP2515Module.init(uint32_t BaudRate = MCP2515_DEFAULT_BAUDRATE, bool reCheckEna
 
 ![Teststatus deinit](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
+- Set the MCP2515 in uninitialized mode
+- Ends the SPI-Bus
+
 ```c++
-MCP2515Module.deinit();
+void MCP2515Module.deinit();
 ```
 
 
@@ -110,7 +113,7 @@ See also [Error.md](Error.md).
 ![Teststatus getLastMCPError](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getLastMCPError();
+uint16_t MCP2515Module.getLastMCPError();
 ```
 - Returns the last MCP-Error.
 - The last MCP-Error will always been reset at the beginning of a Method.
@@ -125,7 +128,7 @@ MCP2515Module.getLastMCPError();
 ![Teststatus setConfigurationMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setConfigurationMode();
+bool MCP2515Module.setConfigurationMode();
 ```
 - Returns on success `true`, on any failure `false`
 
@@ -135,7 +138,7 @@ MCP2515Module.setConfigurationMode();
 ![Teststatus setNormalMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setNormalMode();
+bool MCP2515Module.setNormalMode();
 ```
 - Returns on success `true`, on any failure `false`
 
@@ -145,7 +148,7 @@ MCP2515Module.setNormalMode();
 ![Teststatus setSleepMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setSleepMode();
+bool MCP2515Module.setSleepMode();
 ```
 - Returns on success `true`, on any failure `false`
 
@@ -155,7 +158,7 @@ MCP2515Module.setSleepMode();
 ![Teststatus setListenOnlyMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setListenOnlyMode();
+bool MCP2515Module.setListenOnlyMode();
 ```
 - Returns on success `true`, on any failure `false`
 
@@ -165,7 +168,7 @@ MCP2515Module.setListenOnlyMode();
 ![Teststatus setLoopbackMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setLoopbackMode();
+bool MCP2515Module.setLoopbackMode();
 ```
 - Returns on success `true`, on any failure `false`
 
@@ -177,10 +180,10 @@ MCP2515Module.setLoopbackMode();
 
 ![Teststatus setReCheckEnabler](https://img.shields.io/badge/Teststatus-PASSED-green)
 
-- When it's enabled, after Setting some bit it will check if the bit is set successfully.
+- When it's enabled, after Setting some bit or register it will check if the bit or register is set successfully.
 
 ```c++
-MCP2515Module.setReCheckEnabler(bool reCheckEnabler);
+bool MCP2515Module.setReCheckEnabler(const bool reCheckEnabler);
 ```
 - `reCheckEnabler` - bool
 - Returns on success `true`, on any failure `false`
@@ -191,7 +194,7 @@ MCP2515Module.setReCheckEnabler(bool reCheckEnabler);
 ![Teststatus changeBaudRate](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.changeBaudRate(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
+bool MCP2515Module.changeBaudRate(const uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE);
 ```
 - `targetBaudRate` - possible Baudrates = (5E3, 10E3, 20E3, 40E3, 50E3, 80E3, 100E3, 125E3, 200E3, 250E3, 500E3, 1000E3) => depending on ClockFrequency
 - Returns on success `true`, on any failure `false`
@@ -202,7 +205,7 @@ MCP2515Module.changeBaudRate(uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE)
 ![Teststatus changeInterruptSetting](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.changeInterruptSetting(bool value, uint8_t InterruptBit);
+bool MCP2515Module.changeInterruptSetting(const bool value, const uint8_t InterruptBit);
 ```
 - `value` - True = Enable Interrupt, False = Disable Interrupt
 - `InterruptBit` - Interrupt to set
@@ -223,7 +226,7 @@ MCP2515Module.changeInterruptSetting(bool value, uint8_t InterruptBit);
 ![Teststatus enableFilterMask](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.enableFilterMask(uint8_t buffer = 0);
+bool MCP2515Module.enableFilterMask(const uint8_t buffer = 0);
 ```
 - `buffer` - Receive-Buffer-Number  (0 - 1)
 - Returns on success `true`, on any failure `false`
@@ -234,7 +237,7 @@ MCP2515Module.enableFilterMask(uint8_t buffer = 0);
 ![Teststatus disableFilterMask](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.disableFilterMask(uint8_t buffer = 0);
+bool MCP2515Module.disableFilterMask(const uint8_t buffer = 0);
 ```
 - `buffer` - Receive-Buffer-Number  (0 - 1)
 - Returns on success `true`, on any failure `false`
@@ -244,7 +247,7 @@ MCP2515Module.disableFilterMask(uint8_t buffer = 0);
 ![Teststatus setFilter](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended);
+bool MCP2515Module.setFilter(const uint8_t FilterNumber, const uint32_t &ID, const bool Extended);
 ```
 - `FilterNumber` - Number of the Filter (0-5)
 - `ID` - ID to set
@@ -256,7 +259,7 @@ MCP2515Module.setFilter(uint8_t FilterNumber, uint32_t ID, bool Extended);
 ![Teststatus setMask](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.setMask(uint8_t MaskNumber, uint32_t ID);
+bool MCP2515Module.setMask(const uint8_t MaskNumber, const uint32_t &ID);
 ```
 - `MaskNumber` - Number of the Mask (0-1)
 - `ID` - ID to set
@@ -271,7 +274,7 @@ MCP2515Module.setMask(uint8_t MaskNumber, uint32_t ID);
 ![Teststatus check4FreeTransmitBuffer](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.check4FreeTransmitBuffer();
+uint8_t MCP2515Module.check4FreeTransmitBuffer();
 ```
 - Returns the Number of the free Transmit-Buffer (0 - 2)
     - if no Transmit-Buffer is free it will return `0xFF` 
@@ -282,12 +285,12 @@ MCP2515Module.check4FreeTransmitBuffer();
 ![Teststatus fillTransmitBuffer](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extended, bool RTR, uint8_t DLC, uint8_t Data[8]);
+bool MCP2515Module.fillTransmitBuffer(const uint8_t BufferNumber, const uint32_t ID, const bool Extended, const bool RTR, const uint8_t DLC, const uint8_t Data[8]);
 ```
 - `BufferNumber` - Number of the Transmit-Buffer (0 - 2)
 - `ID` - Message-ID
-- `Extended` - true if it is a Extended Frame
-- `RTR` - true if it is a Remote Transmit request Message
+- `Extended` - `true` if it is an Extended Frame
+- `RTR` - `true` if it is a Remote Transmit request Message
 - `DLC` - Data Length Code of the Message
 - `Data` - 8-Byte Data-Array (in total)
 - Returns on success `true`, on any failure `false`
@@ -300,10 +303,10 @@ MCP2515Module.fillTransmitBuffer(uint8_t BufferNumber, uint32_t ID, bool Extende
 - Initiates a transmission for the given TX-Buffer
 
 ```c++
-MCP2515Module.sendMessage(uint8_t BufferNumber, uint8_t Priority = 0);
+bool MCP2515Module.sendMessage(const uint8_t BufferNumber, const uint8_t Priority = 0);
 ```
 - `BufferNumber` - Number of the Transmit-Buffer (0 - 2)
-- `Priority` - Message-Priority 0 - 3
+- `Priority` - Message-Priority 0 (low) - 3 (high)
 - Returns on success `true`, on any failure `false`
 
 
@@ -316,11 +319,11 @@ MCP2515Module.sendMessage(uint8_t BufferNumber, uint8_t Priority = 0);
 - Check for the given Message-ID a RTR-Frame was received
 
 ```c++
-MCP2515Module.check4Rtr(uint32_t ID, bool Extended);
+bool MCP2515Module.check4Rtr(const uint32_t &ID, const bool &Extended);
 ```
 - `ID` - Message-ID
 - `Extended` - true if it is a Extended Frame
-- Returns `true` if a RemoteTransmissionRequest for the Message was received, `false` when not
+- Returns `true` if a RemoteTransmissionRequest for the Message was received, `false` when not (or on Error)
 
 
 #### Check for a received Message
@@ -331,13 +334,13 @@ MCP2515Module.check4Rtr(uint32_t ID, bool Extended);
 - If a Message is received it would fill the given Databuffer.
 
 ```c++
-MCP2515Module.check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&DataBuffer)[8]);
+bool MCP2515Module.check4Receive(const uint32_t &ID, const bool &Extended, const uint8_t &DLC, uint8_t (&DataBuffer)[8]);
 ```
 - `ID` - Message-ID
-- `Extended` - true if it is a Extended Frame
+- `Extended` - `true` if it is a Extended Frame
 - `DLC` - Data-Length-Code of the Message
-- `DataBuffer` - Address-Pointer to the DataBuffer of the Message
-- Returns `true` if a Message was received, `false` when not
+- `DataBuffer` - Reference to the DataBuffer of the Message
+- Returns `true` if a Message was received, `false` when not (or on Error)
 
 
 #### Get Message-ID from Receive-Buffer
@@ -345,11 +348,11 @@ MCP2515Module.check4Receive(uint32_t ID, bool Extended, uint8_t DLC, uint8_t (&D
 ![Teststatus getIdFromReceiveBuffer](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.getIdFromReceiveBuffer(uint8_t BufferNumber);
+bool MCP2515Module.getIdFromReceiveBuffer(const uint8_t BufferNumber, uint32_t &ID);
 ```
 - `BufferNumber` - Number of the Receive-Buffer (0 - 1)
-- Returns the Message-ID that is stored in the given Receive-Buffer
-    - on Error it returns 0
+- `ID` - Reference where to store the ID of the Message
+- Returns `true` if on success, on any failure `false`
 
 
 #### Get DLC from Receive-Buffer
@@ -357,7 +360,7 @@ MCP2515Module.getIdFromReceiveBuffer(uint8_t BufferNumber);
 ![Teststatus getDlcFromReceiveBuffer](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.getDlcFromReceiveBuffer(uint8_t BufferNumber);
+uint8_t MCP2515Module.getDlcFromReceiveBuffer(const uint8_t BufferNumber);
 ```
 - `BufferNumber` - Number of the Receive-Buffer (0 - 1)
 - Returns the Message-DLC that is stored in the given Receive-Buffer
@@ -369,7 +372,7 @@ MCP2515Module.getDlcFromReceiveBuffer(uint8_t BufferNumber);
 ![Teststatus getFrameFromReceiveBuffer](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.getFrameFromReceiveBuffer(uint8_t BufferNumber);
+uint8_t MCP2515Module.getFrameFromReceiveBuffer(const uint8_t BufferNumber);
 ```
 - `BufferNumber` - Number of the Receive-Buffer (0 - 1)
 - Returns the Frame of the Message that is stored in the given Receive-Buffer
@@ -382,7 +385,7 @@ MCP2515Module.getFrameFromReceiveBuffer(uint8_t BufferNumber);
 ![Teststatus getRtrFromReceiveBuffer](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.getRtrFromReceiveBuffer(uint8_t BufferNumber);
+uint8_t MCP2515Module.getRtrFromReceiveBuffer(const uint8_t BufferNumber);
 ```
 - `BufferNumber` - Number of the Receive-Buffer (0 - 1)
 - Returns if the Message that is stored in the given Receive-Buffer is a Remote-Transmission-Request
@@ -397,11 +400,11 @@ MCP2515Module.getRtrFromReceiveBuffer(uint8_t BufferNumber);
 - It would fill the given Databuffer with the Databytes from the given Receive-Buffer
 
 ```c++
-MCP2515Module.getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_t (&DataBuffer)[8]);
+bool MCP2515Module.getDataFromReceiveBuffer(const uint8_t BufferNumber, const uint8_t DLC, uint8_t (&DataBuffer)[8]);
 ```
 - `BufferNumber` - Number of the Receive-Buffer (0 - 1)
 - `DLC` - Expected Data Length Code
-- `DataBuffer` - Address-Pointer to the DataBuffer
+- `DataBuffer` - Reference to the DataBuffer
 - Returns on success `true`, on any failure `false`
 
 
@@ -409,17 +412,17 @@ MCP2515Module.getDataFromReceiveBuffer(uint8_t BufferNumber, uint8_t DLC, uint8_
 
 ![Teststatus getAllFromReceiveBuffer](https://img.shields.io/badge/Teststatus-PASSED-green)
 
-- It would fill the given Address-Pointer with the Data from the given Receive-Buffer
+- It would fill the given References with the Data from the given Receive-Buffer
 
 ```c++
-MCP2515Module.getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC),uint8_t (&DataBuffer)[8]);
+bool MCP2515Module.getAllFromReceiveBuffer(const uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC),uint8_t (&DataBuffer)[8]);
 ```
 - `BufferNumber` - Number of the Receive-Buffer (0 - 1)
-- `ID` - Address-Pointer to the Message-ID Variable
-- `Frame` - Address-Pointer to the Frame Variable
-- `RTR` - Address-Pointer to the RTR Variable
-- `DLC` - Address-Pointer to the DLC Variable
-- `DataBuffer` - Address-Pointer to the DataBuffer
+- `ID` - Reference to the Message-ID Variable
+- `Frame` - Reference to the Frame Variable
+- `RTR` - Reference to the RTR Variable
+- `DLC` - Reference to the DLC Variable
+- `DataBuffer` - Reference to the DataBuffer
 - Returns on success `true`, on any failure `false`
 
 
@@ -430,7 +433,7 @@ MCP2515Module.getAllFromReceiveBuffer(uint8_t BufferNumber, uint32_t (&ID), bool
 - It would release the given Receive-Buffer for the next Message
 
 ```c++
-MCP2515Module.releaseReceiveBuffer(uint8_t BufferNumber);
+bool MCP2515Module.releaseReceiveBuffer(const uint8_t BufferNumber);
 ```
 - `BufferNumber` - Number of the Receive-Buffer (0 - 1)
 - Returns on success `true`, on any failure `false`
@@ -444,7 +447,7 @@ MCP2515Module.releaseReceiveBuffer(uint8_t BufferNumber);
 ![Teststatus check4InterruptFlags](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.check4InterruptFlags();
+uint8_t MCP2515Module.check4InterruptFlags();
 ```
 - Returns the Flags they are set in the MCP2515
     - Bit 7 -> MERRF - Message Error Interrupt Flag bit
@@ -477,10 +480,10 @@ MCP2515Module.check4InterruptFlags();
 
 ![Teststatus resetInterruptFlag](https://img.shields.io/badge/Teststatus-PASSED-green)
 
-- Resets the given Interrupt-Flag
+- Resets the given Interrupt-Flag (only)
 
 ```c++
-MCP2515Module.resetInterruptFlag(uint8_t Flag);
+bool MCP2515Module.resetInterruptFlag(const uint8_t Flag);
 ```
 - `Flag` - Interrupt-Flag to reset
     - 7 = MERRF - Message Error Interrupt Flag
@@ -491,8 +494,27 @@ MCP2515Module.resetInterruptFlag(uint8_t Flag);
     - 2 = TX0IF - Transmit Buffer 0 Empty Interrupt Flag
     - 1 = RX1IF - Receive Buffer 1 Full Interrupt Flag
     - 0 = RX0IF - Receive Buffer 0 Full Interrupt Flag
+- Returns on success `true`, on any failure `false`
 
+### Set Interrupt-Flags
 
+![Teststatus setInterruptFlag](https://img.shields.io/badge/Teststatus-PASSED-green)
+
+- Sets the given Interrupt-Flag (only)
+
+```c++
+bool MCP2515Module.setInterruptFlag(const uint8_t Flag);
+```
+- `Flag` - Interrupt-Flag to set
+    - 7 = MERRF - Message Error Interrupt Flag
+    - 6 = WAKIF - Wake-up Interrupt Flag
+    - 5 = ERRIF - Error Interrupt Flag
+    - 4 = TX2IF - Transmit Buffer 2 Empty Interrupt Flag
+    - 3 = TX1IF - Transmit Buffer 1 Empty Interrupt Flag
+    - 2 = TX0IF - Transmit Buffer 0 Empty Interrupt Flag
+    - 1 = RX1IF - Receive Buffer 1 Full Interrupt Flag
+    - 0 = RX0IF - Receive Buffer 0 Full Interrupt Flag
+- Returns on success `true`, on any failure `false`
 
 ## Get Settings
 
@@ -501,7 +523,7 @@ MCP2515Module.resetInterruptFlag(uint8_t Flag);
 ![Teststatus getCsPin](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getCsPin();
+uint8_t MCP2515Module.getCsPin();
 ```
 - Returns the choosen CS-Pin
 
@@ -510,25 +532,32 @@ MCP2515Module.getCsPin();
 ![Teststatus getSpiMode](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getSpiMode();
+uint8_t MCP2515Module.getSpiMode();
 ```
 - Returns the SPI-Mode
+    - 0 = SPI-Mode 0
+    - 4 = SPI-Mode 1
+    - 8 = SPI-Mode 2
+    - 12 = SPI-Mode 3
 
 ### Data-Order
 
 ![Teststatus getDataOrder](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getDataOrder();
+uint8_t MCP2515Module.getDataOrder();
 ```
-- Returns the SPI-Mode
+- Returns the DataOrder of the SPI-Communication
+    - 0 = LSB-First
+    - 1 = MSB-First
+- Should always be MSB-First
 
 ### SPI-Frequency
 
 ![Teststatus getFrequency](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getFrequency();
+uint32_t MCP2515Module.getFrequency();
 ```
 - Returns the SPI-Frequency
 
@@ -537,7 +566,7 @@ MCP2515Module.getFrequency();
 ![Teststatus getClockFrequency](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getClockFrequency();
+uint32_t MCP2515Module.getClockFrequency();
 ```
 - Returns the ClockFrequency of the MCP2515
 
@@ -546,16 +575,21 @@ MCP2515Module.getClockFrequency();
 ![Teststatus getOperationMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
-MCP2515Module.getOperationMode();
+MCP2515OperationMode MCP2515Module.getOperationMode();
 ```
 - Returns the actual Operation Mode of the MCP2515
+    - Normal (uint8_t 0)
+    - Sleep (uint8_t 1)
+    - Loopback (uint8_t 2)
+    - Listen-Only (uint8_t 3)
+    - Configuration (uint8_t 4)
 
 ### Baudrate
 
 ![Teststatus getBaudRate](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getBaudRate();
+uint32_t MCP2515Module.getBaudRate();
 ```
 - Returns the Baudrate of the MCP2515
 
@@ -564,15 +598,19 @@ MCP2515Module.getBaudRate();
 ![Teststatus getIsInitialized](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getIsInitialized();
+bool MCP2515Module.getIsInitialized();
 ```
 - Returns the initialisation-Status of the MCP2515
+    - `true` if MCP2515 is initialized
+    - `false` if MCP2515 is not initialized
 
 ### ReCheck-Status
 
 ![Teststatus getReCheckEnabled](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
 
 ```c++
-MCP2515Module.getReCheckEnabled();
+bool MCP2515Module.getReCheckEnabled();
 ```
 - Returns the ReCheck-Status
+    - `true` if ReCheck is enabled
+    - `false` if ReCheck is disabled
