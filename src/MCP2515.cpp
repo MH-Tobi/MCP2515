@@ -3663,6 +3663,7 @@ void MCP2515::prepareIDForRegister(uint8_t (&ForRegister)[6], const uint32_t &ID
 
 /**
  * @brief ClassConstructor
+ * @note Not tested
  */
 MCP2515::MCP2515() :
   m_spiSettings(MCP2515_MAX_SPI_SPEED, MCP2515_SPI_DATA_ORDER, MCP2515_SPI_MODE),
@@ -3683,6 +3684,7 @@ MCP2515::MCP2515() :
 
 /**
  * @brief Deconstructor
+ * @note Not tested
  */
 MCP2515::~MCP2515()
 {
@@ -3695,6 +3697,7 @@ MCP2515::~MCP2515()
  * @return uint16_t MCP-Error
  *
  * 0x0000 = no Error
+ * @note Not tested
  */
 uint16_t MCP2515::getLastMCPError()
 {
@@ -3707,6 +3710,7 @@ uint16_t MCP2515::getLastMCPError()
  * When it's enabled, after Setting some bit it will check if the bit is set successfully.
  * @param reCheckEnabler bool
  * @return bool true when success, false on any error
+ * @note Tested with test_setReCheckEnabler
  */
 bool MCP2515::setReCheckEnabler(const bool reCheckEnabler)
 {
@@ -3728,6 +3732,7 @@ bool MCP2515::setReCheckEnabler(const bool reCheckEnabler)
  * @note Use this Method only before the Initialisation of the MCP2515.
  * @param cs ChipSelect-Pin
  * @return true when success, false on any error
+ * @note Tested with test_setSpiPins
  */
 bool MCP2515::setSpiPins(const uint8_t cs)
 {
@@ -3749,6 +3754,7 @@ bool MCP2515::setSpiPins(const uint8_t cs)
  * @note Use this Method only before the Initialisation of the MCP2515.
  * @param SpiMode Allowed Values for the MCP2515 are SPI_MODE0 and SPI_MODE3.
  * @return true when success, false on any error
+ * @note Tested with test_setSpiMode
  */
 bool MCP2515::setSpiMode(const uint8_t SpiMode)
 {
@@ -3777,6 +3783,7 @@ bool MCP2515::setSpiMode(const uint8_t SpiMode)
  * @note Use this Method only before the Initialisation of the MCP2515.
  * @param DataOrder Allowed Value for the MCP2515 is MSBFIRST.
  * @return true when success, false on any error
+ * @note Tested with test_setDataOrder
  */
 bool MCP2515::setDataOrder(const uint8_t DataOrder)
 {
@@ -3805,6 +3812,7 @@ bool MCP2515::setDataOrder(const uint8_t DataOrder)
  * @note Use this Method only before the Initialisation of the MCP2515.
  * @param Frequency max. allowed Value for the MCP2515 is 10e6 Hz.
  * @return true when success, false on any error
+ * @note Tested with test_setSpiFrequency
  */
 bool MCP2515::setSpiFrequency(const uint32_t Frequency)
 {
@@ -3834,6 +3842,7 @@ bool MCP2515::setSpiFrequency(const uint32_t Frequency)
  * @param ClockFrequency allowed Values are 8MHz, 16MHz, 25MHz or 40MHz.
  * @return true when success, false on any error
  * @note Use this Method only before the Initialisation of the MCP2515.
+ * @note Tested with test_setClockFrequency
  */
 bool MCP2515::setClockFrequency(const uint32_t ClockFrequency)
 {
@@ -3858,6 +3867,7 @@ bool MCP2515::setClockFrequency(const uint32_t ClockFrequency)
  * @brief Set the MCP2515 in the Configuration-Mode.
  * @note Doc p. 59; Kap. 10.1
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_setConfigurationMode
  */
 bool MCP2515::setConfigurationMode()
 {
@@ -3872,7 +3882,6 @@ bool MCP2515::setConfigurationMode()
   int8_t counter = 100;
 
   while (!setOperationMode(MCP2515OperationMode::CONFIGURATION) && counter > 0)
-  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::CONFIGURATION) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3892,6 +3901,7 @@ bool MCP2515::setConfigurationMode()
  * @brief Set the MCP2515 in the Normal-Mode.
  * @note Doc p. 60; Kap. 10.5
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_setNormalMode
  */
 bool MCP2515::setNormalMode()
 {
@@ -3906,7 +3916,6 @@ bool MCP2515::setNormalMode()
   int8_t counter = 100;
 
   while (!setOperationMode(MCP2515OperationMode::NORMAL) && counter > 0)
-  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::NORMAL) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3926,6 +3935,7 @@ bool MCP2515::setNormalMode()
  * @brief Set the MCP2515 in the Sleep-Mode.
  * @note Doc p. 59; Kap. 10.2
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_setSleepMode
  */
 bool MCP2515::setSleepMode()
 {
@@ -3940,7 +3950,6 @@ bool MCP2515::setSleepMode()
   int8_t counter = 100;
 
   while (!setOperationMode(MCP2515OperationMode::SLEEP) && counter > 0)
-  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::SLEEP) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3960,6 +3969,7 @@ bool MCP2515::setSleepMode()
  * @brief Set the MCP2515 in the Listen-Only-Mode.
  * @note Doc p. 59; Kap. 10.3
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_setListenOnlyMode
  */
 bool MCP2515::setListenOnlyMode()
 {
@@ -3974,7 +3984,6 @@ bool MCP2515::setListenOnlyMode()
   int8_t counter = 100;
 
   while (!setOperationMode(MCP2515OperationMode::LISTEN) && counter > 0)
-  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LISTEN) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3994,6 +4003,7 @@ bool MCP2515::setListenOnlyMode()
  * @brief Set the MCP2515 in the Loopback-Mode.
  * @note Doc p. 60; Kap. 10.4
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_setLoopbackMode
  */
 bool MCP2515::setLoopbackMode()
 {
@@ -4008,7 +4018,6 @@ bool MCP2515::setLoopbackMode()
   int8_t counter = 100;
 
   while (!setOperationMode(MCP2515OperationMode::LOOPBACK) && counter > 0)
-  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LOOPBACK) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -4041,6 +4050,7 @@ bool MCP2515::setLoopbackMode()
  * @param BaudRate Baudrate of the CAN-Communication
  * @param reCheckEnabled bool true if after Set-Processes a recheck of setted Values has to be execute
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_init
  */
 bool MCP2515::init(const uint32_t BaudRate, const bool reCheckEnabled)
 {
@@ -4132,6 +4142,7 @@ bool MCP2515::init(const uint32_t BaudRate, const bool reCheckEnabled)
 
 /**
  * @brief Deinitialize the MCP2515.
+ * @note Not tested
  */
 void MCP2515::deinit()
 {
@@ -4144,6 +4155,7 @@ void MCP2515::deinit()
  * @param targetBaudrate possible Baudrates= (5E3, 10E3, 20E3, 40E3, 50E3, 80E3, 100E3, 125E3, 200E3, 250E3, 500E3, 1000E3)
  * @return true when success, false on any error (Check m_lastMcpError)
  * @note If a Baudrate is allowed depends on the ClockFrequency.
+ * @note Tested with test_changeBaudRate
  */
 bool MCP2515::changeBaudRate(const uint32_t targetBaudRate)
 {
@@ -4192,6 +4204,7 @@ bool MCP2515::changeBaudRate(const uint32_t targetBaudRate)
  *
  * 0 = RX0IE - Receive Buffer 0 Full Interrupt
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_changeInterruptSetting
  */
 bool MCP2515::changeInterruptSetting(const bool value, const uint8_t Interrupt)
 {
@@ -4226,6 +4239,7 @@ bool MCP2515::changeInterruptSetting(const bool value, const uint8_t Interrupt)
  * @brief Enables the Filter/Mask for the given Receive-Buffer.
  * @param buffer Receive-Buffer-Number (0 - 1)
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_enableFilterMask
  */
 bool MCP2515::enableFilterMask(const uint8_t buffer)
 {
@@ -4259,6 +4273,7 @@ bool MCP2515::enableFilterMask(const uint8_t buffer)
  * @brief Disables the Filter/Mask for the given Receive-Buffer.
  * @param buffer Receive-Buffer-Number (0 - 1)
  * @return true when success, false on any error
+ * @note Tested with test_disableFilterMask
  */
 bool MCP2515::disableFilterMask(const uint8_t buffer)
 {
@@ -4294,6 +4309,7 @@ bool MCP2515::disableFilterMask(const uint8_t buffer)
  * @param ID Filter ID
  * @param Extended true = Filter is applied only to extended frames; false = Filter is applied only to standard frames
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_setFilter
  */
 bool MCP2515::setFilter(const uint8_t FilterNumber, const uint32_t &ID, const bool Extended)
 {
@@ -4362,6 +4378,7 @@ bool MCP2515::setFilter(const uint8_t FilterNumber, const uint32_t &ID, const bo
  * @param MaskNumber Mask Number (0-1)
  * @param ID Mask ID
  * @return true when success, false on any error (Check m_lastMcpError)
+ * @note Tested with test_setMask
  */
 bool MCP2515::setMask(const uint8_t MaskNumber, const uint32_t &ID)
 {
@@ -4429,6 +4446,7 @@ bool MCP2515::setMask(const uint8_t MaskNumber, const uint32_t &ID)
  * @return 0xFF if no Transmit-Buffer is free
  *
  * 0x0n - n = Number of the free Buffer
+ * @note Tested with test_check4FreeTransmitBuffer
  */
 uint8_t MCP2515::check4FreeTransmitBuffer()
 {
@@ -4469,6 +4487,7 @@ uint8_t MCP2515::check4FreeTransmitBuffer()
  * @param DLC Data Length Code of the Message
  * @param Data 8-Byte Data-Array (in total)
  * @return true when success, false on any error (check m_lastMcpError)
+ * @note Tested with test_fillTransmitBuffer
  */
 bool MCP2515::fillTransmitBuffer(const uint8_t BufferNumber, const uint32_t ID, const bool Extended, const bool RTR, const uint8_t DLC, const uint8_t Data[8])
 {
@@ -4547,6 +4566,7 @@ bool MCP2515::fillTransmitBuffer(const uint8_t BufferNumber, const uint32_t ID, 
  * @param BufferNumber 0 - 2
  * @param Priority Message-Priority 0 - 3
  * @return true when success, false on any error (check m_lastMcpError)
+ * @note Tested with test_sendMessage
  */
 bool MCP2515::sendMessage(const uint8_t BufferNumber, const uint8_t Priority)
 {
@@ -4608,6 +4628,7 @@ bool MCP2515::sendMessage(const uint8_t BufferNumber, const uint8_t Priority)
  * @param ID Message-ID
  * @param Extended bool true if it is a Extended Frame
  * @return True if a RemoteTransmissionRequest for the Message was received, False when not (or on Error check m_lastMcpError)
+ * @note Tested with test_check4Rtr
  */
 bool MCP2515::check4Rtr(const uint32_t &ID, const bool &Extended)
 {
@@ -4725,6 +4746,7 @@ bool MCP2515::check4Rtr(const uint32_t &ID, const bool &Extended)
  * @param DLC Data-Length-Code of the Message
  * @param DataBuffer Address-Pointer to the DataBuffer of the Message
  * @return True if a Message was received, False when not (or on Error check m_lastMcpError)
+ * @note Tested with test_check4Receive
  */
 bool MCP2515::check4Receive(const uint32_t &ID, const bool &Extended, const uint8_t &DLC, uint8_t (&DataBuffer)[8])
 {
@@ -4806,6 +4828,7 @@ bool MCP2515::check4Receive(const uint32_t &ID, const bool &Extended, const uint
  * @param BufferNumber 0 - 1
  * @param ID Reference where to save the ID-Value
  * @return true when success, false on any error (check m_lastMcpError).
+ * @note Tested with test_getIdFromReceiveBuffer
  */
 bool MCP2515::getIdFromReceiveBuffer(const uint8_t BufferNumber, uint32_t &ID)
 {
@@ -4839,6 +4862,7 @@ bool MCP2515::getIdFromReceiveBuffer(const uint8_t BufferNumber, uint32_t &ID)
  * @return uint8_t Message-DLC
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check m_lastMcpError).
+ * @note Tested with test_getDlcFromReceiveBuffer
  */
 uint8_t MCP2515::getDlcFromReceiveBuffer(const uint8_t BufferNumber)
 {
@@ -4869,6 +4893,7 @@ uint8_t MCP2515::getDlcFromReceiveBuffer(const uint8_t BufferNumber)
  * 1 = Extended Frame
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check m_lastMcpError).
+ * @note Tested with test_getFrameFromReceiveBuffer
  */
 uint8_t MCP2515::getFrameFromReceiveBuffer(const uint8_t BufferNumber)
 {
@@ -4911,6 +4936,7 @@ uint8_t MCP2515::getFrameFromReceiveBuffer(const uint8_t BufferNumber)
  * 1 = Message is a Remote-Transmission-Request
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check m_lastMcpError).
+ * @note Tested with test_getRtrFromReceiveBuffer
  */
 uint8_t MCP2515::getRtrFromReceiveBuffer(const uint8_t BufferNumber)
 {
@@ -4947,6 +4973,7 @@ uint8_t MCP2515::getRtrFromReceiveBuffer(const uint8_t BufferNumber)
  * @param DLC expected Data Length Code
  * @param DataBuffer Message-Data-Buffer which has to be filled
  * @return true when success, false on any error (check m_lastMcpError)
+ * @note Tested with test_getDataFromReceiveBuffer
  */
 bool MCP2515::getDataFromReceiveBuffer(const uint8_t BufferNumber, const uint8_t DLC, uint8_t (&DataBuffer)[8])
 {
@@ -4989,6 +5016,7 @@ bool MCP2515::getDataFromReceiveBuffer(const uint8_t BufferNumber, const uint8_t
  * @param DLC DLC Variable which has to be filled
  * @param DataBuffer Message-Data-Buffer which has to be filled
  * @return true when success, false on any error (check m_lastMcpError)
+ * @note Tested with test_getAllFromReceiveBuffer
  */
 bool MCP2515::getAllFromReceiveBuffer(const uint8_t BufferNumber, uint32_t (&ID), bool (&Frame), bool (&RTR), uint8_t (&DLC), uint8_t (&DataBuffer)[8])
 {
@@ -5058,6 +5086,7 @@ bool MCP2515::getAllFromReceiveBuffer(const uint8_t BufferNumber, uint32_t (&ID)
  * @brief Release the given RX-Buffer
  * @param BufferNumber 0 - 1
  * @return true when success, false on any error (check m_lastMcpError)
+ * @note Tested with test_releaseReceiveBuffer
  */
 bool MCP2515::releaseReceiveBuffer(const uint8_t BufferNumber)
 {
@@ -5130,6 +5159,7 @@ bool MCP2515::releaseReceiveBuffer(const uint8_t BufferNumber)
  * 0 = No interrupt is pending
  *
  * On Error it will return EMPTY_VALUE_8_BIT (Check m_lastMcpError).
+ * @note Tested with test_check4InterruptFlags
  */
 uint8_t MCP2515::check4InterruptFlags()
 {
@@ -5163,6 +5193,7 @@ uint8_t MCP2515::check4InterruptFlags()
  *
  * 0 = RX0IF - Receive Buffer 0 Full Interrupt Flag
  * @return true when success, false on any error (check m_lastMcpError)
+ * @note Tested with test_resetInterruptFlag
  */
 bool MCP2515::resetInterruptFlag(const uint8_t Flag)
 {
@@ -5202,6 +5233,7 @@ bool MCP2515::resetInterruptFlag(const uint8_t Flag)
  *
  * 0 = RX0IF - Receive Buffer 0 Full Interrupt Flag
  * @return true when success, false on any error (check m_lastMcpError)
+ * @note Tested with test_setInterruptFlag
  */
 bool MCP2515::setInterruptFlag(const uint8_t Flag)
 {
@@ -5225,6 +5257,7 @@ bool MCP2515::setInterruptFlag(const uint8_t Flag)
 /**
  * @brief Get the choosen ChipSelect-Pin
  * @return uint8_t Number of the CS-Pin
+ * @note Not tested
  */
 uint8_t MCP2515::getCsPin()
 {
@@ -5243,6 +5276,7 @@ uint8_t MCP2515::getCsPin()
  *
  * 12 = SPI-Mode 3
  * @note The MCP2515 only allows SPI-Mode 0 and 3
+ * @note Not tested
  */
 uint8_t MCP2515::getSpiMode()
 {
@@ -5257,6 +5291,7 @@ uint8_t MCP2515::getSpiMode()
  *
  * 1 = MSB-First
  * @note The MCP2515 only allows MSB-First
+ * @note Not tested
  */
 uint8_t MCP2515::getDataOrder()
 {
@@ -5267,6 +5302,7 @@ uint8_t MCP2515::getDataOrder()
  * @brief Get the SPI-Frequency
  * @return uint32_t Value of the SPI-Frequency in Hz
  * @note The MCP2515 only allows SPI-Frequencys up to 10MHz
+ * @note Not tested
  */
 uint32_t MCP2515::getFrequency()
 {
@@ -5277,6 +5313,7 @@ uint32_t MCP2515::getFrequency()
  * @brief Get the Clock-Frequency of the MCP2515
  * @return uint32_t Value of the Clock-Frequency in Hz
  * @note The MCP2515 only allows Clock-Frequencys up to 40MHz
+ * @note Not tested
  */
 uint32_t MCP2515::getClockFrequency()
 {
@@ -5296,6 +5333,7 @@ uint32_t MCP2515::getClockFrequency()
  * 3 = Listen-Only-Mode
  *
  * 4 = Configuration-Mode
+ * @note Tested with test_getOperationMode
  */
 MCP2515OperationMode MCP2515::getOperationMode()
 {
@@ -5335,6 +5373,7 @@ MCP2515OperationMode MCP2515::getOperationMode()
 /**
  * @brief Get the Baudrate of the CAN-Communication
  * @return uint32_t Value of the Baudrate in Bd (Baud)
+ * @note Not tested
  */
 uint32_t MCP2515::getBaudRate()
 {
@@ -5348,6 +5387,7 @@ uint32_t MCP2515::getBaudRate()
  * True = MCP2515 is initialized
  *
  * False = MCP2515 is not initialized
+ * @note Not tested
  */
 bool MCP2515::getIsInitialized()
 {
@@ -5361,6 +5401,7 @@ bool MCP2515::getIsInitialized()
  * True = ReCheck is enabled
  *
  * False = ReCheck is disabled
+ * @note Not tested
  */
 bool MCP2515::getReCheckEnabled()
 {
