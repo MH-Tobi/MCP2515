@@ -142,7 +142,7 @@ MCP2515Module.setNormalMode();
 
 ### Set Sleep-Mode
 
-![Teststatus setSleepMode](https://img.shields.io/badge/Teststatus-ACCEPTED-yellow)
+![Teststatus setSleepMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
 MCP2515Module.setSleepMode();
