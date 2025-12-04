@@ -235,6 +235,7 @@ class MCP2515
 
 		bool changeBitTiming(const uint32_t targetBaudRate = MCP2515_DEFAULT_BAUDRATE, const uint32_t targetClockFrequency = MCP2515_DEFAULT_CLOCK_FREQUENCY);
 
+		bool setOperationMode(const MCP2515OperationMode OperationMode);
 		bool resetOperationMode(const MCP2515OperationMode OperationMode);
 
 		bool getIDFromRegister(const uint8_t Buffer, uint32_t &ID, bool &Extended);

@@ -3559,6 +3559,29 @@ bool MCP2515::changeBitTiming(const uint32_t targetBaudRate, const uint32_t targ
   return true;
 }
 
+bool MCP2515::setOperationMode(const MCP2515OperationMode OperationMode)
+{
+  uint8_t Value = ((static_cast<uint8_t>(OperationMode)) << 5);
+  if (!bitModifyInstruction(REG_CANCTRL, CANCTRL_BIT_REQOP, Value))
+  {
+    this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_BITMODIFY_INSTRUCTION);
+    return false;
+  }
+
+  delayMicroseconds(100);
+
+  if (m_reCheckEnabled)
+  {
+    if ((getCanStatus() & CANSTAT_BIT_OPMOD) != Value)
+    {
+      this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::MAIN_VALUE_NOT_SET);
+      return false;
+    }
+  }
+
+  return true;
+}
+
 bool MCP2515::resetOperationMode(const MCP2515OperationMode  OperationMode)
 {
   switch (OperationMode)
@@ -3848,7 +3871,8 @@ bool MCP2515::setConfigurationMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::CONFIGURATION) << 5)) && counter > 0)
+  while (!setOperationMode(MCP2515OperationMode::CONFIGURATION) && counter > 0)
+  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::CONFIGURATION) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3881,7 +3905,8 @@ bool MCP2515::setNormalMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::NORMAL) << 5)) && counter > 0)
+  while (!setOperationMode(MCP2515OperationMode::NORMAL) && counter > 0)
+  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::NORMAL) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3914,7 +3939,8 @@ bool MCP2515::setSleepMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::SLEEP) << 5)) && counter > 0)
+  while (!setOperationMode(MCP2515OperationMode::SLEEP) && counter > 0)
+  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::SLEEP) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3947,7 +3973,8 @@ bool MCP2515::setListenOnlyMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LISTEN) << 5)) && counter > 0)
+  while (!setOperationMode(MCP2515OperationMode::LISTEN) && counter > 0)
+  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LISTEN) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
@@ -3980,7 +4007,8 @@ bool MCP2515::setLoopbackMode()
 
   int8_t counter = 100;
 
-  while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LOOPBACK) << 5)) && counter > 0)
+  while (!setOperationMode(MCP2515OperationMode::LOOPBACK) && counter > 0)
+  //while (!modifyCanControl(CANCTRL_BIT_REQOP, (static_cast<uint8_t>(MCP2515OperationMode::LOOPBACK) << 5)) && counter > 0)
   {
     counter--;
     delayMicroseconds(10);
