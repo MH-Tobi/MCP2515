@@ -543,7 +543,7 @@ MCP2515Module.getClockFrequency();
 
 ### Operation Mode
 
-![Teststatus getOperationMode](https://img.shields.io/badge/Teststatus-NOT_TESTED-gray)
+![Teststatus getOperationMode](https://img.shields.io/badge/Teststatus-PASSED-green)
 
 ```c++
 MCP2515Module.getOperationMode();
