@@ -48,7 +48,6 @@
     By MH-Tobi
 */
 
-#include <Arduino.h>
 #include <MCP2515.h>
 
 // Create Instances of the CAN-Controller
