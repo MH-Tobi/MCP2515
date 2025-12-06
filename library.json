@@ -45,9 +45,9 @@
     "export": {
         "include":
         [
-            "dir/src/*.cpp",
-            "dir/src/*.h",
-            "dir/examples/*"
+            "src/*.cpp",
+            "src/*.h",
+            "examples/*"
         ]
     }
 }
