@@ -12,3 +12,10 @@ Before you can execute the tests by yourself you have to adapt the __common_test
 Here you need to adjust the __defaultsettings__ to your needs.
 
 Important to know is that you have to connect the Interrupt-Pin of the MCP2515 to your Arduino-Board since there are some tests in which the Interrupt functionality is tested by checking these pin.
+
+
+## Run tests as GitHub action
+
+PlatformIO offers the option to run tests via a GitHub action.
+
+However, since this doesn't work properly, I don't use it. :expressionless:
