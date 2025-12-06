@@ -1,0 +1,53 @@
+{
+    "name": "MCP2515",
+    "version": "2.0.0",
+    "description": "Library for the MCP2515-CAN-Controller.",
+    "keywords": "mcp2515, can, can-bus, arduino",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/MH-Tobi/MCP2515.git"
+    },
+    "authors":
+    [
+        {
+            "name": "MH-Tobi",
+            "url": "https://github.com/MH-Tobi/MH-Tobi",
+            "maintainer": true
+        }
+    ],
+    "headers": "MCP2515.h",
+    "license": "MIT",
+    "frameworks": "*",
+    "platforms": "*",
+    "examples": [
+        {
+            "name": "CAN Receive",
+            "base": "examples/CAN_Receive",
+            "files": [
+                "CAN_Receive.cpp"
+            ]
+        },
+        {
+            "name": "CAN Transmit",
+            "base": "examples/CAN_Transmit",
+            "files": [
+                "CAN_Transmit.cpp"
+            ]
+        },{
+            "name": "CAN Sniffer",
+            "base": "examples/CAN_Sniffer",
+            "files": [
+                "CAN_Sniffer.cpp"
+            ]
+        }
+    ],
+    "export": {
+        "include":
+        [
+            "dir/src/*.cpp",
+            "dir/src/*.h",
+            "dir/examples/*"
+        ]
+    }
+}
