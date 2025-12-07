@@ -1,13 +1,3 @@
-/**
- * @file MCP2515.h
- * @author MH-Tobi
- * @brief blub
- * @version 0.0.1
- * @date 2024-07-20
- *
- * @copyright -
- *
- */
 
 #ifndef MCP2515_H
 #define MCP2515_H
