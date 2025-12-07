@@ -85,9 +85,6 @@ if ((Receive & 0x02) == 0x02)   // Message in RX-Buffer 1
 ```
 
 
-
-> For easier Message-Handling use the [CANMessage-Library](https://github.com/MH-Tobi/CANMessage).
-
 ## Examples
 
 See [examples](examples) folder.
