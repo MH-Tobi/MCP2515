@@ -3450,75 +3450,16 @@ bool MCP2515::changeBitTiming(const uint32_t targetBaudRate, const uint32_t targ
     return false;
   }
 
-  // Values calculated with the BitTimeCalculator (see ..\docs\BitTimeCalculator.xlsx)
-  constexpr struct {
-    uint32_t clockFrequency;
-    uint32_t baudRate;
-    uint8_t cnf[3];
-  } CNF_MAPPER[] = {
-    //{  (uint32_t)8E6, (uint32_t)1000E3, { 0x00, 0x80, 0x01 } }, // not possible, Prescaler out of range
-    {  (uint32_t)8E6,  (uint32_t)500E3, { 0x40, 0x89, 0x02 } },
-    {  (uint32_t)8E6,  (uint32_t)250E3, { 0xc0, 0xa4, 0x04 } },
-    {  (uint32_t)8E6,  (uint32_t)200E3, { 0xc0, 0xad, 0x06 } },
-    {  (uint32_t)8E6,  (uint32_t)125E3, { 0xc1, 0xa4, 0x04 } },
-    {  (uint32_t)8E6,  (uint32_t)100E3, { 0xc1, 0xad, 0x06 } },
-    {  (uint32_t)8E6,   (uint32_t)80E3, { 0xc1, 0xbf, 0x07 } },
-    {  (uint32_t)8E6,   (uint32_t)50E3, { 0xc3, 0xad, 0x06 } },
-    {  (uint32_t)8E6,   (uint32_t)40E3, { 0xc3, 0xbf, 0x07 } },
-    {  (uint32_t)8E6,   (uint32_t)20E3, { 0xc7, 0xbf, 0x07 } },
-    {  (uint32_t)8E6,   (uint32_t)10E3, { 0xcf, 0xbf, 0x07 } },
-    {  (uint32_t)8E6,    (uint32_t)5E3, { 0xdf, 0xbf, 0x07 } },
-
-    { (uint32_t)16E6, (uint32_t)1000E3, { 0x40, 0x89, 0x02 } },
-    { (uint32_t)16E6,  (uint32_t)500E3, { 0xc0, 0xa4, 0x04 } },
-    { (uint32_t)16E6,  (uint32_t)250E3, { 0xc1, 0xa4, 0x04 } },
-    { (uint32_t)16E6,  (uint32_t)200E3, { 0xc1, 0xad, 0x06 } },
-    { (uint32_t)16E6,  (uint32_t)125E3, { 0xc3, 0xa4, 0x04 } },
-    { (uint32_t)16E6,  (uint32_t)100E3, { 0xc3, 0xad, 0x06 } },
-    { (uint32_t)16E6,   (uint32_t)80E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint32_t)16E6,   (uint32_t)50E3, { 0xc7, 0xad, 0x06 } },
-    { (uint32_t)16E6,   (uint32_t)40E3, { 0xc7, 0xbf, 0x07 } },
-    { (uint32_t)16E6,   (uint32_t)20E3, { 0xcf, 0xbf, 0x07 } },
-    { (uint32_t)16E6,   (uint32_t)10E3, { 0xdf, 0xbf, 0x07 } },
-    { (uint32_t)16E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } },
-
-    { (uint32_t)25E6, (uint32_t)1000E3, { 0x80, 0x9a, 0x03 } }, // Attention!!! 40ns faster than the regular Bittime (1000ns) -> not recommended
-    { (uint32_t)25E6,  (uint32_t)500E3, { 0xc0, 0xbf, 0x07 } },
-    { (uint32_t)25E6,  (uint32_t)250E3, { 0xc1, 0xbf, 0x07 } },
-    { (uint32_t)25E6,  (uint32_t)200E3, { 0xc2, 0xb5, 0x06 } }, // Attention!!! 40ns slower than the regular Bittime (5000ns)
-    { (uint32_t)25E6,  (uint32_t)125E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint32_t)25E6,  (uint32_t)100E3, { 0xc4, 0xbf, 0x07 } },
-    { (uint32_t)25E6,   (uint32_t)80E3, { 0x8b, 0x9b, 0x03 } }, // Attention!!! 20ns faster than the regular Bittime (12500ns)
-    { (uint32_t)25E6,   (uint32_t)50E3, { 0xc9, 0xbf, 0x07 } },
-    { (uint32_t)25E6,   (uint32_t)40E3, { 0xcc, 0xbe, 0x07 } }, // Attention!!! 40ns faster than the regular Bittime (25000ns)
-    { (uint32_t)25E6,   (uint32_t)20E3, { 0xd8, 0xbf, 0x07 } },
-    { (uint32_t)25E6,   (uint32_t)10E3, { 0xf1, 0xbf, 0x07 } },
-    //{ (uint32_t)25E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
-
-    { (uint32_t)40E6, (uint32_t)1000E3, { 0xc0, 0xad, 0x06 } },
-    { (uint32_t)40E6,  (uint32_t)500E3, { 0xc1, 0xad, 0x06 } },
-    { (uint32_t)40E6,  (uint32_t)250E3, { 0xc3, 0xad, 0x06 } },
-    { (uint32_t)40E6,  (uint32_t)200E3, { 0xc3, 0xbf, 0x07 } },
-    { (uint32_t)40E6,  (uint32_t)125E3, { 0xc7, 0xad, 0x06 } },
-    { (uint32_t)40E6,  (uint32_t)100E3, { 0xc7, 0xbf, 0x07 } },
-    { (uint32_t)40E6,   (uint32_t)80E3, { 0xc9, 0xbf, 0x07 } },
-    { (uint32_t)40E6,   (uint32_t)50E3, { 0xcf, 0xbf, 0x07 } },
-    { (uint32_t)40E6,   (uint32_t)40E3, { 0xd3, 0xbf, 0x07 } },
-    { (uint32_t)40E6,   (uint32_t)20E3, { 0xe7, 0xbf, 0x07 } },
-    //{ (uint32_t)40E6,   (uint32_t)10E3, { 0xf1, 0xbf, 0x07 } }, // not possible, Prescaler out of range
-    //{ (uint32_t)40E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
-  };
-
-  const uint8_t *cnf = nullptr;
+  int8_t cnf = -1;
 
   for (unsigned int i = 0; i < (sizeof(CNF_MAPPER) / sizeof(CNF_MAPPER[0])); i++) {
     if ((CNF_MAPPER[i].clockFrequency == targetClockFrequency) && (CNF_MAPPER[i].baudRate == targetBaudRate)) {
-      cnf = CNF_MAPPER[i].cnf;
+      cnf = i;
       break;
     }
   }
 
-  if (cnf == NULL) {
+  if (cnf == -1) {
     this->m_lastMcpError = static_cast<uint16_t>(MCP2515Error::MAIN_CNF_NOT_FOUND);
     return false;
   }
@@ -3532,19 +3473,19 @@ bool MCP2515::changeBitTiming(const uint32_t targetBaudRate, const uint32_t targ
     }
   }
 
-  if (!modifyConfigurationRegister1(0xFF, cnf[0]))
+  if (!modifyConfigurationRegister1(0xFF, CNF_MAPPER[cnf].cnf[0]))
   {
     this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_CNF1_NOT_SET);
     return false;
   }
 
-  if (!modifyConfigurationRegister2(0xFF, cnf[1]))
+  if (!modifyConfigurationRegister2(0xFF, CNF_MAPPER[cnf].cnf[1]))
   {
     this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_CNF2_NOT_SET);
     return false;
   }
 
-  if (!modifyConfigurationRegister3(0xC7, cnf[2]))
+  if (!modifyConfigurationRegister3(0xC7, CNF_MAPPER[cnf].cnf[2]))
   {
     this->m_lastMcpError = m_lastMcpError | static_cast<uint16_t>(MCP2515Error::SECONDARY_CNF3_NOT_SET);
     return false;

@@ -79,6 +79,66 @@ struct Filter
 	bool Extended;
 };
 
+// Values calculated with the BitTimeCalculator (see ..\docs\BitTimeCalculator.xlsx)
+struct BitTiming{
+	uint32_t clockFrequency;
+	uint32_t baudRate;
+	uint8_t cnf[3];
+};
+
+static constexpr BitTiming CNF_MAPPER[44] = {
+	//{  (uint32_t)8E6, (uint32_t)1000E3, { 0x00, 0x80, 0x01 } }, // not possible, Prescaler out of range
+	{  (uint32_t)8E6,  (uint32_t)500E3, { 0x40, 0x89, 0x02 } },
+	{  (uint32_t)8E6,  (uint32_t)250E3, { 0xc0, 0xa4, 0x04 } },
+	{  (uint32_t)8E6,  (uint32_t)200E3, { 0xc0, 0xad, 0x06 } },
+	{  (uint32_t)8E6,  (uint32_t)125E3, { 0xc1, 0xa4, 0x04 } },
+	{  (uint32_t)8E6,  (uint32_t)100E3, { 0xc1, 0xad, 0x06 } },
+	{  (uint32_t)8E6,   (uint32_t)80E3, { 0xc1, 0xbf, 0x07 } },
+	{  (uint32_t)8E6,   (uint32_t)50E3, { 0xc3, 0xad, 0x06 } },
+	{  (uint32_t)8E6,   (uint32_t)40E3, { 0xc3, 0xbf, 0x07 } },
+	{  (uint32_t)8E6,   (uint32_t)20E3, { 0xc7, 0xbf, 0x07 } },
+	{  (uint32_t)8E6,   (uint32_t)10E3, { 0xcf, 0xbf, 0x07 } },
+	{  (uint32_t)8E6,    (uint32_t)5E3, { 0xdf, 0xbf, 0x07 } },
+
+	{ (uint32_t)16E6, (uint32_t)1000E3, { 0x40, 0x89, 0x02 } },
+	{ (uint32_t)16E6,  (uint32_t)500E3, { 0xc0, 0xa4, 0x04 } },
+	{ (uint32_t)16E6,  (uint32_t)250E3, { 0xc1, 0xa4, 0x04 } },
+	{ (uint32_t)16E6,  (uint32_t)200E3, { 0xc1, 0xad, 0x06 } },
+	{ (uint32_t)16E6,  (uint32_t)125E3, { 0xc3, 0xa4, 0x04 } },
+	{ (uint32_t)16E6,  (uint32_t)100E3, { 0xc3, 0xad, 0x06 } },
+	{ (uint32_t)16E6,   (uint32_t)80E3, { 0xc3, 0xbf, 0x07 } },
+	{ (uint32_t)16E6,   (uint32_t)50E3, { 0xc7, 0xad, 0x06 } },
+	{ (uint32_t)16E6,   (uint32_t)40E3, { 0xc7, 0xbf, 0x07 } },
+	{ (uint32_t)16E6,   (uint32_t)20E3, { 0xcf, 0xbf, 0x07 } },
+	{ (uint32_t)16E6,   (uint32_t)10E3, { 0xdf, 0xbf, 0x07 } },
+	{ (uint32_t)16E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } },
+
+	{ (uint32_t)25E6, (uint32_t)1000E3, { 0x80, 0x9a, 0x03 } }, // Attention!!! 40ns faster than the regular Bittime (1000ns) -> not recommended
+	{ (uint32_t)25E6,  (uint32_t)500E3, { 0xc0, 0xbf, 0x07 } },
+	{ (uint32_t)25E6,  (uint32_t)250E3, { 0xc1, 0xbf, 0x07 } },
+	{ (uint32_t)25E6,  (uint32_t)200E3, { 0xc2, 0xb5, 0x06 } }, // Attention!!! 40ns slower than the regular Bittime (5000ns)
+	{ (uint32_t)25E6,  (uint32_t)125E3, { 0xc3, 0xbf, 0x07 } },
+	{ (uint32_t)25E6,  (uint32_t)100E3, { 0xc4, 0xbf, 0x07 } },
+	{ (uint32_t)25E6,   (uint32_t)80E3, { 0x8b, 0x9b, 0x03 } }, // Attention!!! 20ns faster than the regular Bittime (12500ns)
+	{ (uint32_t)25E6,   (uint32_t)50E3, { 0xc9, 0xbf, 0x07 } },
+	{ (uint32_t)25E6,   (uint32_t)40E3, { 0xcc, 0xbe, 0x07 } }, // Attention!!! 40ns faster than the regular Bittime (25000ns)
+	{ (uint32_t)25E6,   (uint32_t)20E3, { 0xd8, 0xbf, 0x07 } },
+	{ (uint32_t)25E6,   (uint32_t)10E3, { 0xf1, 0xbf, 0x07 } },
+	//{ (uint32_t)25E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+
+	{ (uint32_t)40E6, (uint32_t)1000E3, { 0xc0, 0xad, 0x06 } },
+	{ (uint32_t)40E6,  (uint32_t)500E3, { 0xc1, 0xad, 0x06 } },
+	{ (uint32_t)40E6,  (uint32_t)250E3, { 0xc3, 0xad, 0x06 } },
+	{ (uint32_t)40E6,  (uint32_t)200E3, { 0xc3, 0xbf, 0x07 } },
+	{ (uint32_t)40E6,  (uint32_t)125E3, { 0xc7, 0xad, 0x06 } },
+	{ (uint32_t)40E6,  (uint32_t)100E3, { 0xc7, 0xbf, 0x07 } },
+	{ (uint32_t)40E6,   (uint32_t)80E3, { 0xc9, 0xbf, 0x07 } },
+	{ (uint32_t)40E6,   (uint32_t)50E3, { 0xcf, 0xbf, 0x07 } },
+	{ (uint32_t)40E6,   (uint32_t)40E3, { 0xd3, 0xbf, 0x07 } },
+	{ (uint32_t)40E6,   (uint32_t)20E3, { 0xe7, 0xbf, 0x07 } },
+	//{ (uint32_t)40E6,   (uint32_t)10E3, { 0xf1, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+	//{ (uint32_t)40E6,    (uint32_t)5E3, { 0xff, 0xbf, 0x07 } }, // not possible, Prescaler out of range
+};
 
 class MCP2515
 {
@@ -96,7 +156,6 @@ class MCP2515
 		bool m_reCheckEnabled;
 		Filter m_filterSettings[6];
 		uint32_t m_maskSettings[2];
-
 
 
 
