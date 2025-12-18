@@ -1,0 +1,544 @@
+Verbosity level can be increased via `-v, -vv, or -vvv` option
+Collected 38 tests
+
+Processing api/test_changeBaudRate in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:166: test_changeBaudRate_when_not_initialized	[PASSED]
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:167: test_changeBaudRate_when_initialized	[PASSED]
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:168: test_changeBaudRate_with_possible_Baudrates	[PASSED]
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:169: test_changeBaudRate_with_undefined_Baudrates	[PASSED]
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:170: test_changeBaudRate_in_operation_mode_ListenOnly	[PASSED]
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:171: test_changeBaudRate_in_operation_mode_Loopback	[PASSED]
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:172: test_changeBaudRate_in_operation_mode_Configuration	[PASSED]
+test\api\test_changeBaudRate\test_changeBaudRate.cpp:173: test_changeBaudRate_in_operation_mode_Normal	[PASSED]
+------- arduino_mega:api/test_changeBaudRate [PASSED] Took 25.46 seconds -------
+
+Processing api/test_changeInterruptSetting in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_changeInterruptSetting\test_changeInterruptSetting.cpp:76: test_changeInterruptSetting_when_not_initialized	[PASSED]
+test\api\test_changeInterruptSetting\test_changeInterruptSetting.cpp:77: test_changeInterruptSetting_when_initialized	[PASSED]
+test\api\test_changeInterruptSetting\test_changeInterruptSetting.cpp:78: test_changeInterruptSetting_with_defined_values	[PASSED]
+test\api\test_changeInterruptSetting\test_changeInterruptSetting.cpp:79: test_changeInterruptSetting_with_undefined_values	[PASSED]
+--- arduino_mega:api/test_changeInterruptSetting [PASSED] Took 16.92 seconds ---
+
+Processing api/test_check4FreeTransmitBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_check4FreeTransmitBuffer\test_check4FreeTransmitBuffer.cpp:108: test_check4FreeTransmitBuffer_when_not_initialized	[PASSED]
+test\api\test_check4FreeTransmitBuffer\test_check4FreeTransmitBuffer.cpp:109: test_check4FreeTransmitBuffer_when_initialized	[PASSED]
+test\api\test_check4FreeTransmitBuffer\test_check4FreeTransmitBuffer.cpp:110: test_check4FreeTransmitBuffer_for_buffer_0	[PASSED]
+test\api\test_check4FreeTransmitBuffer\test_check4FreeTransmitBuffer.cpp:111: test_check4FreeTransmitBuffer_for_buffer_1	[PASSED]
+test\api\test_check4FreeTransmitBuffer\test_check4FreeTransmitBuffer.cpp:112: test_check4FreeTransmitBuffer_for_buffer_2	[PASSED]
+test\api\test_check4FreeTransmitBuffer\test_check4FreeTransmitBuffer.cpp:113: test_check4FreeTransmitBuffer_no_buffer_free	[PASSED]
+-- arduino_mega:api/test_check4FreeTransmitBuffer [PASSED] Took 11.01 seconds --
+
+Processing api/test_check4InterruptFlags in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_check4InterruptFlags\test_check4InterruptFlags.cpp:85: test_check4InterruptFlags_when_not_initialized	[PASSED]
+test\api\test_check4InterruptFlags\test_check4InterruptFlags.cpp:86: test_check4InterruptFlags_when_initialized	[PASSED]
+test\api\test_check4InterruptFlags\test_check4InterruptFlags.cpp:87: test_check4InterruptFlags_with_each_flag	[PASSED]
+---- arduino_mega:api/test_check4InterruptFlags [PASSED] Took 12.94 seconds ----
+
+Processing api/test_check4Receive in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_check4Receive\test_check4Receive.cpp:201: test_check4Receive_when_not_initialized	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:202: test_check4Receive_when_initialized	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:203: test_check4Receive_with_defined_standard_id	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:204: test_check4Receive_with_undefined_standard_id	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:205: test_check4Receive_with_defined_extended_id	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:206: test_check4Receive_with_undefined_extended_id	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:207: test_check4Receive_with_defined_dlc	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:208: test_check4Receive_with_undefined_dlc	[PASSED]
+test\api\test_check4Receive\test_check4Receive.cpp:209: test_check4Receive_for_received_message	[PASSED]
+------- arduino_mega:api/test_check4Receive [PASSED] Took 18.08 seconds -------
+
+Processing api/test_check4Rtr in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_check4Rtr\test_check4Rtr.cpp:153: test_check4Rtr_when_not_initialized	[PASSED]
+test\api\test_check4Rtr\test_check4Rtr.cpp:154: test_check4Rtr_when_initialized	[PASSED]
+test\api\test_check4Rtr\test_check4Rtr.cpp:155: test_check4Rtr_with_defined_standard_id	[PASSED]
+test\api\test_check4Rtr\test_check4Rtr.cpp:156: test_check4Rtr_with_undefined_standard_id	[PASSED]
+test\api\test_check4Rtr\test_check4Rtr.cpp:157: test_check4Rtr_with_defined_extended_id	[PASSED]
+test\api\test_check4Rtr\test_check4Rtr.cpp:158: test_check4Rtr_with_undefined_extended_id	[PASSED]
+test\api\test_check4Rtr\test_check4Rtr.cpp:159: test_check4Rtr_for_received_message	[PASSED]
+--------- arduino_mega:api/test_check4Rtr [PASSED] Took 15.95 seconds ---------
+
+Processing api/test_disableFilterMask in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_disableFilterMask\test_disableFilterMask.cpp:81: test_disableFilterMask_when_not_initialized	[PASSED]
+test\api\test_disableFilterMask\test_disableFilterMask.cpp:82: test_disableFilterMask_when_initialized	[PASSED]
+test\api\test_disableFilterMask\test_disableFilterMask.cpp:83: test_disableFilterMask_with_defined_value	[PASSED]
+test\api\test_disableFilterMask\test_disableFilterMask.cpp:84: test_disableFilterMask_with_undefined_value	[PASSED]
+------ arduino_mega:api/test_disableFilterMask [PASSED] Took 9.72 seconds ------
+
+Processing api/test_enableFilterMask in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_enableFilterMask\test_enableFilterMask.cpp:81: test_enableFilterMask_when_not_initialized	[PASSED]
+test\api\test_enableFilterMask\test_enableFilterMask.cpp:82: test_enableFilterMask_when_initialized	[PASSED]
+test\api\test_enableFilterMask\test_enableFilterMask.cpp:83: test_enableFilterMask_with_defined_value	[PASSED]
+test\api\test_enableFilterMask\test_enableFilterMask.cpp:84: test_enableFilterMask_with_undefined_value	[PASSED]
+------ arduino_mega:api/test_enableFilterMask [PASSED] Took 9.83 seconds ------
+
+Processing api/test_fillTransmitBuffer_1 in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_fillTransmitBuffer_1\test_fillTransmitBuffer_1.cpp:228: test_fillTransmitBuffer_when_not_initialized	[PASSED]
+test\api\test_fillTransmitBuffer_1\test_fillTransmitBuffer_1.cpp:229: test_fillTransmitBuffer_when_initialized	[PASSED]
+test\api\test_fillTransmitBuffer_1\test_fillTransmitBuffer_1.cpp:230: test_fillTransmitBuffer_for_buffer_0	[PASSED]
+test\api\test_fillTransmitBuffer_1\test_fillTransmitBuffer_1.cpp:231: test_fillTransmitBuffer_for_buffer_1	[PASSED]
+test\api\test_fillTransmitBuffer_1\test_fillTransmitBuffer_1.cpp:232: test_fillTransmitBuffer_for_buffer_2	[PASSED]
+test\api\test_fillTransmitBuffer_1\test_fillTransmitBuffer_1.cpp:233: test_fillTransmitBuffer_no_buffer_free	[PASSED]
+test\api\test_fillTransmitBuffer_1\test_fillTransmitBuffer_1.cpp:234: test_fillTransmitBuffer_for_undefined_buffer_3	[PASSED]
+---- arduino_mega:api/test_fillTransmitBuffer_1 [PASSED] Took 14.68 seconds ----
+
+Processing api/test_fillTransmitBuffer_2 in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_fillTransmitBuffer_2\test_fillTransmitBuffer_2.cpp:228: test_fillTransmitBuffer_with_defined_standard_id	[PASSED]
+test\api\test_fillTransmitBuffer_2\test_fillTransmitBuffer_2.cpp:229: test_fillTransmitBuffer_with_undefined_standard_id	[PASSED]
+test\api\test_fillTransmitBuffer_2\test_fillTransmitBuffer_2.cpp:230: test_fillTransmitBuffer_with_defined_extended_id	[PASSED]
+test\api\test_fillTransmitBuffer_2\test_fillTransmitBuffer_2.cpp:231: test_fillTransmitBuffer_with_undefined_extended_id	[PASSED]
+test\api\test_fillTransmitBuffer_2\test_fillTransmitBuffer_2.cpp:232: test_fillTransmitBuffer_with_rtr_bit_set	[PASSED]
+test\api\test_fillTransmitBuffer_2\test_fillTransmitBuffer_2.cpp:233: test_fillTransmitBuffer_with_defined_dlc	[PASSED]
+test\api\test_fillTransmitBuffer_2\test_fillTransmitBuffer_2.cpp:234: test_fillTransmitBuffer_with_undefined_dlc	[PASSED]
+---- arduino_mega:api/test_fillTransmitBuffer_2 [PASSED] Took 19.56 seconds ----
+
+Processing api/test_getAllFromReceiveBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_getAllFromReceiveBuffer\test_getAllFromReceiveBuffer.cpp:119: test_getAllFromReceiveBuffer_when_not_initialized	[PASSED]
+test\api\test_getAllFromReceiveBuffer\test_getAllFromReceiveBuffer.cpp:120: test_getAllFromReceiveBuffer_when_initialized	[PASSED]
+test\api\test_getAllFromReceiveBuffer\test_getAllFromReceiveBuffer.cpp:121: test_getAllFromReceiveBuffer_from_defined_buffer	[PASSED]
+test\api\test_getAllFromReceiveBuffer\test_getAllFromReceiveBuffer.cpp:122: test_getAllFromReceiveBuffer_from_undefined_buffer	[PASSED]
+test\api\test_getAllFromReceiveBuffer\test_getAllFromReceiveBuffer.cpp:123: test_getAllFromReceiveBuffer_from_received_message	[PASSED]
+-- arduino_mega:api/test_getAllFromReceiveBuffer [PASSED] Took 14.24 seconds --
+
+Processing api/test_getDataFromReceiveBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_getDataFromReceiveBuffer\test_getDataFromReceiveBuffer.cpp:134: test_getDataFromReceiveBuffer_when_not_initialized	[PASSED]
+test\api\test_getDataFromReceiveBuffer\test_getDataFromReceiveBuffer.cpp:135: test_getDataFromReceiveBuffer_when_initialized	[PASSED]
+test\api\test_getDataFromReceiveBuffer\test_getDataFromReceiveBuffer.cpp:136: test_getDataFromReceiveBuffer_from_defined_buffer	[PASSED]
+test\api\test_getDataFromReceiveBuffer\test_getDataFromReceiveBuffer.cpp:137: test_getDataFromReceiveBuffer_from_undefined_buffer	[PASSED]
+test\api\test_getDataFromReceiveBuffer\test_getDataFromReceiveBuffer.cpp:138: test_getDataFromReceiveBuffer_with_defined_dlc	[PASSED]
+test\api\test_getDataFromReceiveBuffer\test_getDataFromReceiveBuffer.cpp:139: test_getDataFromReceiveBuffer_with_undefined_dlc	[PASSED]
+test\api\test_getDataFromReceiveBuffer\test_getDataFromReceiveBuffer.cpp:140: test_getDataFromReceiveBuffer_from_received_message	[PASSED]
+-- arduino_mega:api/test_getDataFromReceiveBuffer [PASSED] Took 15.86 seconds --
+
+Processing api/test_getDlcFromReceiveBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_getDlcFromReceiveBuffer\test_getDlcFromReceiveBuffer.cpp:106: test_getDlcFromReceiveBuffer_when_not_initialized	[PASSED]
+test\api\test_getDlcFromReceiveBuffer\test_getDlcFromReceiveBuffer.cpp:107: test_getDlcFromReceiveBuffer_when_initialized	[PASSED]
+test\api\test_getDlcFromReceiveBuffer\test_getDlcFromReceiveBuffer.cpp:108: test_getDlcFromReceiveBuffer_from_defined_buffer	[PASSED]
+test\api\test_getDlcFromReceiveBuffer\test_getDlcFromReceiveBuffer.cpp:109: test_getDlcFromReceiveBuffer_from_undefined_buffer	[PASSED]
+test\api\test_getDlcFromReceiveBuffer\test_getDlcFromReceiveBuffer.cpp:110: test_getDlcFromReceiveBuffer_from_received_message	[PASSED]
+-- arduino_mega:api/test_getDlcFromReceiveBuffer [PASSED] Took 13.98 seconds --
+
+Processing api/test_getFrameFromReceiveBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_getFrameFromReceiveBuffer\test_getFrameFromReceiveBuffer.cpp:129: test_getFrameFromReceiveBuffer_when_not_initialized	[PASSED]
+test\api\test_getFrameFromReceiveBuffer\test_getFrameFromReceiveBuffer.cpp:130: test_getFrameFromReceiveBuffer_when_initialized	[PASSED]
+test\api\test_getFrameFromReceiveBuffer\test_getFrameFromReceiveBuffer.cpp:131: test_getFrameFromReceiveBuffer_from_defined_buffer	[PASSED]
+test\api\test_getFrameFromReceiveBuffer\test_getFrameFromReceiveBuffer.cpp:132: test_getFrameFromReceiveBuffer_from_undefined_buffer	[PASSED]
+test\api\test_getFrameFromReceiveBuffer\test_getFrameFromReceiveBuffer.cpp:133: test_getFrameFromReceiveBuffer_from_received_standard_message	[PASSED]
+test\api\test_getFrameFromReceiveBuffer\test_getFrameFromReceiveBuffer.cpp:134: test_getFrameFromReceiveBuffer_from_received_extended_message	[PASSED]
+- arduino_mega:api/test_getFrameFromReceiveBuffer [PASSED] Took 15.70 seconds -
+
+Processing api/test_getIdFromReceiveBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_getIdFromReceiveBuffer\test_getIdFromReceiveBuffer.cpp:102: test_getIdFromReceiveBuffer_when_not_initialized	[PASSED]
+test\api\test_getIdFromReceiveBuffer\test_getIdFromReceiveBuffer.cpp:103: test_getIdFromReceiveBuffer_when_initialized	[PASSED]
+test\api\test_getIdFromReceiveBuffer\test_getIdFromReceiveBuffer.cpp:104: test_getIdFromReceiveBuffer_from_defined_buffer	[PASSED]
+test\api\test_getIdFromReceiveBuffer\test_getIdFromReceiveBuffer.cpp:105: test_getIdFromReceiveBuffer_from_undefined_buffer	[PASSED]
+test\api\test_getIdFromReceiveBuffer\test_getIdFromReceiveBuffer.cpp:106: test_getIdFromReceiveBuffer_from_received_message	[PASSED]
+--- arduino_mega:api/test_getIdFromReceiveBuffer [PASSED] Took 14.04 seconds ---
+
+Processing api/test_getOperationMode in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_getOperationMode\test_getOperationMode.cpp:101: test_getOperationMode_when_not_initialized	[PASSED]
+test\api\test_getOperationMode\test_getOperationMode.cpp:102: test_getOperationMode_when_initialized	[PASSED]
+test\api\test_getOperationMode\test_getOperationMode.cpp:103: test_getOperationMode_when_in_normal_mode	[PASSED]
+test\api\test_getOperationMode\test_getOperationMode.cpp:104: test_getOperationMode_when_in_configuration_mode	[PASSED]
+test\api\test_getOperationMode\test_getOperationMode.cpp:105: test_getOperationMode_when_in_sleep_mode	[PASSED]
+test\api\test_getOperationMode\test_getOperationMode.cpp:106: test_getOperationMode_when_in_listen_only_mode	[PASSED]
+test\api\test_getOperationMode\test_getOperationMode.cpp:107: test_getOperationMode_when_in_loopback_mode	[PASSED]
+------ arduino_mega:api/test_getOperationMode [PASSED] Took 11.68 seconds ------
+
+Processing api/test_getRtrFromReceiveBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_getRtrFromReceiveBuffer\test_getRtrFromReceiveBuffer.cpp:129: test_getRtrFromReceiveBuffer_when_not_initialized	[PASSED]
+test\api\test_getRtrFromReceiveBuffer\test_getRtrFromReceiveBuffer.cpp:130: test_getRtrFromReceiveBuffer_when_initialized	[PASSED]
+test\api\test_getRtrFromReceiveBuffer\test_getRtrFromReceiveBuffer.cpp:131: test_getRtrFromReceiveBuffer_from_defined_buffer	[PASSED]
+test\api\test_getRtrFromReceiveBuffer\test_getRtrFromReceiveBuffer.cpp:132: test_getRtrFromReceiveBuffer_from_undefined_buffer	[PASSED]
+test\api\test_getRtrFromReceiveBuffer\test_getRtrFromReceiveBuffer.cpp:133: test_getRtrFromReceiveBuffer_from_received_non_rtr_message	[PASSED]
+test\api\test_getRtrFromReceiveBuffer\test_getRtrFromReceiveBuffer.cpp:134: test_getRtrFromReceiveBuffer_from_received_rtr_message	[PASSED]
+-- arduino_mega:api/test_getRtrFromReceiveBuffer [PASSED] Took 15.62 seconds --
+
+Processing api/test_init in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_init\test_init.cpp:141: test_init_without_setted_CS_Pin	[PASSED]
+test\api\test_init\test_init.cpp:142: test_init_with_false_CS_Pin	[PASSED]
+test\api\test_init\test_init.cpp:143: test_init_with_possible_Baudrates	[PASSED]
+test\api\test_init\test_init.cpp:144: test_init_with_undefined_Baudrates	[PASSED]
+------------ arduino_mega:api/test_init [PASSED] Took 25.26 seconds ------------
+
+Processing api/test_releaseReceiveBuffer in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_releaseReceiveBuffer\test_releaseReceiveBuffer.cpp:76: test_releaseReceiveBuffer_when_not_initialized	[PASSED]
+test\api\test_releaseReceiveBuffer\test_releaseReceiveBuffer.cpp:77: test_releaseReceiveBuffer_when_initialized	[PASSED]
+test\api\test_releaseReceiveBuffer\test_releaseReceiveBuffer.cpp:78: test_releaseReceiveBuffer_with_defined_buffer	[PASSED]
+test\api\test_releaseReceiveBuffer\test_releaseReceiveBuffer.cpp:79: test_releaseReceiveBuffer_with_undefined_buffer	[PASSED]
+---- arduino_mega:api/test_releaseReceiveBuffer [PASSED] Took 11.88 seconds ----
+
+Processing api/test_resetInterruptFlag in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_resetInterruptFlag\test_resetInterruptFlag.cpp:105: test_resetInterruptFlag_when_not_initialized	[PASSED]
+test\api\test_resetInterruptFlag\test_resetInterruptFlag.cpp:106: test_resetInterruptFlag_when_initialized	[PASSED]
+test\api\test_resetInterruptFlag\test_resetInterruptFlag.cpp:107: test_resetInterruptFlag_for_defined_flags	[PASSED]
+test\api\test_resetInterruptFlag\test_resetInterruptFlag.cpp:108: test_resetInterruptFlag_for_undefined_flags	[PASSED]
+test\api\test_resetInterruptFlag\test_resetInterruptFlag.cpp:109: test_resetInterruptFlag_for_each_flag	[PASSED]
+----- arduino_mega:api/test_resetInterruptFlag [PASSED] Took 17.05 seconds -----
+
+Processing api/test_sendMessage in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_sendMessage\test_sendMessage.cpp:162: test_sendMessage_when_not_initialized	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:163: test_sendMessage_when_initialized	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:164: test_sendMessage_from_buffer_0	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:165: test_sendMessage_from_buffer_1	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:166: test_sendMessage_from_buffer_2	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:167: test_sendMessage_from_undefined_buffer_3	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:168: test_sendMessage_with_defined_priority	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:169: test_sendMessage_with_undefined_priority	[PASSED]
+test\api\test_sendMessage\test_sendMessage.cpp:170: test_sendMessage_without_can_bus	[PASSED]
+-------- arduino_mega:api/test_sendMessage [PASSED] Took 16.61 seconds --------
+
+Processing api/test_setClockFrequency in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setClockFrequency\test_setClockFrequency.cpp:92: test_setClockFrequency_when_not_initialized	[PASSED]
+test\api\test_setClockFrequency\test_setClockFrequency.cpp:93: test_setClockFrequency_when_initialized	[PASSED]
+test\api\test_setClockFrequency\test_setClockFrequency.cpp:94: test_setClockFrequency_with_allowed_frequency	[PASSED]
+test\api\test_setClockFrequency\test_setClockFrequency.cpp:95: test_setClockFrequency_with_unallowed_frequency	[PASSED]
+----- arduino_mega:api/test_setClockFrequency [PASSED] Took 12.67 seconds -----
+
+Processing api/test_setConfigurationMode in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setConfigurationMode\test_setConfigurationMode.cpp:68: test_setConfigurationMode_when_not_initialized	[PASSED]
+test\api\test_setConfigurationMode\test_setConfigurationMode.cpp:69: test_setConfigurationMode_when_initialized	[PASSED]
+test\api\test_setConfigurationMode\test_setConfigurationMode.cpp:70: test_setConfigurationMode_with_wrong_CS_Pin_configuration	[PASSED]
+---- arduino_mega:api/test_setConfigurationMode [PASSED] Took 10.60 seconds ----
+
+Processing api/test_setDataOrder in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setDataOrder\test_setDataOrder.cpp:63: test_setDataOrder_when_not_initialized	[PASSED]
+test\api\test_setDataOrder\test_setDataOrder.cpp:64: test_setDataOrder_when_initialized	[PASSED]
+test\api\test_setDataOrder\test_setDataOrder.cpp:65: test_setDataOrder_with_unallowed_DataOrder	[PASSED]
+-------- arduino_mega:api/test_setDataOrder [PASSED] Took 8.44 seconds --------
+
+Processing api/test_setFilter in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setFilter\test_setFilter.cpp:151: test_setFilter_when_not_initialized	[PASSED]
+test\api\test_setFilter\test_setFilter.cpp:152: test_setFilter_when_initialized	[PASSED]
+test\api\test_setFilter\test_setFilter.cpp:153: test_setFilter_with_defined_filter_buffers	[PASSED]
+test\api\test_setFilter\test_setFilter.cpp:154: test_setFilter_with_undefined_filter_buffers	[PASSED]
+test\api\test_setFilter\test_setFilter.cpp:155: test_setFilter_with_defined_standard_id	[PASSED]
+test\api\test_setFilter\test_setFilter.cpp:156: test_setFilter_with_undefined_standard_id	[PASSED]
+test\api\test_setFilter\test_setFilter.cpp:157: test_setFilter_with_defined_extended_id	[PASSED]
+test\api\test_setFilter\test_setFilter.cpp:158: test_setFilter_with_undefined_extended_id	[PASSED]
+--------- arduino_mega:api/test_setFilter [PASSED] Took 15.74 seconds ---------
+
+Processing api/test_setInterruptFlag in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setInterruptFlag\test_setInterruptFlag.cpp:105: test_setInterruptFlag_when_not_initialized	[PASSED]
+test\api\test_setInterruptFlag\test_setInterruptFlag.cpp:106: test_setInterruptFlag_when_initialized	[PASSED]
+test\api\test_setInterruptFlag\test_setInterruptFlag.cpp:107: test_setInterruptFlag_for_defined_flags	[PASSED]
+test\api\test_setInterruptFlag\test_setInterruptFlag.cpp:108: test_setInterruptFlag_for_undefined_flags	[PASSED]
+test\api\test_setInterruptFlag\test_setInterruptFlag.cpp:109: test_setInterruptFlag_for_each_flag	[PASSED]
+------ arduino_mega:api/test_setInterruptFlag [PASSED] Took 17.01 seconds ------
+
+Processing api/test_setListenOnlyMode in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setListenOnlyMode\test_setListenOnlyMode.cpp:68: test_setListenOnlyMode_when_not_initialized	[PASSED]
+test\api\test_setListenOnlyMode\test_setListenOnlyMode.cpp:69: test_setListenOnlyMode_when_initialized	[PASSED]
+test\api\test_setListenOnlyMode\test_setListenOnlyMode.cpp:70: test_setListenOnlyMode_with_wrong_CS_Pin_configuration	[PASSED]
+----- arduino_mega:api/test_setListenOnlyMode [PASSED] Took 10.99 seconds -----
+
+Processing api/test_setLoopbackMode in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setLoopbackMode\test_setLoopbackMode.cpp:68: test_setLoopbackMode_when_not_initialized	[PASSED]
+test\api\test_setLoopbackMode\test_setLoopbackMode.cpp:69: test_setLoopbackMode_when_initialized	[PASSED]
+test\api\test_setLoopbackMode\test_setLoopbackMode.cpp:70: test_setLoopbackMode_with_wrong_CS_Pin_configuration	[PASSED]
+------ arduino_mega:api/test_setLoopbackMode [PASSED] Took 11.14 seconds ------
+
+Processing api/test_setMask in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setMask\test_setMask.cpp:135: test_setMask_when_not_initialized	[PASSED]
+test\api\test_setMask\test_setMask.cpp:136: test_setMask_when_initialized	[PASSED]
+test\api\test_setMask\test_setMask.cpp:137: test_setMask_with_defined_mask_buffers	[PASSED]
+test\api\test_setMask\test_setMask.cpp:138: test_setMask_with_undefined_mask_buffers	[PASSED]
+test\api\test_setMask\test_setMask.cpp:139: test_setMask_with_defined_standard_id	[PASSED]
+test\api\test_setMask\test_setMask.cpp:140: test_setMask_with_defined_extended_id	[PASSED]
+test\api\test_setMask\test_setMask.cpp:141: test_setMask_with_undefined_extended_id	[PASSED]
+---------- arduino_mega:api/test_setMask [PASSED] Took 15.03 seconds ----------
+
+Processing api/test_setNormalMode in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setNormalMode\test_setNormalMode.cpp:76: test_setNormalMode_when_not_initialized	[PASSED]
+test\api\test_setNormalMode\test_setNormalMode.cpp:77: test_setNormalMode_when_initialized	[PASSED]
+test\api\test_setNormalMode\test_setNormalMode.cpp:78: test_setNormalMode_with_wrong_CS_Pin_configuration	[PASSED]
+------- arduino_mega:api/test_setNormalMode [PASSED] Took 10.54 seconds -------
+
+Processing api/test_setReCheckEnabler in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setReCheckEnabler\test_setReCheckEnabler.cpp:48: test_setReCheckEnabler_when_not_initialized	[PASSED]
+test\api\test_setReCheckEnabler\test_setReCheckEnabler.cpp:49: test_setReCheckEnabler_when_initialized	[PASSED]
+------ arduino_mega:api/test_setReCheckEnabler [PASSED] Took 8.89 seconds ------
+
+Processing api/test_setSleepMode in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setSleepMode\test_setSleepMode.cpp:69: test_setSleepMode_when_not_initialized	[PASSED]
+test\api\test_setSleepMode\test_setSleepMode.cpp:70: test_setSleepMode_when_initialized	[PASSED]
+test\api\test_setSleepMode\test_setSleepMode.cpp:71: test_setSleepMode_with_wrong_CS_Pin_configuration	[PASSED]
+-------- arduino_mega:api/test_setSleepMode [PASSED] Took 10.69 seconds --------
+
+Processing api/test_setSpiFrequency in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setSpiFrequency\test_setSpiFrequency.cpp:90: test_setSpiFrequency_when_not_initialized	[PASSED]
+test\api\test_setSpiFrequency\test_setSpiFrequency.cpp:91: test_setSpiFrequency_when_initialized	[PASSED]
+test\api\test_setSpiFrequency\test_setSpiFrequency.cpp:92: test_setSpiFrequency_with_allowed_frequency	[PASSED]
+test\api\test_setSpiFrequency\test_setSpiFrequency.cpp:93: test_setSpiFrequency_with_unallowed_frequency	[PASSED]
+------ arduino_mega:api/test_setSpiFrequency [PASSED] Took 11.60 seconds ------
+
+Processing api/test_setSpiMode in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setSpiMode\test_setSpiMode.cpp:79: test_setSpiMode_when_not_initialized	[PASSED]
+test\api\test_setSpiMode\test_setSpiMode.cpp:80: test_setSpiMode_when_initialized	[PASSED]
+test\api\test_setSpiMode\test_setSpiMode.cpp:81: test_setSpiMode_with_allowed_SPI_Modes	[PASSED]
+test\api\test_setSpiMode\test_setSpiMode.cpp:82: test_setSpiMode_with_unallowed_SPI_Modes	[PASSED]
+--------- arduino_mega:api/test_setSpiMode [PASSED] Took 8.52 seconds ---------
+
+Processing api/test_setSpiPins in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\api\test_setSpiPins\test_setSpiPins.cpp:50: test_setSpiPins_when_not_initialized	[PASSED]
+test\api\test_setSpiPins\test_setSpiPins.cpp:51: test_setSpiPins_when_initialized	[PASSED]
+--------- arduino_mega:api/test_setSpiPins [PASSED] Took 8.28 seconds ---------
+
+Processing functional/test_Filter_and_Mask_Feature in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:264: test_Filter_and_Mask_Feature_send_allowed_Message_1_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:265: test_Filter_and_Mask_Feature_send_allowed_Message_2_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:266: test_Filter_and_Mask_Feature_send_allowed_Message_3_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:267: test_Filter_and_Mask_Feature_send_allowed_Message_4_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:268: test_Filter_and_Mask_Feature_send_allowed_Message_5_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:269: test_Filter_and_Mask_Feature_send_allowed_Message_6_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:270: test_Filter_and_Mask_Feature_send_blocked_Message_1_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:271: test_Filter_and_Mask_Feature_send_blocked_Message_2_and_check_for_reception	[PASSED]
+test\functional\test_Filter_and_Mask_Feature\test_Filter_and_Mask_Feature.cpp:272: test_Filter_and_Mask_Feature_send_blocked_Message_3_and_check_for_reception	[PASSED]
+ arduino_mega:functional/test_Filter_and_Mask_Feature [PASSED] Took 37.06 seconds 
+
+Processing functional/test_Interrupt_Feature in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:162: test_if_interrupt_0_occurs_on_int_pin	[PASSED]
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:163: test_if_interrupt_1_occurs_on_int_pin	[PASSED]
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:164: test_if_interrupt_2_occurs_on_int_pin	[PASSED]
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:165: test_if_interrupt_3_occurs_on_int_pin	[PASSED]
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:166: test_if_interrupt_4_occurs_on_int_pin	[PASSED]
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:167: test_if_interrupt_5_occurs_on_int_pin	[PASSED]
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:168: test_if_interrupt_6_occurs_on_int_pin	[PASSED]
+test\functional\test_Interrupt_Feature\test_if_interrupt_occurs_on_int_pin.cpp:169: test_if_interrupt_7_occurs_on_int_pin	[PASSED]
+-- arduino_mega:functional/test_Interrupt_Feature [PASSED] Took 19.53 seconds --
+
+Processing functional/test_Recheck_Feature in arduino_mega environment
+--------------------------------------------------------------------------------
+Building & Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+test\functional\test_Recheck_Feature\test_ReCheck_Feature.cpp:55: test_ReCheck_Feature_with_true_value	[PASSED]
+test\functional\test_Recheck_Feature\test_ReCheck_Feature.cpp:56: test_ReCheck_Feature_with_false_value	[PASSED]
+--- arduino_mega:functional/test_Recheck_Feature [PASSED] Took 11.66 seconds ---
+
+=================================== SUMMARY ===================================
+Environment    Test                                     Status    Duration
+-------------  ---------------------------------------  --------  ------------
+arduino_mega   api/test_changeBaudRate                  PASSED    00:00:25.456
+arduino_mega   api/test_changeInterruptSetting          PASSED    00:00:16.915
+arduino_mega   api/test_check4FreeTransmitBuffer        PASSED    00:00:11.008
+arduino_mega   api/test_check4InterruptFlags            PASSED    00:00:12.940
+arduino_mega   api/test_check4Receive                   PASSED    00:00:18.075
+arduino_mega   api/test_check4Rtr                       PASSED    00:00:15.951
+arduino_mega   api/test_disableFilterMask               PASSED    00:00:09.717
+arduino_mega   api/test_enableFilterMask                PASSED    00:00:09.834
+arduino_mega   api/test_fillTransmitBuffer_1            PASSED    00:00:14.682
+arduino_mega   api/test_fillTransmitBuffer_2            PASSED    00:00:19.564
+arduino_mega   api/test_getAllFromReceiveBuffer         PASSED    00:00:14.238
+arduino_mega   api/test_getDataFromReceiveBuffer        PASSED    00:00:15.861
+arduino_mega   api/test_getDlcFromReceiveBuffer         PASSED    00:00:13.979
+arduino_mega   api/test_getFrameFromReceiveBuffer       PASSED    00:00:15.699
+arduino_mega   api/test_getIdFromReceiveBuffer          PASSED    00:00:14.037
+arduino_mega   api/test_getOperationMode                PASSED    00:00:11.677
+arduino_mega   api/test_getRtrFromReceiveBuffer         PASSED    00:00:15.622
+arduino_mega   api/test_init                            PASSED    00:00:25.260
+arduino_mega   api/test_releaseReceiveBuffer            PASSED    00:00:11.877
+arduino_mega   api/test_resetInterruptFlag              PASSED    00:00:17.051
+arduino_mega   api/test_sendMessage                     PASSED    00:00:16.608
+arduino_mega   api/test_setClockFrequency               PASSED    00:00:12.675
+arduino_mega   api/test_setConfigurationMode            PASSED    00:00:10.603
+arduino_mega   api/test_setDataOrder                    PASSED    00:00:08.439
+arduino_mega   api/test_setFilter                       PASSED    00:00:15.742
+arduino_mega   api/test_setInterruptFlag                PASSED    00:00:17.006
+arduino_mega   api/test_setListenOnlyMode               PASSED    00:00:10.993
+arduino_mega   api/test_setLoopbackMode                 PASSED    00:00:11.135
+arduino_mega   api/test_setMask                         PASSED    00:00:15.029
+arduino_mega   api/test_setNormalMode                   PASSED    00:00:10.541
+arduino_mega   api/test_setReCheckEnabler               PASSED    00:00:08.894
+arduino_mega   api/test_setSleepMode                    PASSED    00:00:10.687
+arduino_mega   api/test_setSpiFrequency                 PASSED    00:00:11.600
+arduino_mega   api/test_setSpiMode                      PASSED    00:00:08.515
+arduino_mega   api/test_setSpiPins                      PASSED    00:00:08.279
+arduino_mega   functional/test_Filter_and_Mask_Feature  PASSED    00:00:37.057
+arduino_mega   functional/test_Interrupt_Feature        PASSED    00:00:19.527
+arduino_mega   functional/test_Recheck_Feature          PASSED    00:00:11.656
+================ 195 test cases: 195 succeeded in 00:09:14.428 ================
