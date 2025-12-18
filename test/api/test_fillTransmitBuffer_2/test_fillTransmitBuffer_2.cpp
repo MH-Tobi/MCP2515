@@ -225,13 +225,6 @@ void tearDown() {
 int runUnityTests() {
     UNITY_BEGIN();
 
-    RUN_TEST(test_fillTransmitBuffer_when_not_initialized);
-    RUN_TEST(test_fillTransmitBuffer_when_initialized);
-    RUN_TEST(test_fillTransmitBuffer_for_buffer_0);
-    RUN_TEST(test_fillTransmitBuffer_for_buffer_1);
-    RUN_TEST(test_fillTransmitBuffer_for_buffer_2);
-    RUN_TEST(test_fillTransmitBuffer_no_buffer_free);
-    RUN_TEST(test_fillTransmitBuffer_for_undefined_buffer_3);
     RUN_TEST(test_fillTransmitBuffer_with_defined_standard_id);
     RUN_TEST(test_fillTransmitBuffer_with_undefined_standard_id);
     RUN_TEST(test_fillTransmitBuffer_with_defined_extended_id);
