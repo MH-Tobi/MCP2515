@@ -104,3 +104,5 @@ A Mask/Filter-Calculator is provided [here](docs/MaskFilterCalculator.xlsm).
 ## Tests
 
 Tested with [tests in the test-folder](test) (see also [README.md](test/README.md)).
+
+The latest Results you can find also in the [results-folder](test/results/).
